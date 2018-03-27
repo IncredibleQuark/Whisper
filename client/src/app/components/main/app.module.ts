@@ -1,11 +1,14 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-
+import {RouterModule, Routes} from '@angular/router';
 
 import {AppComponent} from './app.component';
 import {ServicesModule} from '../../services/services.module';
 
+const appRoutes: Routes = [
+  {path: '', component: AppComponent}
+];
 
 @NgModule({
   declarations: [
@@ -14,7 +17,8 @@ import {ServicesModule} from '../../services/services.module';
   imports: [
     BrowserModule,
     ServicesModule,
-    FormsModule
+    FormsModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [],
   bootstrap: [AppComponent]
