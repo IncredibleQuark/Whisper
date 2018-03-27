@@ -14,7 +14,8 @@ io.on('connection', (socket) => {
   console.log('user connected');
 
   socket.on('new-message', (message) => {
-    console.log(message);
+    console.warn(message);
+    io.emit('new-message', message);
   });
 });
 
