@@ -1,5 +1,5 @@
 {
-  "name": "whisper",
+  "name": "client",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
@@ -23,7 +23,6 @@
     "@angular/router": "^5.2.0",
     "core-js": "^2.4.1",
     "rxjs": "^5.5.6",
-    "socket.io-client": "^2.0.4",
     "zone.js": "^0.8.19"
   },
   "devDependencies": {
