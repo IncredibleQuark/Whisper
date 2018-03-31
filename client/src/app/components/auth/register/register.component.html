@@ -1,3 +1,14 @@
-<p>
-  register works!
-</p>
+
+<form #form="ngForm" (ngSubmit)="registerSubmit(form)">
+  <div>
+    <label for="username_field_register">Username</label>
+    <input name="username" type="text" id="username_field_register" ngModel required/>
+
+    <label for="email_field_register">Email</label>
+    <input name="email" type="email" id="email_field_register" ngModel required/>
+    <label for="password_field_register">Password</label>
+    <input name="password" type="password" id="password_field_register" ngModel required/>
+
+    <button>btn</button>
+  </div>
+</form>

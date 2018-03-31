@@ -1,8 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
-html, body {
+body {
   margin: 0;
   padding: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #2CB45A;
 }
+
+html {
+  height: 100%;
+}
+
+/*LOADER*/
 .spinner {
   margin: 100px auto;
   width: 40px;

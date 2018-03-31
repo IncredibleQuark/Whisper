@@ -7,6 +7,7 @@ import {MainPageComponent} from './components/main-page/main-page.component';
 import {NavigationComponent} from './components/navigation/navigation.component';
 import {LoginComponent} from './components/auth/login/login.component';
 import {RegisterComponent} from './components/auth/register/register.component';
+import {FormsModule} from '@angular/forms';
 
 
 const appRoutes: Routes = [
@@ -26,6 +27,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes, {enableTracing: false}),
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
