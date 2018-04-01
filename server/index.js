@@ -19,30 +19,23 @@ mongoose.connect(config.database).then( () => {
 
 
 const app = express();
+const userRoutes = require('./routes/user/userRoutes');
 const server = http.Server(app);
 
-// CORS Middleware
+
 app.use(cors());
 
 // Set Static Folder
 app.use(express.static(path.join(__dirname, 'public')));
-
-// Body Parser Middleware
 app.use(bodyParser.json());
-
-// Passport Middleware
 app.use(passport.initialize());
 app.use(passport.session());
-
 require('./config/passport')(passport);
-// Index Route
-app.get('/', (req, res) => {
-    res.send('Invalid Endpoint');
-});
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '/public/index.html'));
-});
+
+app.use('/user', userRoutes);
+app.get('/', (req, res) => {res.send('Invalid Endpoint');});
+app.get('*', (req, res) => {res.sendFile(path.join(__dirname, '/public/index.html'));});
 
 
 const port = process.env.PORT || 8080;

@@ -13,8 +13,7 @@ export class RegisterService {
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
 
-    return this.http.post(environment.apiUrl, user, { headers: headers})
-      .map(res => res);
+    return this.http.post(`${environment.apiUrl}user/register`, user, { headers: headers});
   }
 
 
