@@ -8,14 +8,12 @@ import {NavigationComponent} from './components/navigation/navigation.component'
 import {LoginComponent} from './components/auth/login/login.component';
 import {RegisterComponent} from './components/auth/register/register.component';
 import {FormsModule} from '@angular/forms';
-import {RegisterService} from './services/register/register.service';
 import {HttpClientModule} from '@angular/common/http';
+import {AuthService} from './services/auth/auth.service';
 
 
 const appRoutes: Routes = [
-  {path: '', component: MainPageComponent},
-  {path: 'register', component: RegisterComponent},
-  {path: 'login', component: LoginComponent}
+  {path: '', component: MainPageComponent}
 ];
 
 @NgModule({
@@ -32,7 +30,7 @@ const appRoutes: Routes = [
     FormsModule,
     HttpClientModule
   ],
-  providers: [RegisterService],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

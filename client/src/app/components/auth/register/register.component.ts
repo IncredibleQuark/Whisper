@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgForm} from '@angular/forms';
-import {RegisterService} from '../../../services/register/register.service';
+import {AuthService} from '../../../services/auth/auth.service';
+
 
 @Component({
   selector: 'app-register',
@@ -9,13 +10,13 @@ import {RegisterService} from '../../../services/register/register.service';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private register: RegisterService) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
   }
 
-  registerSubmit(form: NgForm) {
-    this.register.registerUser(form.value).subscribe(data => {
+  registerSubmit(registerForm: NgForm) {
+    this.authService.registerUser(registerForm.value).subscribe(data => {
       console.warn(data);
     });
   }

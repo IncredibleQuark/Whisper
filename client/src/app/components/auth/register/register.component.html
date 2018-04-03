@@ -1,5 +1,5 @@
 
-<form #form="ngForm" (ngSubmit)="registerSubmit(form)">
+<form #registerForm="ngForm" (ngSubmit)="registerSubmit(registerForm)">
   <div>
     <label for="username_field_register">Username</label>
     <input name="username" type="text" id="username_field_register" ngModel required/>

@@ -1,11 +1,11 @@
 <div>
-  <div>
+  <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
     <label for="username_field">Username or email</label>
-    <input type="text" id="username_field"/>
+    <input name="email" type="text" id="username_field" ngModel required/>
 
     <label for="password_field">Password</label>
-    <input type="password" id="password_field"/>
+    <input name="password" type="password" id="password_field" ngModel required/>
 
-    <input type="submit" value="Login" (onclick)="login()"/>
-  </div>
+    <button type="submit">login</button>
+  </form>
 </div>
