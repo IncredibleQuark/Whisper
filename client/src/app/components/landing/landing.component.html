@@ -1,0 +1,13 @@
+
+<div>
+  <button (click)="selectLoginForm()">Login</button>
+  <button (click)="selectRegisterForm()">Register</button>
+</div>
+
+    <app-login *ngIf="loginSelected"></app-login>
+
+    <app-register *ngIf="registerSelected"></app-register>
+
+
+
+

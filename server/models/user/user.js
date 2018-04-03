@@ -40,7 +40,7 @@ module.exports.addUser = (newUser, callback) => {
 
 module.exports.comparePassword = (candidatePassword, hash, callback) => {
     bcrypt.compare(candidatePassword, hash, (err, isMatch) => {
-        if(err) candidatePassword === " "; //throw err; was just throwing error while password was empty
+        if(err) candidatePassword === " ";
         callback(null, isMatch);
     });
 };
