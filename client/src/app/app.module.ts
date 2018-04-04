@@ -10,12 +10,15 @@ import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {AuthService} from './services/auth/auth.service';
 import {LandingComponent} from './components/landing/landing.component';
-import { MainPageComponent } from './components/main-page/main-page.component';
+import {MainPageComponent} from './components/main-page/main-page.component';
+import {ChatComponent} from './components/chat/chat.component';
+import { CanvasComponent } from './components/canvas/canvas.component';
+import {AuthGuard} from './guards/auth.guard';
 
 
 const appRoutes: Routes = [
   {path: '', component: LandingComponent},
-  {path: 'main', component: MainPageComponent}
+  {path: 'main', component: MainPageComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
@@ -26,6 +29,8 @@ const appRoutes: Routes = [
     LoginComponent,
     RegisterComponent,
     MainPageComponent,
+    ChatComponent,
+    CanvasComponent
   ],
   imports: [
     BrowserModule,
@@ -33,8 +38,8 @@ const appRoutes: Routes = [
     FormsModule,
     HttpClientModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+
+export class AppModule {}

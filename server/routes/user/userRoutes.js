@@ -57,10 +57,8 @@ router.post('/authenticate', (req, res, next) => {
                     token: 'JWT '+token,
                     user: {
                         id: user._id,
-                        name: user.name,
-                        surname: user.surname,
-                        email: user.email,
-                        staff: user.staff
+                        username: user.username,
+                        email: user.email
                     }
                 });
             } else {
