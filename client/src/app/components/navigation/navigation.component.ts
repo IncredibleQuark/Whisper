@@ -8,6 +8,7 @@ import {AuthGuard} from '../../guards/auth.guard';
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.css']
 })
+
 export class NavigationComponent implements OnInit {
 
   constructor(private authService: AuthService,

@@ -8,7 +8,19 @@ const config = require('./config/database');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const passport = require('passport');
+const app = express();
+const userRoutes = require('./routes/user/userRoutes');
+const server = http.Server(app);
+const io = socketIO(server);
+const port = process.env.PORT || 8080;
 
+io.on('connection', (socket) => {
+    console.log('user connected');
+});
+
+// server.listen(port, () => {
+//     console.log(`staten on port: ${port}`);
+// });
 
 // Connect to database
 mongoose.connect(config.database).then( () => {
@@ -18,9 +30,7 @@ mongoose.connect(config.database).then( () => {
 });
 
 
-const app = express();
-const userRoutes = require('./routes/user/userRoutes');
-const server = http.Server(app);
+
 
 
 app.use(cors());
@@ -38,7 +48,7 @@ app.get('/', (req, res) => {res.send('Invalid Endpoint');});
 app.get('*', (req, res) => {res.sendFile(path.join(__dirname, '/public/index.html'));});
 
 
-const port = process.env.PORT || 8080;
+
 
 app.listen(port, () => {
   console.log(`started on port: ${port}`);

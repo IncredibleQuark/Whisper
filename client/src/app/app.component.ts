@@ -1,19 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {AuthService} from './services/auth/auth.service';
-import {AuthGuard} from './guards/auth.guard';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
 
-  constructor(private authService: AuthService, private authGuard: AuthGuard) {
+  constructor(private authService: AuthService) {
 
-  }
-
-  ngOnInit() {
   }
 
   isLoggedIn() {
