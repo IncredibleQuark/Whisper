@@ -14,6 +14,7 @@ import {MainPageComponent} from './components/main-page/main-page.component';
 import {ChatComponent} from './components/chat/chat.component';
 import { CanvasComponent } from './components/canvas/canvas.component';
 import {AuthGuard} from './guards/auth.guard';
+import {ChatService} from './services/chat/chat.service';
 
 
 const appRoutes: Routes = [
@@ -39,7 +40,7 @@ const appRoutes: Routes = [
     FormsModule,
     HttpClientModule
   ],
-  providers: [AuthService, AuthGuard],
+  providers: [AuthService, AuthGuard, ChatService],
   bootstrap: [AppComponent]
 })
 

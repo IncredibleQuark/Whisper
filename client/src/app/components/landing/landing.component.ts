@@ -1,4 +1,6 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {AuthService} from '../../services/auth/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-landing',
@@ -10,9 +12,13 @@ export class LandingComponent implements OnInit {
   private loginSelected: boolean;
   private registerSelected: boolean;
 
-  constructor() { }
+  constructor(private authService: AuthService,
+              private router: Router) { }
 
   ngOnInit() {
+    if (this.authService.loggedIn()) {
+      this.router.navigate(['/main']);
+    }
     this.loginSelected = true;
     this.registerSelected = false;
   }

@@ -11,12 +11,13 @@ const passport = require('passport');
 const app = express();
 const userRoutes = require('./routes/user/userRoutes');
 const server = http.Server(app);
-const io = socketIO(server);
+// const io = socketIO(server);
 const port = process.env.PORT || 8080;
+const socketPort = 3001;
 
-io.on('connection', (socket) => {
-    console.log('user connected');
-});
+// io.on('connection', (socket) => {
+//     console.log('user connected');
+// });
 
 // server.listen(port, () => {
 //     console.log(`staten on port: ${port}`);
@@ -28,7 +29,6 @@ mongoose.connect(config.database).then( () => {
 }, (err) => {
   console.log('Connection to database failed' + err);
 });
-
 
 
 
@@ -48,25 +48,15 @@ app.get('/', (req, res) => {res.send('Invalid Endpoint');});
 app.get('*', (req, res) => {res.sendFile(path.join(__dirname, '/public/index.html'));});
 
 
+let sockets = require('./sockets/main');
 
+
+server.listen(socketPort, () => {
+    console.warn(`Listen sockets on: ${socketPort}`);
+});
+sockets.init(server);
 
 app.listen(port, () => {
-  console.log(`started on port: ${port}`);
+  console.log(`App started on port: ${port}`);
 });
 
-// const io = socketIO(server);
-//
-//
-//
-// io.on('connection', (socket) => {
-//   console.log('user connected');
-//
-//   socket.on('new-message', (message) => {
-//     console.warn(message);
-//     io.emit('new-message', message);
-//   });
-// });
-//
-// server.listen(port, () => {
-//   console.log(`started on port: ${port}`);
-// });
