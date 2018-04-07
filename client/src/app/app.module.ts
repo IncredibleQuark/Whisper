@@ -18,6 +18,8 @@ import {CanvasComponent} from './components/canvas/canvas.component';
 import {AuthGuard} from './guards/auth.guard';
 import {ChatService} from './services/chat/chat.service';
 import {AuthService} from './services/auth/auth.service';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import {CustomErrorStateMatcher} from './services/errorStateMatcher/error-state-matcher.service';
 
 
 const appRoutes: Routes = [
@@ -43,9 +45,10 @@ const appRoutes: Routes = [
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    FlexLayoutModule
   ],
-  providers: [AuthService, AuthGuard, ChatService],
+  providers: [AuthService, AuthGuard, ChatService, CustomErrorStateMatcher],
   bootstrap: [AppComponent]
 })
 

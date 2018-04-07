@@ -1,18 +1,32 @@
 
-<mat-card>
+<div class="form-container">
+<mat-card class="card-container">
   <mat-card-content>
-    hej
+    <mat-card-header>
+      <mat-card-title>
+        Company.com
+      </mat-card-title>
+    </mat-card-header>
+    <mat-tab-group class="tabs-border">
+      <mat-tab label="Login">
+        <app-login></app-login>
+      </mat-tab>
+      <mat-tab label="Register">
+        <app-register></app-register>
+      </mat-tab>
+    </mat-tab-group>
   </mat-card-content>
 </mat-card>
-
-<div>
-  <button (click)="selectLoginForm()">Login</button>
-  <button (click)="selectRegisterForm()">Register</button>
 </div>
 
-<app-login *ngIf="loginSelected"></app-login>
+<!--<div>-->
+  <!--<button (click)="selectLoginForm()">Login</button>-->
+  <!--<button (click)="selectRegisterForm()">Register</button>-->
+<!--</div>-->
 
-<app-register *ngIf="registerSelected"></app-register>
+
+
+<!--<app-register *ngIf="registerSelected"></app-register>-->
 
 
 

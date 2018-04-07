@@ -1,0 +1,15 @@
+.form-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-container {
+  max-width: 60vh;
+  height: 60vh;
+}
+
+.tabs-border {
+  border: 1px  solid #e8e8e8;
+}

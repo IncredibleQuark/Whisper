@@ -1,11 +1,23 @@
-<div>
-  <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
-    <label for="username_field">Username or email</label>
-    <input name="email" type="text" id="username_field" ngModel required/>
+<!--<div>-->
+  <!--<form #loginForm="ngForm" (ngSubmit)="login(loginForm)">-->
+    <!--<label for="username_field">Username or email</label>-->
+    <!--<input name="email" type="text" id="username_field" ngModel required/>-->
 
-    <label for="password_field">Password</label>
-    <input name="password" type="password" id="password_field" ngModel required/>
+    <!--<label for="password_field">Password</label>-->
+    <!--<input name="password" type="password" id="password_field" ngModel required/>-->
 
-    <button type="submit">login</button>
-  </form>
-</div>
+    <!--<button type="submit">login</button>-->
+  <!--</form>-->
+<!--</div>-->
+
+<form>
+  <div style="text-align: center; padding-top: 25px;">
+    <mat-form-field class="full-width">
+      <input matInput type="email" placeholder="Email"/>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput type="password" placeholder="Password" />
+    </mat-form-field>
+  </div>
+</form>
+
