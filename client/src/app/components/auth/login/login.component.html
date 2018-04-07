@@ -12,12 +12,13 @@
 
 <form>
   <div style="text-align: center; padding-top: 25px;">
-    <mat-form-field class="full-width">
-      <input matInput type="email" placeholder="Email"/>
+    <mat-form-field class="custom-width">
+      <input matInput type="email" placeholder="Email"/><mat-icon class="input-icon" color="primary">email</mat-icon>
     </mat-form-field>
-    <mat-form-field class="full-width">
-      <input matInput type="password" placeholder="Password" />
+    <mat-form-field class="custom-width">
+      <input matInput type="password" placeholder="Password"/><mat-icon class="input-icon" color="primary">vpn_key</mat-icon>
     </mat-form-field>
+    <button mat-raised-button color="primary" class="mar-bot">Login</button>
   </div>
 </form>
 

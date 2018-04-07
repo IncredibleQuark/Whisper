@@ -6,10 +6,9 @@
 }
 
 .card-container {
-  max-width: 60vh;
-  height: 60vh;
+  max-width: 35vh;
 }
 
-.tabs-border {
-  border: 1px  solid #e8e8e8;
-}
+/*.tabs-border {*/
+  /*border: 3px  solid #e8e8e8;*/
+/*}*/
