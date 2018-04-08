@@ -1,14 +1,32 @@
-
 <form #registerForm="ngForm" (ngSubmit)="registerSubmit(registerForm)">
-  <div>
-    <label for="username_field_register">Username</label>
-    <input name="username" type="text" id="username_field_register" ngModel required/>
 
-    <label for="email_field_register">Email</label>
-    <input name="email" type="email" id="email_field_register" ngModel required/>
-    <label for="password_field_register">Password</label>
-    <input name="password" type="password" id="password_field_register" ngModel required/>
+  <div style="text-align: center; padding-top: 25px;">
 
-    <button>btn</button>
+    <mat-form-field class="width-90">
+
+      <input matInput name="username" type="text" placeholder="Username" ngModel required/>
+      <mat-icon class="input-icon"></mat-icon>
+
+    </mat-form-field>
+
+    <mat-form-field class="width-90">
+
+      <input matInput name="email" type="email" placeholder="email" ngModel required/>
+      <mat-icon class="input-icon">email</mat-icon>
+
+    </mat-form-field>
+
+    <mat-form-field class="width-90">
+
+      <input matInput name="password" type="password" placeholder="password" ngModel required/>
+      <mat-icon class="input-icon">vpn_key</mat-icon>
+
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" class="mar-bot-15">Register</button>
+
   </div>
+
 </form>
+
+

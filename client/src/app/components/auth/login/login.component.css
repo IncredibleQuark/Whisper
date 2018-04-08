@@ -5,16 +5,4 @@
   align-items: center;
 }
 
-.custom-width {
-  width: 90%;
-}
 
-.mar-bot {
-  margin-bottom: 15px;
-}
-
-.input-icon {
-  position: absolute;
-  right: 10px;
-  bottom: 5px;
-}
