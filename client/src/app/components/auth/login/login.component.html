@@ -3,21 +3,30 @@
 
   <div style="text-align: center; padding-top: 25px;">
 
-    <mat-form-field class="width-90">
+    <mat-form-field class="width-90 pad-bot-10">
 
-      <input matInput name="email" type="email" placeholder="Email" ngModel required/>
+      <input matInput name="email" type="email" placeholder="Email" email ngModel required #email="ngModel"/>
       <mat-icon class="input-icon" color="primary">email</mat-icon>
 
+      <mat-hint></mat-hint>
+      <mat-error *ngIf="email.touched && !email.valid">
+        Please enter a valid email address
+      </mat-error>
+
     </mat-form-field>
 
-    <mat-form-field class="width-90">
+    <mat-form-field class="width-90 pad-bot-10">
 
-      <input matInput name="password" type="password" placeholder="Password" ngModel required/>
+      <input matInput name="password" type="password" placeholder="Password" ngModel required #password="ngModel"/>
       <mat-icon class="input-icon" color="primary">vpn_key</mat-icon>
+      <mat-hint></mat-hint>
+      <mat-error *ngIf="password.touched">
+        Password can't be empty
+      </mat-error>
 
     </mat-form-field>
 
-    <button mat-raised-button color="primary" type="submit" class="mar-bot-15">Login</button>
+    <button mat-raised-button color="primary" type="submit" class="mar-bot-15" [disabled]="!loginForm.valid" i>Login</button>
 
   </div>
 
