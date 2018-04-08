@@ -23,6 +23,7 @@ export class ChatComponent implements OnInit {
 
   send() {
     this.chatService.sendMessage(this.message);
+    this.message = '';
   }
 
 }

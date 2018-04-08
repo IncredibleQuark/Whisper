@@ -1,24 +1,25 @@
-<!--<div>-->
-  <!--<form #loginForm="ngForm" (ngSubmit)="login(loginForm)">-->
-    <!--<label for="username_field">Username or email</label>-->
-    <!--<input name="email" type="text" id="username_field" ngModel required/>-->
 
-    <!--<label for="password_field">Password</label>-->
-    <!--<input name="password" type="password" id="password_field" ngModel required/>-->
+<form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
 
-    <!--<button type="submit">login</button>-->
-  <!--</form>-->
-<!--</div>-->
-
-<form>
   <div style="text-align: center; padding-top: 25px;">
+
     <mat-form-field class="custom-width">
-      <input matInput type="email" placeholder="Email"/><mat-icon class="input-icon" color="primary">email</mat-icon>
+
+      <input matInput name="email" type="email" placeholder="Email" ngModel required/>
+      <mat-icon class="input-icon" color="primary">email</mat-icon>
+
     </mat-form-field>
+
     <mat-form-field class="custom-width">
-      <input matInput type="password" placeholder="Password"/><mat-icon class="input-icon" color="primary">vpn_key</mat-icon>
+
+      <input matInput name="password" type="password" placeholder="Password" ngModel required/>
+      <mat-icon class="input-icon" color="primary">vpn_key</mat-icon>
+
     </mat-form-field>
-    <button mat-raised-button color="primary" class="mar-bot">Login</button>
+
+    <button mat-raised-button color="primary" type="submit" class="mar-bot">Login</button>
+
   </div>
+
 </form>
 
