@@ -1,29 +1,40 @@
 <form #registerForm="ngForm" (ngSubmit)="registerSubmit(registerForm)">
 
-  <div style="text-align: center; padding-top: 25px;">
+  <div  class="center pad-top-25">
 
-    <mat-form-field class="width-90">
+    <mat-form-field class="width-90 pad-bot-10">
 
-      <input matInput name="username" type="text" placeholder="Username" ngModel required/>
-      <mat-icon class="input-icon"></mat-icon>
+      <input matInput name="username" type="text" placeholder="Username" ngModel required #username="ngModel"/>
+      <mat-icon class="input-icon">person</mat-icon>
+      <mat-hint></mat-hint>
+      <mat-error *ngIf="password.touched">
+        Username can't be empty
+      </mat-error>
 
     </mat-form-field>
 
-    <mat-form-field class="width-90">
+    <mat-form-field class="width-90 pad-bot-10">
 
-      <input matInput name="email" type="email" placeholder="email" ngModel required/>
+      <input matInput name="email" type="email" placeholder="email" email ngModel required #email="ngModel"/>
       <mat-icon class="input-icon">email</mat-icon>
-
+      <mat-hint></mat-hint>
+      <mat-error *ngIf="(email.touched && !email.valid)">
+        Please enter a valid email address
+      </mat-error>
     </mat-form-field>
 
-    <mat-form-field class="width-90">
+    <mat-form-field class="width-90 pad-bot-10">
 
-      <input matInput name="password" type="password" placeholder="password" ngModel required/>
+      <input matInput name="password" type="password" placeholder="password" ngModel required #password="ngModel"/>
       <mat-icon class="input-icon">vpn_key</mat-icon>
+      <mat-hint></mat-hint>
+      <mat-error *ngIf="password.touched">
+        Password can't be empty
+      </mat-error>
 
     </mat-form-field>
 
-    <button mat-raised-button color="primary" type="submit" class="mar-bot-15">Register</button>
+    <button mat-raised-button color="primary" type="submit" class="mar-bot-15" [disabled]="!registerForm.valid">Register</button>
 
   </div>
 
