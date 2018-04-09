@@ -20,6 +20,7 @@ import {ChatService} from './services/chat/chat.service';
 import {AuthService} from './services/auth/auth.service';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {CustomErrorStateMatcher} from './services/errorStateMatcher/error-state-matcher.service';
+import {FlashMessagesModule} from 'angular2-flash-messages';
 
 
 const appRoutes: Routes = [
@@ -46,6 +47,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     BrowserAnimationsModule,
     MaterialModule,
+    FlashMessagesModule.forRoot(),
     FlexLayoutModule
   ],
   providers: [AuthService, AuthGuard, ChatService, CustomErrorStateMatcher],
