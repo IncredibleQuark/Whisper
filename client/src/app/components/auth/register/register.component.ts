@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { NgForm} from '@angular/forms';
 import {AuthService} from '../../../services/auth/auth.service';
 import {Router} from '@angular/router';
+import {MatSnackBar} from '@angular/material';
 
 
 @Component({
@@ -12,14 +13,37 @@ import {Router} from '@angular/router';
 export class RegisterComponent implements OnInit {
 
   constructor(private authService: AuthService,
-              private router: Router) { }
+              private router: Router,
+              private snackBar: MatSnackBar) { }
 
   ngOnInit() {
   }
 
-  registerSubmit(registerForm: NgForm) {
+  registerSubmit(registerForm) {
     this.authService.registerUser(registerForm.value).subscribe(data => {
-      this.router.navigate(['']);
+
+      const emailCheck = 'Email taken';
+      if (data['success']) {
+
+        this.snackBar.open('Registered successfully', 'Login', {duration: 4000, panelClass: 'snackbar-success'});
+
+      } else if (data['msg'] === emailCheck) {
+
+        this.snackBar.open('There is account with this email', null, {duration: 4000, panelClass: 'snackbar-error'});
+        registerForm.form.controls.email.status = 'INVALID';
+
+      } else {
+
+        this.snackBar.open('Register error :(', null, {duration: 4000, panelClass: 'snackbar-error'});
+        registerForm.form.controls.email.status = 'INVALID';
+        registerForm.form.controls.password.status = 'INVALID';
+        registerForm.form.controls.username.status = 'INVALID';
+
+      }
+
+    }, (err) => {
+        console.log(err);
+        this.snackBar.open('Something went wrong. :(', null, {duration: 4000, panelClass: 'snackbar-error'});
     });
   }
 

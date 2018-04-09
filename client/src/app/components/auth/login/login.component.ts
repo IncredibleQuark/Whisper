@@ -22,13 +22,21 @@ export class LoginComponent implements OnInit {
     this.authService.authenticateUser(loginForm.value).subscribe( data => {
 
       if (data['success']) {
+
         this.authService.storeUserData(data['token'], data['user']);
         this.router.navigate(['/main']);
+        this.snackBar.open('You are logged in!', null, {duration: 4000, panelClass: 'snackbar-success'});
+
       } else {
-        this.snackBar.open('Invalid credentials!', null, {duration: 100000, panelClass: 'snackbar-error'});
+
+        loginForm.form.controls.email.status = 'INVALID';
+        loginForm.form.controls.password.status = 'INVALID';
+        this.snackBar.open('Invalid credentials!', null, {duration: 4000, panelClass: 'snackbar-error'});
+
       }
     }, err => {
       console.log(err);
+      this.snackBar.open('Something went wrong. :(', null, {duration: 4000, panelClass: 'snackbar-error'});
     });
   }
 

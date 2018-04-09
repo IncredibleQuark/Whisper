@@ -9,9 +9,10 @@
       <mat-icon class="input-icon" color="primary">email</mat-icon>
 
       <mat-hint></mat-hint>
-      <mat-error *ngIf="(email.touched && !email.valid)">
+      <mat-error *ngIf="email.touched && !email.valid && !loginForm.submitted">
         Please enter a valid email address
       </mat-error>
+      <mat-error *ngIf="loginForm.submitted"></mat-error>
 
     </mat-form-field>
 
@@ -20,10 +21,10 @@
       <input matInput name="password" type="password" placeholder="Password" ngModel required #password="ngModel"/>
       <mat-icon class="input-icon" color="primary">vpn_key</mat-icon>
       <mat-hint></mat-hint>
-      <mat-error *ngIf="password.touched">
+      <mat-error *ngIf="password.touched && !loginForm.submitted">
         Password can't be empty
       </mat-error>
-
+      <mat-error *ngIf="loginForm.submitted"></mat-error>
     </mat-form-field>
 
     <button mat-raised-button color="primary" type="submit" class="mar-bot-15" [disabled]="!loginForm.valid">Login</button>
