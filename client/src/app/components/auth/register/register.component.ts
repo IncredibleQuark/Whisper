@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { NgForm} from '@angular/forms';
 import {AuthService} from '../../../services/auth/auth.service';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material';
@@ -29,7 +28,7 @@ export class RegisterComponent implements OnInit {
 
       } else if (data['msg'] === emailCheck) {
 
-        this.snackBar.open('There is account with this email', null, {duration: 4000, panelClass: 'snackbar-error'});
+        this.snackBar.open('Email already taken', null, {duration: 4000, panelClass: 'snackbar-error'});
         registerForm.form.controls.email.status = 'INVALID';
 
       } else {
