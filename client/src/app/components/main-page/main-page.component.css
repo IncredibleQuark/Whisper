@@ -1,0 +1,10 @@
+.main-container {
+  width: 70vw;
+  height: 70vw;
+}
+
+.flex-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -20,6 +20,7 @@ import {ChatService} from './services/chat/chat.service';
 import {AuthService} from './services/auth/auth.service';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {CustomErrorStateMatcher} from './services/errorStateMatcher/error-state-matcher.service';
+import {RoomMenuComponent} from './components/room-menu/room-menu.component';
 
 
 const appRoutes: Routes = [
@@ -37,7 +38,8 @@ const appRoutes: Routes = [
     RegisterComponent,
     MainPageComponent,
     ChatComponent,
-    CanvasComponent
+    CanvasComponent,
+    RoomMenuComponent
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,14 @@
-<div *ngFor="let msg of messages">
-  {{msg}}
+<div class="chat-container">
+  <div *ngFor="let msg of messages">
+    {{msg}}
+  </div>
+
+  <div class="chat-form">
+    <form #messageForm="ngForm" (ngSubmit)="send(messageForm)">
+      <mat-form-field>
+        <input matInput name="message" type="text" placeholder="Whisper..." required ngModel #message="ngModel"/>
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit">Whisper</button>
+    </form>
+  </div>
 </div>
-
-<input [(ngModel)]="message"/>
-<button (click)="send()">Send</button>
-
