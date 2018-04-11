@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import {AuthService} from '../../../services/auth/auth.service';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material';
@@ -13,7 +13,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private router: Router,
-              private snackBar: MatSnackBar) { }
+              private snackBar: MatSnackBar) {
+  }
 
   ngOnInit() {
   }
@@ -41,8 +42,8 @@ export class RegisterComponent implements OnInit {
       }
 
     }, (err) => {
-        console.log(err);
-        this.snackBar.open('Something went wrong. :(', null, {duration: 4000, panelClass: 'snackbar-error'});
+      console.log(err);
+      this.snackBar.open('Something went wrong. :(', null, {duration: 4000, panelClass: 'snackbar-error'});
     });
   }
 

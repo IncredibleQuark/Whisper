@@ -6,8 +6,9 @@ import {AuthService} from './services/auth/auth.service';
 import {MockAuthService} from '../tests/mocks/auth-service.mock';
 
 import {RouterTestingModule} from '@angular/router/testing';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
-fdescribe('AppComponent', () => {
+describe('AppComponent', () => {
 
   let fixture: ComponentFixture<AppComponent>;
   let authService: AuthService;
@@ -20,7 +21,8 @@ fdescribe('AppComponent', () => {
         NavigationComponent,
       ],
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        HttpClientTestingModule
       ],
       providers: [
         {
@@ -40,10 +42,10 @@ fdescribe('AppComponent', () => {
     expect(app).toBeTruthy();
   }));
 
-  // it(`should have as title 'app'`, async(() => {
-  //   const app = fixture.debugElement.componentInstance;
-  //   expect(app.title).toEqual('app');
-  // }));
+  it(`should have as title 'Whisper'`, async(() => {
+    const app = fixture.debugElement.componentInstance;
+    expect(app.title).toEqual('Whisper');
+  }));
   //
   // it('should render title in a h1 tag', async(() => {
   //   fixture.detectChanges();
