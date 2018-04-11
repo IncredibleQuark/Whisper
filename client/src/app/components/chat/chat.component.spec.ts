@@ -5,6 +5,7 @@ import {FormsModule} from '@angular/forms';
 import {ChatService} from '../../services/chat/chat.service';
 import {ChatServiceMock} from '../../../tests/mocks/chat-service.mock';
 import {MaterialModule} from '../../app-material.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 describe('ChatComponent', () => {
   let component: ChatComponent;
@@ -13,7 +14,7 @@ describe('ChatComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ ChatComponent ],
-      imports: [FormsModule, MaterialModule],
+      imports: [BrowserAnimationsModule, FormsModule, MaterialModule],
       providers: [
         {
           provide: ChatService,
