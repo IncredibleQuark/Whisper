@@ -23,6 +23,7 @@ export class ChatComponent implements OnInit {
   ngOnInit() {
 
     this.chatService.getMessages().subscribe((message: string) => {
+      console.warn(message);
         this.messages.push(message);
       });
   }
@@ -31,7 +32,6 @@ export class ChatComponent implements OnInit {
     this.chatService.sendMessage(messageForm.value.message);
     messageForm.controls.message.value = '';
     messageForm.value.message = '';
-    console.warn(messageForm);
   }
 
 }

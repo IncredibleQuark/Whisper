@@ -1,8 +1,12 @@
 <div class="chat-container">
+<div class="messages-container">
   <div *ngFor="let msg of messages">
-    {{msg}}
+    <div>
+      <span>{{msg.username}}:</span>
+      <span>{{msg.message}}</span>
+    </div>
   </div>
-
+</div>
   <div class="chat-form">
     <form #messageForm="ngForm" (ngSubmit)="send(messageForm)">
       <mat-form-field>
