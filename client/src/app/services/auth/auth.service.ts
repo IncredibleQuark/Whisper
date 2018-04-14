@@ -31,7 +31,6 @@ export class AuthService {
   }
 
   storeUserData(token, user) {
-
     const usr = JSON.stringify(user);
     localStorage.setItem('id_token', token);
     localStorage.setItem('user', usr);
