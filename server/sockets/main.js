@@ -8,6 +8,10 @@ sockets.init = (server) => {
 
         socket.on('new-message', (message) => {
             io.emit('update', message);
+        });
+
+        socket.on('add user', (user) => {
+            console.log(user);
         })
     });
 

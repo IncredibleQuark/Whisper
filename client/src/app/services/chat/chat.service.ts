@@ -6,12 +6,17 @@ import {Observable} from 'rxjs/Observable';
 @Injectable()
 export class ChatService {
 
-  private url: string;
+  private url = 'ggg';
   private socket;
 
   constructor() {
     this.url = environment.socketUrl;
     this.socket = io(this.url);
+  }
+
+  public logUser(username) {
+   
+    this.socket.emit('add user', username);
   }
 
   public sendMessage(message) {
