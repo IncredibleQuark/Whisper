@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ChatService} from "../../services/chat/chat.service";
 
 @Component({
   selector: 'app-room-menu',
@@ -7,7 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RoomMenuComponent implements OnInit {
 
-  constructor() { }
+  private usersList: Array<string>;
+  private usersCount: number;
+
+  constructor(private chatService: ChatService) {
+    this.chatService.getUsers().subscribe( data => {
+      console.log(data);
+      this.usersList = data.usersArray;
+      this.usersCount = data.usersCount;
+    })
+  }
 
   ngOnInit() {
   }

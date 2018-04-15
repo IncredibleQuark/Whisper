@@ -15,7 +15,6 @@ export class ChatService {
   }
 
   public logUser(username) {
-
     this.socket.emit('add user', username);
   }
 
@@ -25,12 +24,19 @@ export class ChatService {
 
   public getMessages = () => {
     return Observable.create((observer) => {
-      this.socket.on('new-global-message', (message) => {
-        console.warn(message);
+      this.socket.on('new room message', (message) => {
         observer.next(message);
       });
     });
-  }
+  };
+
+  public getUsers = () => {
+    return Observable.create((observer) => {
+      this.socket.on('update users list', (data) => {
+        observer.next(data);
+      })
+    })
+  };
 
 
 }

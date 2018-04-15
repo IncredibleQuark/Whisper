@@ -9,17 +9,7 @@
       "outDir": "../server/public",
       "assets": [
         "assets",
-        "favicon.ico",
-        {
-          "glob": "index.js",
-          "input": "./server",
-          "output": "./"
-        },
-        {
-          "glob": "package.json",
-          "input": "./server",
-          "output": "./"
-        }
+        "favicon.ico"
       ],
 
       "index": "index.html",

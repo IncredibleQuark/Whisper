@@ -1,3 +1,8 @@
-<p>
-  room-menu works!
-</p>
+<div style="background: white">
+  <div>Nuber of users {{usersCount}}</div>
+  <div *ngFor="let username of usersList">
+    <ul>
+      <li>{{username}}</li>
+    </ul>
+  </div>
+</div>
