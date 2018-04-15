@@ -8,8 +8,8 @@ import {ChatService} from "../../services/chat/chat.service";
 })
 export class RoomMenuComponent implements OnInit {
 
-  private usersList: Array<string>;
-  private usersCount: number;
+  usersList: Array<string>;
+  usersCount: number;
 
   constructor(private chatService: ChatService) {
     this.chatService.getUsers().subscribe( data => {
