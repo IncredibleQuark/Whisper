@@ -4,10 +4,11 @@
   <mat-card-subtitle>
     Users ({{usersCount}})
   </mat-card-subtitle>
+  <mat-divider></mat-divider>
   <mat-list>
     <mat-list-item *ngFor="let username of usersList">
       <mat-icon color="primary">fiber_manual_record</mat-icon>
-      {{username}}
+      {{username}} (999)
     </mat-list-item>
   </mat-list>
 </mat-card>
