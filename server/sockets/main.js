@@ -28,7 +28,7 @@ console.log(socket.id);
 
         socket.on('add user', (username) => {
 
-            if(addedUser && usersArray.indexOf(username) !== -1) return;
+            // if(addedUser && usersArray.indexOf(username) !== -1) return;
 
             socket.username = username;
             addedUser = true;
@@ -47,10 +47,10 @@ console.log(socket.id);
 
       socket.on('disconnect', () => {
           if (addedUser) {
-              --usersCount;
+              // --usersCount;
 
               const index = usersArray.indexOf(socket.username);
-              usersArray.splice(index, 1);
+              // usersArray.splice(index, 1);
 
               updateUsersList();
 

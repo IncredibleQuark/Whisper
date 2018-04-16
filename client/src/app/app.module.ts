@@ -21,6 +21,7 @@ import {AuthService} from './services/auth/auth.service';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {CustomErrorStateMatcher} from './services/errorStateMatcher/error-state-matcher.service';
 import {RoomMenuComponent} from './components/room-menu/room-menu.component';
+import {GamePanelComponent} from "./components/game-panel/game-panel.component";
 
 
 const appRoutes: Routes = [
@@ -39,7 +40,8 @@ const appRoutes: Routes = [
     MainPageComponent,
     ChatComponent,
     CanvasComponent,
-    RoomMenuComponent
+    RoomMenuComponent,
+    GamePanelComponent
   ],
   imports: [
     BrowserModule,

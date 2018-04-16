@@ -1,8 +1,13 @@
-<div style="background: white">
-  <div>Nuber of users {{usersCount}}</div>
-  <div *ngFor="let username of usersList">
-    <ul>
-      <li>{{username}}</li>
-    </ul>
-  </div>
-</div>
+
+
+<mat-card>
+  <mat-card-subtitle>
+    Users ({{usersCount}})
+  </mat-card-subtitle>
+  <mat-list>
+    <mat-list-item *ngFor="let username of usersList">
+      <mat-icon color="primary">fiber_manual_record</mat-icon>
+      {{username}}
+    </mat-list-item>
+  </mat-list>
+</mat-card>
