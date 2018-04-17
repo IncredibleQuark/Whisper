@@ -24,8 +24,8 @@ sockets.init = (server) => {
       })
     })
 
-    socket.on('drawing', (pos) => {
-      io.emit('drawing', pos);
+    socket.on('drawing', (coords) => {
+      io.emit('drawing', coords);
     });
 
     socket.on('add user', (username) => {

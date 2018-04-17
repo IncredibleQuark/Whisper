@@ -25,8 +25,8 @@ export class CanvasService {
   };
 
   public draw (prevPos, currentPos) {
-    let pos = {pr: prevPos, cr: currentPos};
-    this.socket.emit('drawing', pos);
+    let coords = {prevPos: prevPos, currPos: currentPos};
+    this.socket.emit('drawing', coords);
   };
 
 }

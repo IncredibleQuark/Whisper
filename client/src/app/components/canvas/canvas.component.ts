@@ -29,7 +29,7 @@ export class CanvasComponent implements OnInit {
     this.canvasEl = this.canvas.nativeElement;
 
     this.canvasService.canvasUpdate().subscribe((coords) => {
-      this.drawOnCanvas(coords.pr, coords.cr, true);
+      this.drawOnCanvas(coords.prevPos, coords.currPos, true);
     });
   }
 
@@ -66,10 +66,9 @@ export class CanvasComponent implements OnInit {
           .fromEvent(this.canvasEl, 'touchmove')
           .takeUntil(Observable.fromEvent(this.canvasEl, 'touchup'))
           .pairwise()
-      }) .subscribe((res: [TouchEvent, TouchEvent]) => {
+      }).subscribe((res: [TouchEvent, TouchEvent]) => {
       const rect = this.canvasEl.getBoundingClientRect();
 
-      // previous and current position with the offset
       const prevPos = {
         x: res[0].targetTouches[0].clientX - rect.left,
         y: res[0].targetTouches[0].clientY - rect.top
@@ -80,7 +79,6 @@ export class CanvasComponent implements OnInit {
         y: res[1].targetTouches[0].clientY - rect.top
       };
 
-      // this method we'll implement soon to do the actual drawing
       this.drawOnCanvas(prevPos, currentPos, false);
 
     });
@@ -92,7 +90,7 @@ export class CanvasComponent implements OnInit {
     // this will capture all mousedown events from teh canvas element
       .fromEvent(this.canvasEl, 'mousedown')
       .switchMap((e) => {
-        console.warn('ssss');
+
         return Observable
         // after a mouse down, we'll record all mouse moves
           .fromEvent(this.canvasEl, 'mousemove')
@@ -124,15 +122,9 @@ export class CanvasComponent implements OnInit {
       });
   }
 
-  drawOnCanvas(prevPos: {
-                 x: number, y: number
-               }
-    ,
-               currentPos: {
-                 x: number, y: number
-               }
-    ,
-               emit) {
+  drawOnCanvas(
+    prevPos: { x: number, y: number },
+    currentPos: { x: number, y: number }, emit) {
 
     if (!this.context) {
       return;
@@ -145,7 +137,6 @@ export class CanvasComponent implements OnInit {
       this.context.moveTo(prevPos.x, prevPos.y);
       this.context.lineTo(currentPos.x, currentPos.y);
       this.context.stroke();
-      const coords = {prev: prevPos, curr: currentPos};
 
       if (!emit) {
         this.canvasService.draw(prevPos, currentPos);
