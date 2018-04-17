@@ -6,7 +6,7 @@ import {Observable} from 'rxjs/Observable';
 @Injectable()
 export class ChatService {
 
-  private url = 'ggg';
+  private url: string;
   private socket;
 
   constructor() {

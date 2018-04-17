@@ -4,6 +4,7 @@ import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/takeUntil';
 import 'rxjs/add/operator/pairwise';
+import {CanvasService} from "../../services/canvas/canvas.service";
 
 @Component({
   selector: 'app-canvas',
@@ -15,53 +16,62 @@ export class CanvasComponent implements OnInit {
   @ViewChild('canvas') public canvas: ElementRef;
 
   // setting a width and height for the canvas
-  @Input() public width = 400;
-  @Input() public height = 400;
+  @Input() public width = 500;
+  @Input() public height = 500;
 
-  private cx: CanvasRenderingContext2D;
-
-  constructor() { }
+  private context: CanvasRenderingContext2D;
+  private canvasEl: HTMLCanvasElement;
+  constructor(private canvasService: CanvasService) { }
 
   ngOnInit() {
+    this.canvasEl = this.canvas.nativeElement;
+
+    this.canvasService.canvasUpdate().subscribe( (coords) => {
+      this.drawOnCanvas(coords.pr, coords.cr, true);
+    });
   }
 
   public ngAfterViewInit() {
     // get the context
-    const canvasEl: HTMLCanvasElement = this.canvas.nativeElement;
-    this.cx = canvasEl.getContext('2d');
+
+    this.context = this.canvasEl.getContext('2d');
 
     // set the width and height
-    canvasEl.width = this.width;
-    canvasEl.height = this.height;
+    this.canvasEl.width = this.width;
+    this.canvasEl.height = this.height;
 
     // set some default properties about the line
-    this.cx.lineWidth = 3;
-    this.cx.lineCap = 'round';
-    this.cx.strokeStyle = '#000';
+    this.context.lineWidth = 3;
+    this.context.lineCap = 'round';
+    this.context.strokeStyle = '#000';
 
     // we'll implement this method to start capturing mouse events
-    this.captureEvents(canvasEl);
+    this.captureEvents();
   }
 
-  private captureEvents(canvasEl: HTMLCanvasElement) {
+  public resetCanvas() {
+    this.context.clearRect(0, 0, this.canvasEl.width, this.canvasEl.height);
+  }
+
+  private captureEvents() {
     Observable
     // this will capture all mousedown events from teh canvas element
-      .fromEvent(canvasEl, 'mousedown')
+      .fromEvent(this.canvasEl, 'mousedown')
       .switchMap((e) => {
         return Observable
         // after a mouse down, we'll record all mouse moves
-          .fromEvent(canvasEl, 'mousemove')
+          .fromEvent(this.canvasEl, 'mousemove')
           // we'll stop (and unsubscribe) once the user releases the mouse
           // this will trigger a 'mouseup' event
-          .takeUntil(Observable.fromEvent(canvasEl, 'mouseup'))
+          .takeUntil(Observable.fromEvent(this.canvasEl, 'mouseup'))
           // we'll also stop (and unsubscribe) once the mouse leaves the canvas (mouseleave event)
-          .takeUntil(Observable.fromEvent(canvasEl, 'mouseleave'))
+          .takeUntil(Observable.fromEvent(this.canvasEl, 'mouseleave'))
           // pairwise lets us get the previous value to draw a line from
           // the previous point to the current point
           .pairwise()
       })
       .subscribe((res: [MouseEvent, MouseEvent]) => {
-        const rect = canvasEl.getBoundingClientRect();
+        const rect = this.canvasEl.getBoundingClientRect();
 
         // previous and current position with the offset
         const prevPos = {
@@ -75,30 +85,28 @@ export class CanvasComponent implements OnInit {
         };
 
         // this method we'll implement soon to do the actual drawing
-        this.drawOnCanvas(prevPos, currentPos);
+        this.drawOnCanvas(prevPos, currentPos, false);
       });
   }
 
 
-  private drawOnCanvas(
-    prevPos: { x: number, y: number },
-    currentPos: { x: number, y: number }
-  ) {
-    // incase the context is not set
-    if (!this.cx) { return; }
+  private drawOnCanvas(prevPos: { x: number, y: number },
+                       currentPos: { x: number, y: number }, emit) {
 
-    // start our drawing path
-    this.cx.beginPath();
+    if (!this.context) { return; }
 
-    // we're drawing lines so we need a previous position
+    this.context.beginPath();
+
     if (prevPos) {
-      // sets the start point
-      this.cx.moveTo(prevPos.x, prevPos.y); // from
-      // draws a line from the start pos until the current position
-      this.cx.lineTo(currentPos.x, currentPos.y);
 
-      // strokes the current path with the styles we set earlier
-      this.cx.stroke();
+      this.context.moveTo(prevPos.x, prevPos.y);
+      this.context.lineTo(currentPos.x, currentPos.y);
+      this.context.stroke();
+      const coords = {prev: prevPos, curr: currentPos};
+
+      if(!emit) {
+        this.canvasService.draw(prevPos, currentPos);
+      }
     }
   }
 
