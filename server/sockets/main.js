@@ -52,7 +52,7 @@ sockets.init = (server) => {
         // --usersCount;
 
         const index = usersArray.indexOf(socket.username)
-        // usersArray.splice(index, 1);
+        usersArray.splice(index, 1);
 
         updateUsersList()
 
