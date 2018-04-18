@@ -18,15 +18,15 @@ export class CanvasService {
 
   public canvasUpdate = () => {
     return Observable.create((observer) => {
-      this.socket.on('drawing', (coords) => {
-        observer.next(coords);
+      this.socket.on('drawing', (data) => {
+        observer.next(data);
       });
     });
   };
 
-  public draw (prevPos, currentPos) {
-    let coords = {prevPos: prevPos, currPos: currentPos};
-    this.socket.emit('drawing', coords);
+  public draw (prevPos, currentPos, color) {
+    let data = {prevPos: prevPos, currPos: currentPos, color: color};
+    this.socket.emit('drawing', data);
   };
 
 }

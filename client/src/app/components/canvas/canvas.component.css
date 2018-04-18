@@ -4,15 +4,43 @@
   width: 500px;
 }
 
-
-.color {
-  display: inline-block;
-  height: 48px;
-  width: 48px;
+.color-chip {
+  width: 35px;
+  height: 25px;
 }
 
-.color.black { background-color: black; }
-.color.red { background-color: red; }
-.color.green { background-color: green; }
-.color.blue { background-color: blue; }
-.color.yellow { background-color: yellow; }
+.black {
+  background-color: #000000;
+}
+
+.red {
+  background-color: #F44336;
+}
+
+.green {
+  background-color: #4CAF50;
+}
+
+.blue {
+  background-color: #2196F3;
+}
+
+.yellow {
+  background-color: #FFEB3B;
+}
+
+.brown {
+  background-color: #795548;
+}
+
+.purple {
+  background-color: #9C27B0;
+}
+
+.orange {
+  background-color: #FF9800;
+}
+
+.white {
+  background-color: #FFFFFF;
+}

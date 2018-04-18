@@ -21,6 +21,8 @@ export class CanvasComponent implements OnInit {
 
   private context: CanvasRenderingContext2D;
   private canvasEl: HTMLCanvasElement;
+  private color: string;
+  private availableColors: Array<string>;
 
   constructor(private canvasService: CanvasService) {
   }
@@ -28,8 +30,11 @@ export class CanvasComponent implements OnInit {
   ngOnInit() {
     this.canvasEl = this.canvas.nativeElement;
 
-    this.canvasService.canvasUpdate().subscribe((coords) => {
-      this.drawOnCanvas(coords.prevPos, coords.currPos, true);
+    this.availableColors = ['red', 'white', 'blue'];
+
+    this.color = '#000000';
+    this.canvasService.canvasUpdate().subscribe((data) => {
+      this.drawOnCanvas(data.prevPos, data.currPos, true, data.color);
     });
   }
 
@@ -45,11 +50,17 @@ export class CanvasComponent implements OnInit {
     // set some default properties about the line
     this.context.lineWidth = 3;
     this.context.lineCap = 'round';
-    this.context.strokeStyle = '#000';
+    this.context.strokeStyle = this.color;
 
     // we'll implement this method to start capturing mouse events
     this.captureEvents();
     this.captureMobileEvents();
+  }
+
+  public changeColor(color) {
+    this.color = color;
+    console.warn(this.color);
+    // this.color = ;
   }
 
   public resetCanvas() {
@@ -122,15 +133,19 @@ export class CanvasComponent implements OnInit {
       });
   }
 
-  drawOnCanvas(
-    prevPos: { x: number, y: number },
-    currentPos: { x: number, y: number }, emit) {
+  drawOnCanvas(prevPos: { x: number, y: number },
+               currentPos: { x: number, y: number }, emit, color = null) {
 
     if (!this.context) {
       return;
     }
 
     this.context.beginPath();
+    if (color) {
+      this.context.strokeStyle = color;
+    } else {
+      this.context.strokeStyle = this.color;
+    }
 
     if (prevPos) {
 
@@ -139,7 +154,7 @@ export class CanvasComponent implements OnInit {
       this.context.stroke();
 
       if (!emit) {
-        this.canvasService.draw(prevPos, currentPos);
+        this.canvasService.draw(prevPos, currentPos, this.color);
       }
     }
   }

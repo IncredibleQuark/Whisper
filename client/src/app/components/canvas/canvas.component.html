@@ -1,10 +1,16 @@
-<!--<div class="colors">-->
-  <!--<div class="color black"></div>-->
-  <!--<div class="color red"></div>-->
-  <!--<div class="color green"></div>-->
-  <!--<div class="color blue"></div>-->
-  <!--<div class="color yellow"></div>-->
-<!--</div>-->
 <button mat-button type="button" (click)="resetCanvas()">Reset</button>
-<canvas #canvas class="canvas-container" ></canvas>
+
+<mat-chip-list class="mat-chip-list-stacked">
+  <mat-chip class="color-chip black" (click)="changeColor('#000000')"></mat-chip>
+  <mat-chip class="color-chip red" (click)="changeColor('#F44336')"></mat-chip>
+  <mat-chip class="color-chip green" (click)="changeColor('#4CAF50')"></mat-chip>
+  <mat-chip class="color-chip blue" (click)="changeColor('#2196F3')"></mat-chip>
+  <mat-chip class="color-chip yellow" (click)="changeColor('#FFEB3B')"></mat-chip>
+  <mat-chip class="color-chip brown" (click)="changeColor('#795548')"></mat-chip>
+  <mat-chip class="color-chip purple" (click)="changeColor('#9C27B0')"></mat-chip>
+  <mat-chip class="color-chip orange" (click)="changeColor('#FF9800')"></mat-chip>
+  <mat-chip class="color-chip white" (click)="changeColor('#FFFFFF')"></mat-chip>
+</mat-chip-list>
+
+<canvas #canvas class="canvas-container"></canvas>
 
