@@ -8,7 +8,7 @@ describe('CanvasComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CanvasComponent ]
+      declarations: [ CanvasComponent ],
     })
     .compileComponents();
   }));
