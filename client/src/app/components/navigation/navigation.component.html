@@ -1,27 +1,38 @@
-<!--<div class="nav-container">-->
-<!--<button (click)="logout()">Logout</button>-->
-<!--</div>-->
-<mat-card class="no-padding nav-container mat-background-primary">
+<mat-card class="no-padding nav-container mat-card-background">
 
+  <div fxLayout="row" fxFill fxLayoutAlign="space-between center">
 
-    <img mat-card-sm-image class="mat-background-primary logo" src="../../../assets/logo.png"/>
-    <button mat-icon-button [matMenuTriggerFor]="menu">
-      <mat-icon>more_vert</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item>
-        <mat-icon>dialpad</mat-icon>
-        <span>Redial</span>
-      </button>
-      <button mat-menu-item disabled>
-        <mat-icon>voicemail</mat-icon>
-        <span>Check voicemail</span>
-      </button>
-      <button mat-menu-item>
-        <mat-icon>notifications_off</mat-icon>
-        <span>Disable alerts</span>
-      </button>
-    </mat-menu>
+    <div fxFlex>
+      <img mat-card-sm-image class="logo" src="../../../assets/logo2.png"/>
+    </div>
 
+    <div fxLayout="row" fxLayoutAlign="space-between center" class="pad-r-10">
+
+      <div fxFlex>
+        Logged in as {{ userName }}
+      </div>
+
+      <div>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_horiz</mat-icon>
+        </button>
+
+        <mat-menu #menu="matMenu">
+
+          <button mat-menu-item>
+            <mat-icon>person</mat-icon>
+            <span>My profile</span>
+          </button>
+
+          <button mat-menu-item>
+            <mat-icon>exit_to_app</mat-icon>
+            <span (click)="logout()">Logout</span>
+          </button>
+
+        </mat-menu>
+      </div>
+
+    </div>
+  </div>
 
 </mat-card>

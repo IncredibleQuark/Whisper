@@ -2,10 +2,17 @@
 @include mat-core();
 
 $primary: mat-palette($mat-indigo);
-$accent:  mat-palette($mat-amber);
+$accent:  mat-palette($mat-light-blue, A200);
 $warn: mat-palette($mat-deep-orange);
 
 $theme: mat-light-theme($primary, $accent, $warn);
+
+app-navigation {
+  .mat-card-background {
+    background-color: mat-color($accent) !important;
+  }
+}
+
 
 @include angular-material-theme($theme);
 

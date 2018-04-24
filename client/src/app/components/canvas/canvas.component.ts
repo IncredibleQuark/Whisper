@@ -16,8 +16,8 @@ export class CanvasComponent implements OnInit {
   @ViewChild('canvas') public canvas: ElementRef;
 
   // setting a width and height for the canvas
-  @Input() public width = 500;
-  @Input() public height = 500;
+  @Input() public width = 300;
+  @Input() public height = 300;
 
   private context: CanvasRenderingContext2D;
   private canvasEl: HTMLCanvasElement;

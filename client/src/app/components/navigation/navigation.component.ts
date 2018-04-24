@@ -11,11 +11,16 @@ import {AuthGuard} from '../../guards/auth.guard';
 
 export class NavigationComponent implements OnInit {
 
+  private userName;
+
   constructor(private authService: AuthService,
               private authGuard: AuthGuard,
               private router: Router) { }
 
   ngOnInit() {
+    this.authService.getProfile().subscribe( profile => {
+      this.userName = profile["user"]["username"];
+    });
   }
 
   logout() {
