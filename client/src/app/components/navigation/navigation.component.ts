@@ -11,7 +11,7 @@ import {AuthGuard} from '../../guards/auth.guard';
 
 export class NavigationComponent implements OnInit {
 
-  private userName;
+  userName;
 
   constructor(private authService: AuthService,
               private authGuard: AuthGuard,
