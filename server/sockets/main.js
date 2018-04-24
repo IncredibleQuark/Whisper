@@ -6,9 +6,10 @@ sockets.init = (server) => {
 
   let usersCount = 0
   let usersArray = []
-  let addedUser = false
 
-  io.sockets.on('connection', (socket) => {
+
+  io.on('connection', (socket) => {
+    let addedUser = false
 
     function updateUsersList () {
       io.emit('update users list', {
@@ -30,7 +31,7 @@ sockets.init = (server) => {
 
     socket.on('add user', (username) => {
 
-      // if(addedUser && usersArray.indexOf(username) !== -1) return;
+      if(addedUser && usersArray.indexOf(username) !== -1) return;
 
       socket.username = username
       addedUser = true
@@ -49,7 +50,7 @@ sockets.init = (server) => {
 
     socket.on('disconnect', () => {
       if (addedUser) {
-        // --usersCount;
+        --usersCount;
 
         const index = usersArray.indexOf(socket.username)
         usersArray.splice(index, 1);
