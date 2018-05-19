@@ -9,7 +9,7 @@ import {AuthService} from '../../services/auth/auth.service';
 })
 export class ChatComponent implements OnInit {
 
-  // private message: string;
+  private message: string;
   messages: string[] = [];
 
   constructor(private chatService: ChatService, private authService: AuthService) {
@@ -29,9 +29,11 @@ export class ChatComponent implements OnInit {
   }
 
   send(messageForm) {
-    this.chatService.sendMessage(messageForm.value.message);
-    messageForm.controls.message.value = '';
-    messageForm.value.message = '';
+
+    if (messageForm.value.message !== "") {
+      this.chatService.sendMessage(messageForm.value.message);
+    }
+
   }
 
 }

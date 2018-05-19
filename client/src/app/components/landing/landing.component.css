@@ -7,9 +7,5 @@
 }
 
 .card-container {
-  max-width: 35vh;
+  min-width: 35vw;
 }
-
-/*.tabs-border {*/
-  /*border: 3px  solid #e8e8e8;*/
-/*}*/

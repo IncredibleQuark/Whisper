@@ -6,6 +6,5 @@
 
 .messages-container {
   height: 150px;
-  background: yellow;
   overflow-y: scroll;
 }

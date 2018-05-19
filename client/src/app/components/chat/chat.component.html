@@ -1,18 +1,26 @@
 <div class="chat-container">
-<div class="messages-container">
+<mat-card class="messages-container">
   <div *ngFor="let msg of messages">
     <div>
       <span>{{msg.username}}:</span>
       <span>{{msg.message}}</span>
     </div>
   </div>
-</div>
-  <div class="chat-form">
-    <form #messageForm="ngForm" (ngSubmit)="send(messageForm)">
-      <mat-form-field>
-        <input matInput name="message" type="text" placeholder="Whisper..." required ngModel #message="ngModel"/>
+</mat-card>
+  <mat-card class="chat-form">
+
+    <mat-card-content>
+
+    <form #messageForm="ngForm" (ngSubmit)="send(messageForm)" fxFlex fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+
+      <mat-form-field fxFlex="90">
+        <mat-label>Write...</mat-label>
+        <input matInput name="message" id="chat_message" type="text" ngModel #message="ngModel" autocomplete="off"/>
       </mat-form-field>
-      <button mat-raised-button color="primary" type="submit">Whisper</button>
+
+      <button fxFlex  mat-raised-button color="primary" type="submit">Send</button>
+
     </form>
-  </div>
+    </mat-card-content>
+  </mat-card>
 </div>

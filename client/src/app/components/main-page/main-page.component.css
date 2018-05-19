@@ -1,7 +1,17 @@
 .main-container {
-
+  height: calc(100vh - 150px);
   margin: 20px;
-  background-color: lightgreen;
+}
+
+.inner-container {
+  height: 100%;
+}
+
+@media screen and (max-width: 599px) {
+  .main-container {
+    min-height: 1000px;
+    margin: 0;
+  }
 }
 
 .fx {

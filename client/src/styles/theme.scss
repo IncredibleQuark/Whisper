@@ -2,7 +2,7 @@
 @include mat-core();
 
 $primary: mat-palette($mat-indigo);
-$accent:  mat-palette($mat-light-blue, A200);
+$accent:  mat-palette($mat-light-blue);
 $warn: mat-palette($mat-deep-orange);
 
 $theme: mat-light-theme($primary, $accent, $warn);
@@ -10,6 +10,18 @@ $theme: mat-light-theme($primary, $accent, $warn);
 app-navigation {
   .mat-card-background {
     background-color: mat-color($accent) !important;
+  }
+}
+
+app-main-page {
+  .main-container {
+    background-color: mat-color($primary);
+  }
+}
+
+app-chat {
+  mat-card {
+    padding: 12px !important;
   }
 }
 
