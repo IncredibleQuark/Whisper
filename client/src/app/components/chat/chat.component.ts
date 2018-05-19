@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ChatService} from '../../services/chat/chat.service';
 import {AuthService} from '../../services/auth/auth.service';
 
@@ -7,9 +7,9 @@ import {AuthService} from '../../services/auth/auth.service';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })
+
 export class ChatComponent implements OnInit {
 
-  private message: string;
   messages: string[] = [];
 
   constructor(private chatService: ChatService, private authService: AuthService) {
