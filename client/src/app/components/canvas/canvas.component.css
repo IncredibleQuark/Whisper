@@ -9,6 +9,10 @@
   height: 25px;
 }
 
+.lock-screen {
+  touch-action: none;
+}
+
 .black {
   background-color: #000000;
 }
