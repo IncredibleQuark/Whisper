@@ -31,7 +31,8 @@ export class ChatComponent implements OnInit {
   send(messageForm) {
 
     if (messageForm.value.message !== "") {
-      this.chatService.sendMessage(messageForm.value.message);
+      const data = {date: new Date(), message: messageForm.value.message};
+      this.chatService.sendMessage(data);
     }
 
   }

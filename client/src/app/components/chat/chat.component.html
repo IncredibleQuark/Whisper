@@ -4,7 +4,7 @@
 
       <mat-list *ngFor="let msg of messages">
         <mat-list-item>
-          <div mat-line><h4 class="inline p-r-10">{{msg.username}}</h4><span class="mat-caption">12:30 PM</span></div>
+          <div mat-line><h4 class="inline p-r-10">{{msg.username}}</h4><span class="mat-caption">{{msg.date | date: 'shortTime'}}</span></div>
           <p mat-line> {{msg.message}} </p>
         </mat-list-item>
 

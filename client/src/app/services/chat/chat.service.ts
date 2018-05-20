@@ -18,8 +18,8 @@ export class ChatService {
     this.socket.emit('add user', username);
   }
 
-  public sendMessage(message) {
-    this.socket.emit('new-message', message);
+  public sendMessage(data) {
+    this.socket.emit('new-message', data);
   }
 
   public getMessages = () => {
