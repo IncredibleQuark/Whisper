@@ -5,6 +5,29 @@
 }
 
 .messages-container {
+  background-color: #E1F5FE;
   height: 150px;
   overflow-y: scroll;
+}
+
+@media screen and (max-width: 771px) {
+  .message-width {
+    max-width: 60%;
+  }
+}
+
+mat-card {
+  padding: 12px !important;
+}
+
+mat-list {
+  padding-top: 0;
+}
+
+mat-list-item:hover {
+  background: #E8EAF6;
+}
+
+.mat-list .mat-list-item.mat-2-line {
+  height: 48px;
 }

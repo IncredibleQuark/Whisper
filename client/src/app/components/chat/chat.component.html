@@ -1,12 +1,15 @@
 <div class="chat-container">
   <mat-card class="messages-container">
 
-    <div *ngFor="let msg of messages">
-      <div>
-        <span>{{msg.username}}:</span>
-        <span>{{msg.message}}</span>
-      </div>
-    </div>
+
+      <mat-list *ngFor="let msg of messages">
+        <mat-list-item>
+          <div mat-line><h4 class="inline p-r-10">{{msg.username}}</h4><span class="mat-caption">12:30 PM</span></div>
+          <p mat-line> {{msg.message}} </p>
+        </mat-list-item>
+
+      </mat-list>
+
 
   </mat-card>
   <mat-card class="chat-form">

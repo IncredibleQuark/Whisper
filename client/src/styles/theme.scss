@@ -20,8 +20,8 @@ app-main-page {
 }
 
 app-chat {
-  mat-card {
-    padding: 12px !important;
+  h4 {
+    color: mat-color($primary);
   }
 }
 
