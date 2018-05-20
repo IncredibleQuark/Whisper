@@ -18,7 +18,6 @@ export class ChatComponent implements OnInit {
   constructor(private chatService: ChatService, private authService: AuthService) {
 
     this.authService.getProfile().subscribe(profile => {
-
       this.chatService.logUser(profile['user']['username']);
     });
 
@@ -41,9 +40,10 @@ export class ChatComponent implements OnInit {
 
   send(messageForm) {
 
-    if (messageForm.value.message !== "") {
+    if (messageForm.value.message !== "" && messageForm.value.message !== null) {
       const data = {date: new Date(), message: messageForm.value.message};
       this.chatService.sendMessage(data);
+      messageForm.reset();
     }
 
   }

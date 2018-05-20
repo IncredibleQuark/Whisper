@@ -18,10 +18,11 @@ sockets.init = (server) => {
       })
     }
 
-    socket.on('new-message', (message) => {
+    socket.on('new-message', (data) => {
       io.emit('new room message', {
         username: socket.username,
-        message: message
+        message: data.message,
+        date: data.date
       })
     })
 
