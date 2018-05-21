@@ -1,22 +1,22 @@
 
-<div fxLayout="column" fxLayoutAlign="center center">
-  <div>
-    <button mat-button type="button" (click)="resetCanvas()">Reset</button>
-    <mat-chip-list class="mat-chip-list">
+<div fxLayout="column" fxLayoutAlign="center center" class="canvas-container">
+  <div fxFlex="10" fxLayout="row" fxLayoutAlign="start center" class="width-100" fxLayoutGap="20px">
+
+    <div>
+      <button mat-raised-button color="accent" type="button" mat-line (click)="resetCanvas()">Reset</button>
+    </div>
+    <mat-chip-list class="mat-chip-list" mat-line>
       <mat-chip class="color-chip black" (click)="changeColor('#000000')"></mat-chip>
       <mat-chip class="color-chip red" (click)="changeColor('#F44336')"></mat-chip>
       <mat-chip class="color-chip green" (click)="changeColor('#4CAF50')"></mat-chip>
       <mat-chip class="color-chip blue" (click)="changeColor('#2196F3')"></mat-chip>
       <mat-chip class="color-chip yellow" (click)="changeColor('#FFEB3B')"></mat-chip>
-      <!--<mat-chip class="color-chip brown" (click)="changeColor('#795548')"></mat-chip>-->
-      <!--<mat-chip class="color-chip purple" (click)="changeColor('#9C27B0')"></mat-chip>-->
-      <!--<mat-chip class="color-chip orange" (click)="changeColor('#FF9800')"></mat-chip>-->
       <mat-chip class="color-chip white" (click)="changeColor('#FFFFFF')"></mat-chip>
     </mat-chip-list>
   </div>
 
-  <div class="lock-screen">
-    <canvas #canvas class="canvas-container"></canvas>
+  <div class="canvas-container" fxFlex>
+    <canvas #canvas class="white"></canvas>
   </div>
 
 </div>

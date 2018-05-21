@@ -25,6 +25,12 @@ app-chat {
   }
 }
 
+app-canvas {
+  mat-chip {
+    cursor: pointer !important;
+  }
+}
+
 
 @include angular-material-theme($theme);
 
