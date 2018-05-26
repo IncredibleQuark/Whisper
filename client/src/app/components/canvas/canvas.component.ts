@@ -60,8 +60,6 @@ export class CanvasComponent implements OnInit {
 
   public changeColor(color) {
     this.color = color;
-    console.warn(this.color);
-    // this.color = ;
   }
 
   public resetCanvas() {

@@ -1,15 +1,21 @@
 <mat-card class="main-container">
   <mat-card-content class="inner-container">
-    <div fxLayout="column" fxFill>
-      <div fxFlex fxLayout="row" fxLayout.xs="column">
+    <div fxLayout="row" fxFill>
+      <div fxFlex="80" fxLayout="column" >
         <app-canvas fxFlex="80" fxFlex.md="100" fxLayoutAlign="center center" fxFlexOrder.xs="2"></app-canvas>
 
-        <div fxFlex="20" fxFlexOrder.xs="1">
-          <app-game-panel></app-game-panel>
-          <app-room-menu></app-room-menu>
-        </div>
+        <app-chat></app-chat>
       </div>
-      <app-chat></app-chat>
+      <div fxFlex class="width-100" fxLayout="column"  fxFlexOrder.xs="1">
+
+
+          <app-game-panel fxFlex="10"></app-game-panel>
+
+
+          <app-room-menu fxFlex="90"></app-room-menu>
+
+      </div>
+
     </div>
 
 
