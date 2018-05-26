@@ -14,10 +14,9 @@ import {CanvasService} from "../../services/canvas/canvas.service";
 export class CanvasComponent implements OnInit {
 
   @ViewChild('canvas') public canvas: ElementRef;
-
   // setting a width and height for the canvas
-  @Input() public width = 300;
-  @Input() public height = 300;
+  @Input() public width = 700;
+  @Input() public height = 400;
 
   private context: CanvasRenderingContext2D;
   private canvasEl: HTMLCanvasElement;
@@ -42,11 +41,9 @@ export class CanvasComponent implements OnInit {
     // get the context
 
     this.context = this.canvasEl.getContext('2d');
-
     // set the width and height
     this.canvasEl.width = this.width;
     this.canvasEl.height = this.height;
-
     // set some default properties about the line
     this.context.lineWidth = 3;
     this.context.lineCap = 'round';
@@ -66,35 +63,6 @@ export class CanvasComponent implements OnInit {
   public resetCanvas() {
     this.context.clearRect(0, 0, this.canvasEl.width, this.canvasEl.height);
   }
-
-  private captureMobileEvents() {
-
-    Observable
-      .fromEvent(this.canvasEl, 'touchstart')
-      .switchMap((e) => {
-
-        return Observable
-          .fromEvent(this.canvasEl, 'touchmove')
-          .takeUntil(Observable.fromEvent(this.canvasEl, 'touchup'))
-          .pairwise()
-      }).subscribe((res: [TouchEvent, TouchEvent]) => {
-      const rect = this.canvasEl.getBoundingClientRect();
-
-      const prevPos = {
-        x: res[0].targetTouches[0].clientX - rect.left,
-        y: res[0].targetTouches[0].clientY - rect.top
-      };
-
-      const currentPos = {
-        x: res[1].targetTouches[0].clientX - rect.left,
-        y: res[1].targetTouches[0].clientY - rect.top
-      };
-
-      this.drawOnCanvas(prevPos, currentPos, false);
-
-    });
-  };
-
 
   captureEvents() {
     Observable
@@ -158,5 +126,35 @@ export class CanvasComponent implements OnInit {
       }
     }
   }
+
+  private captureMobileEvents() {
+
+    Observable
+      .fromEvent(this.canvasEl, 'touchstart')
+      .switchMap((e: any) => {
+
+        e.preventDefault();
+
+        return Observable
+          .fromEvent(this.canvasEl, 'touchmove')
+          .takeUntil(Observable.fromEvent(this.canvasEl, 'touchup'))
+          .pairwise()
+      }).subscribe((res: [TouchEvent, TouchEvent]) => {
+      const rect = this.canvasEl.getBoundingClientRect();
+
+      const prevPos = {
+        x: res[0].targetTouches[0].clientX - rect.left,
+        y: res[0].targetTouches[0].clientY - rect.top
+      };
+
+      const currentPos = {
+        x: res[1].targetTouches[0].clientX - rect.left,
+        y: res[1].targetTouches[0].clientY - rect.top
+      };
+
+      this.drawOnCanvas(prevPos, currentPos, false);
+
+    });
+  };
 
 }

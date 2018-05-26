@@ -1,6 +1,12 @@
 .canvas-container {
   height: 100%;
   width: 100%;
+  min-height: 300px;
+}
+
+.canvas-container-inner {
+  width: 100%;
+  overflow: auto;
 }
 
 .color-chip {

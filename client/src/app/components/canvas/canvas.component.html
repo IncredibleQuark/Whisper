@@ -1,6 +1,6 @@
 
-<div fxLayout="column" fxLayoutAlign="center center" class="canvas-container">
-  <div fxFlex="10" fxLayout="row" fxLayoutAlign="start center" class="width-100" fxLayoutGap="20px">
+<div fxLayout="column" fxLayoutAlign="center center" class="canvas-container" fxLayoutGap="20px">
+  <div fxFlex="10" fxLayout="row" fxLayoutAlign="center center" class="width-100" fxLayoutGap="20px">
 
     <div>
       <button mat-raised-button color="accent" type="button" mat-line (click)="resetCanvas()">Reset</button>
@@ -15,7 +15,7 @@
     </mat-chip-list>
   </div>
 
-  <div class="canvas-container" fxFlex>
+  <div class="canvas-container-inner" fxFlex fxLayoutAlign="center center">
     <canvas #canvas class="white"></canvas>
   </div>
 
