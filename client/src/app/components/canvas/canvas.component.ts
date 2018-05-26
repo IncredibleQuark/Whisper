@@ -35,6 +35,10 @@ export class CanvasComponent implements OnInit {
     this.canvasService.canvasUpdate().subscribe((data) => {
       this.drawOnCanvas(data.prevPos, data.currPos, true, data.color);
     });
+
+    this.canvasService.resetUpdate().subscribe(() => {
+      this.clearBoard();
+    })
   }
 
   public ngAfterViewInit() {
@@ -61,7 +65,7 @@ export class CanvasComponent implements OnInit {
   }
 
   public resetCanvas() {
-    this.context.clearRect(0, 0, this.canvasEl.width, this.canvasEl.height);
+    this.canvasService.resetExecute();
   }
 
   captureEvents() {
@@ -125,6 +129,10 @@ export class CanvasComponent implements OnInit {
         this.canvasService.draw(prevPos, currentPos, this.color);
       }
     }
+  }
+
+  private clearBoard() {
+    this.context.clearRect(0, 0, this.canvasEl.width, this.canvasEl.height);
   }
 
   private captureMobileEvents() {

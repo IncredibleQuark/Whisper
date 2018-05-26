@@ -29,4 +29,17 @@ export class CanvasService {
     this.socket.emit('drawing', data);
   };
 
+  public resetExecute () {
+    this.socket.emit('reset');
+  }
+
+  public resetUpdate = () => {
+    return Observable.create((observer) => {
+      this.socket.on('resetUpdate', () => {
+        observer.next();
+      });
+    });
+  };
+
+
 }
