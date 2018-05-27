@@ -21,7 +21,7 @@ export class CanvasComponent implements OnInit {
   private context: CanvasRenderingContext2D;
   private canvasEl: HTMLCanvasElement;
   private color: string;
-  private availableColors: Array<string>;
+  private lineWidth: number;
 
   constructor(private canvasService: CanvasService) {
   }
@@ -29,11 +29,10 @@ export class CanvasComponent implements OnInit {
   ngOnInit() {
     this.canvasEl = this.canvas.nativeElement;
 
-    this.availableColors = ['red', 'white', 'blue'];
-
     this.color = '#000000';
+    this.lineWidth = 5;
     this.canvasService.canvasUpdate().subscribe((data) => {
-      this.drawOnCanvas(data.prevPos, data.currPos, true, data.color);
+      this.drawOnCanvas(data.prevPos, data.currPos, true, data.color, data.lineWidth);
     });
 
     this.canvasService.resetUpdate().subscribe(() => {
@@ -43,28 +42,35 @@ export class CanvasComponent implements OnInit {
 
   public ngAfterViewInit() {
     // get the context
-
     this.context = this.canvasEl.getContext('2d');
     // set the width and height
     this.canvasEl.width = this.width;
     this.canvasEl.height = this.height;
     // set some default properties about the line
-    this.context.lineWidth = 3;
+    this.context.lineWidth = this.lineWidth;
     this.context.lineCap = 'round';
     this.context.strokeStyle = this.color;
 
-    // we'll implement this method to start capturing mouse events
+    // methods to start capturing mouse and touch events
     this.captureEvents();
     this.captureMobileEvents();
   }
+
 
   public changeColor(color) {
     this.color = color;
   }
 
+
   public resetCanvas() {
     this.canvasService.resetExecute();
   }
+
+
+  private clearBoard() {
+    this.context.clearRect(0, 0, this.canvasEl.width, this.canvasEl.height);
+  }
+
 
   captureEvents() {
     Observable
@@ -103,8 +109,12 @@ export class CanvasComponent implements OnInit {
       });
   }
 
+
   drawOnCanvas(prevPos: { x: number, y: number },
-               currentPos: { x: number, y: number }, emit, color = null) {
+               currentPos: { x: number, y: number },
+               emit,
+               color = null,
+               lineWidth = null) {
 
     if (!this.context) {
       return;
@@ -117,6 +127,12 @@ export class CanvasComponent implements OnInit {
       this.context.strokeStyle = this.color;
     }
 
+    if (lineWidth) {
+      this.context.lineWidth = lineWidth;
+    } else {
+      this.context.lineWidth = this.lineWidth;
+    }
+
     if (prevPos) {
 
       this.context.moveTo(prevPos.x, prevPos.y);
@@ -124,14 +140,11 @@ export class CanvasComponent implements OnInit {
       this.context.stroke();
 
       if (!emit) {
-        this.canvasService.draw(prevPos, currentPos, this.color);
+        this.canvasService.draw(prevPos, currentPos, this.color, this.lineWidth);
       }
     }
   }
 
-  private clearBoard() {
-    this.context.clearRect(0, 0, this.canvasEl.width, this.canvasEl.height);
-  }
 
   private captureMobileEvents() {
 

@@ -5,7 +5,6 @@
 }
 
 .messages-container {
-  background-color: #E1F5FE;
   height: 150px;
   overflow-y: scroll;
 }

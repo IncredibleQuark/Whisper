@@ -24,8 +24,8 @@ export class CanvasService {
     });
   };
 
-  public draw (prevPos, currentPos, color) {
-    let data = {prevPos: prevPos, currPos: currentPos, color: color};
+  public draw (prevPos, currentPos, color, lineWidth) {
+    let data = {prevPos: prevPos, currPos: currentPos, color: color, lineWidth: lineWidth};
     this.socket.emit('drawing', data);
   };
 

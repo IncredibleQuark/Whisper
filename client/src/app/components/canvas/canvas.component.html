@@ -1,11 +1,12 @@
 
 <div fxLayout="column" fxLayoutAlign="center center" class="canvas-container" fxLayoutGap="20px">
-  <div fxFlex="10" fxLayout="row" fxLayoutAlign="center center" class="width-100" fxLayoutGap="20px">
+  <mat-card fxFlex="10" fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="20px" class="width-100 custom-background">
+
 
     <div>
       <button mat-raised-button color="accent" type="button" mat-line (click)="resetCanvas()">Reset</button>
     </div>
-    <mat-chip-list class="mat-chip-list" mat-line>
+    <mat-chip-list class="mat-chip-list" fxLayout="row wrap">
       <mat-chip class="color-chip black" (click)="changeColor('#000000')"></mat-chip>
       <mat-chip class="color-chip red" (click)="changeColor('#F44336')"></mat-chip>
       <mat-chip class="color-chip green" (click)="changeColor('#4CAF50')"></mat-chip>
@@ -13,7 +14,9 @@
       <mat-chip class="color-chip yellow" (click)="changeColor('#FFEB3B')"></mat-chip>
       <mat-chip class="color-chip white" (click)="changeColor('#FFFFFF')"></mat-chip>
     </mat-chip-list>
-  </div>
+
+    <mat-slider [max]="30" [min]="1" [step]="1" [(ngModel)]="lineWidth"></mat-slider>
+  </mat-card>
 
   <div class="canvas-container-inner" fxFlex fxLayoutAlign="center center">
     <canvas #canvas class="white"></canvas>

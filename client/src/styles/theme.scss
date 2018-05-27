@@ -1,9 +1,11 @@
 @import '~@angular/material/theming';
+@import "variables";
 @include mat-core();
 
 $primary: mat-palette($mat-indigo);
 $accent:  mat-palette($mat-light-blue);
 $warn: mat-palette($mat-deep-orange);
+
 
 $theme: mat-light-theme($primary, $accent, $warn);
 
@@ -29,6 +31,10 @@ app-canvas {
   mat-chip {
     cursor: pointer !important;
   }
+}
+
+.custom-background {
+  background-color: $additional !important;
 }
 
 

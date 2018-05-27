@@ -2,6 +2,7 @@
 @import "styles/dimm.scss";
 @import "styles/forms.scss";
 @import "styles/snackbars.scss";
+@import 'styles/variables.scss';
 
 body {
   margin: 0;
@@ -19,4 +20,5 @@ input:-webkit-autofill {
 html {
   height: 100%;
 }
+
 
