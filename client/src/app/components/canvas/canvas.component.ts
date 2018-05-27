@@ -21,7 +21,7 @@ export class CanvasComponent implements OnInit {
   private context: CanvasRenderingContext2D;
   private canvasEl: HTMLCanvasElement;
   private color: string;
-  private lineWidth: number;
+  public lineWidth: number;
 
   constructor(private canvasService: CanvasService) {
   }
