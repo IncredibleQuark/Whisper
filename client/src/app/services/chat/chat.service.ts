@@ -15,11 +15,11 @@ export class ChatService {
   }
 
   public logUser(username) {
-    this.socket.emit('add user', username);
+    this.socket.emit('log user', username);
   }
 
   public sendMessage(data) {
-    this.socket.emit('new-message', data);
+    this.socket.emit('new message', data);
   }
 
   public getMessages = () => {

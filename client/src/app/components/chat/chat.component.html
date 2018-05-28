@@ -2,8 +2,15 @@
   <mat-card class="messages-container custom-background" #messagesBox>
 
       <mat-list>
-        <mat-list-item *ngFor="let msg of messages">
-          <div mat-line>
+        <h3 mat-subheader>Messages</h3>
+        <mat-list-item *ngFor="let msg of messages" [ngStyle]="{'height': msg.type ? '24px' : '48px' }">
+          <div mat-line *ngIf="msg.type === 'userJoined'">
+            <span class="mat-caption">User <b>{{msg.username}}</b> has joined</span> <span class="mat-caption">{{msg.date | date: 'shortTime'}}</span>
+          </div>
+          <div mat-line *ngIf="msg.type === 'userLeft'">
+            <span class="mat-caption">User <b>{{msg.username}}</b> has left</span> <span class="mat-caption">{{msg.date | date: 'shortTime'}}</span>
+          </div>
+          <div mat-line *ngIf="!msg.type">
             <h4 class="inline p-r-10">{{msg.username}}</h4>
             <span class="mat-caption">{{msg.date | date: 'shortTime'}}</span>
           </div>

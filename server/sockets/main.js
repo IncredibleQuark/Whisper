@@ -17,7 +17,7 @@ sockets.init = (server) => {
       })
     }
 
-    socket.on('new-message', (data) => {
+    socket.on('new message', (data) => {
       io.emit('new room message', {
         username: socket.username,
         message: data.message,
@@ -33,7 +33,7 @@ sockets.init = (server) => {
       io.emit('resetUpdate')
     })
 
-    socket.on('add user', (username) => {
+    socket.on('log user', (username) => {
 
       if (addedUser && usersArray.indexOf(username) !== -1) return
 
@@ -50,6 +50,13 @@ sockets.init = (server) => {
         usersArray: usersArray,
         usersCount: usersCount
       })
+
+      io.emit('new room message', {
+        username: username,
+        type: 'userJoined',
+        date: new Date()
+      })
+
     })
 
     socket.on('disconnect', () => {
@@ -61,10 +68,12 @@ sockets.init = (server) => {
 
         updateUsersList()
 
-        socket.broadcast.emit('user left', {
+        io.emit('new room message', {
           username: socket.username,
-          usersCount: usersCount
+          type: 'userLeft',
+          date: new Date()
         })
+
       }
     })
 
