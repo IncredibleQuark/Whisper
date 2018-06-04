@@ -11,6 +11,10 @@ const UserSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    rank: {
+        type: Number,
+        required: true
+    },
     password: {
         type: String,
         required: true
@@ -28,11 +32,13 @@ module.exports.getUserByEmail = (email, callback) => {
     User.findOne(query, callback);
 };
 
+
 module.exports.addUser = (newUser, callback) => {
     bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
             if(err) throw err;
             newUser.password = hash;
+            newUser.rank = 500;
             newUser.save(callback);
         });
     });

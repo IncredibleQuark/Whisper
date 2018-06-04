@@ -4,7 +4,7 @@ import * as io from 'socket.io-client';
 import {Observable} from 'rxjs/Observable';
 
 @Injectable()
-export class ChatService {
+export class GameService {
 
   private url: string;
   private socket;
@@ -14,23 +14,12 @@ export class ChatService {
     this.socket = io(this.url);
   }
 
-  public logUser(user) {
-    this.socket.emit('log user', user);
-  }
-
-  public sendMessage(data) {
-    this.socket.emit('new message', data);
-  }
-
-  public getMessages = () => {
+  public getUsers = () => {
     return Observable.create((observer) => {
-      this.socket.on('new room message', (message) => {
-        observer.next(message);
-      });
-    });
+      this.socket.on('update users list', (data) => {
+        observer.next(data);
+      })
+    })
   };
-
-
-
 
 }

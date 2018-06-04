@@ -17,8 +17,8 @@ export class ChatComponent implements OnInit {
 
   constructor(private chatService: ChatService, private authService: AuthService) {
 
-    this.authService.getProfile().subscribe((profile:any) => {
-      this.chatService.logUser(profile.user);
+    this.authService.getProfile().subscribe((user:any) => {
+      this.chatService.logUser(user.user);
     });
 
   }

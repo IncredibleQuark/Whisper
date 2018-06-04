@@ -13,16 +13,18 @@
     </div>
     <mat-divider></mat-divider>
     <mat-list>
-      <mat-list-item *ngFor="let username of usersList">
+      <mat-list-item *ngFor="let user of usersList">
         <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
           <div fxLayout="row" fxLayoutAlign="center center">
             <mat-icon color="primary">fiber_manual_record</mat-icon>
             <mat-label>
-              {{username}}
+              {{user.username}}
             </mat-label>
           </div>
 
-        <mat-label>500</mat-label>
+          <mat-label>{{user.status}}</mat-label>
+
+        <mat-label>{{user.rank}}</mat-label>
         </div>
       </mat-list-item>
     </mat-list>

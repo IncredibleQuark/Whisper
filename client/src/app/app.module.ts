@@ -23,6 +23,7 @@ import {CustomErrorStateMatcher} from './services/errorStateMatcher/error-state-
 import {RoomMenuComponent} from './components/room-menu/room-menu.component';
 import {GamePanelComponent} from "./components/game-panel/game-panel.component";
 import {CanvasService} from "./services/canvas/canvas.service";
+import {GameService} from "./services/game/game.service";
 
 
 const appRoutes: Routes = [
@@ -53,7 +54,7 @@ const appRoutes: Routes = [
     MaterialModule,
     FlexLayoutModule
   ],
-  providers: [AuthService, AuthGuard, ChatService, CustomErrorStateMatcher, CanvasService],
+  providers: [AuthService, AuthGuard, ChatService, CustomErrorStateMatcher, CanvasService, GameService],
   bootstrap: [AppComponent]
 })
 

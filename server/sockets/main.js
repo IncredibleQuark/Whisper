@@ -1,4 +1,5 @@
 let sockets = {}
+const User = require('../models/user/user');
 
 sockets.init = (server) => {
 
@@ -34,13 +35,15 @@ sockets.init = (server) => {
     })
 
     socket.on('log user', (user) => {
-console.log(user)
-      if (addedUser && usersArray.indexOf(user.username) !== -1) return false
+
+      // if (addedUser && usersArray.indexOf(user.username) !== -1) return false
 
       socket.username = user.username
+      socket.status = 'Not ready'
+      user.status = 'Not ready'
       addedUser = true
       ++usersCount
-      usersArray.push(user.username)
+      usersArray.push(user)
 
       io.emit('user joined', {
         username: socket.username,
