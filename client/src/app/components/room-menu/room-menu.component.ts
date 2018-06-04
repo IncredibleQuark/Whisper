@@ -13,7 +13,7 @@ export class RoomMenuComponent implements OnInit {
 
   constructor(private chatService: ChatService) {
     this.chatService.getUsers().subscribe( data => {
-      console.log(data);
+
       this.usersList = data.usersArray;
       this.usersCount = data.usersCount;
     })

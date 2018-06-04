@@ -33,14 +33,14 @@ sockets.init = (server) => {
       io.emit('resetUpdate')
     })
 
-    socket.on('log user', (username) => {
+    socket.on('log user', (user) => {
+console.log(user)
+      if (addedUser && usersArray.indexOf(user.username) !== -1) return false
 
-      if (addedUser && usersArray.indexOf(username) !== -1) return
-
-      socket.username = username
+      socket.username = user.username
       addedUser = true
       ++usersCount
-      usersArray.push(username)
+      usersArray.push(user.username)
 
       io.emit('user joined', {
         username: socket.username,
@@ -52,7 +52,7 @@ sockets.init = (server) => {
       })
 
       io.emit('new room message', {
-        username: username,
+        username: user.username,
         type: 'userJoined',
         date: new Date()
       })

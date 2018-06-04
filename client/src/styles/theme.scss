@@ -9,6 +9,12 @@ $warn: mat-palette($mat-deep-orange);
 
 $theme: mat-light-theme($primary, $accent, $warn);
 
+body {
+  margin: 0;
+  padding: 0;
+}
+
+
 app-navigation {
   .mat-card-background {
     background-color: mat-color($accent) !important;
@@ -20,6 +26,7 @@ app-main-page {
     background-color: mat-color($primary);
   }
 }
+
 
 app-chat {
   h4 {
@@ -33,11 +40,15 @@ app-canvas {
   }
 }
 
+app-room-menu {
+  .mat-list .mat-list-item .mat-list-item-content {
+    padding: 0;
+  }
+}
+
 .custom-background {
   background-color: $additional !important;
 }
-
-
 
 @include angular-material-theme($theme);
 

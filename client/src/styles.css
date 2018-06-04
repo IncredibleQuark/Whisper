@@ -5,8 +5,6 @@
 @import 'styles/variables.scss';
 
 body {
-  margin: 0;
-  padding: 0;
   width: 100%;
   /*background: url('/client/src/assets/bg-5-full.jpg') center center no-repeat;*/
   background-color: #EEEEEE;
@@ -18,7 +16,7 @@ input:-webkit-autofill {
 }
 
 html {
-  height: 100%;
+  min-height: 100%;
 }
 
 
