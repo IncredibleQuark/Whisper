@@ -1,5 +1,7 @@
 <mat-card>
   <mat-card-content>
-    <button mat-raised-button color="primary">Start Game!</button>
+    <button mat-raised-button color="primary" (click)="startGame()">Start Game!</button>
+
+    <mat-card-title *ngIf="slogan">The word is: {{slogan}}</mat-card-title>
   </mat-card-content>
 </mat-card>

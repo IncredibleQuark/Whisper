@@ -1,5 +1,6 @@
 let sockets = {}
 const User = require('../models/user/user');
+const Slogan = require('../models/slogan/slogan');
 
 sockets.init = (server) => {
 
@@ -10,6 +11,7 @@ sockets.init = (server) => {
 
   io.on('connection', (socket) => {
     let addedUser = false
+    let currentSlogan = {};
 
     function updateUsersList () {
       io.emit('update users list', {
@@ -32,6 +34,15 @@ sockets.init = (server) => {
 
     socket.on('reset', () => {
       io.emit('resetUpdate')
+    })
+
+    socket.on('start game', () => {
+      Slogan.getAllSlogans((err, slogans) => {
+        const random = Math.floor((Math.random() * slogans.length));
+        currentSlogan = slogans[random];
+        io.emit('game started', currentSlogan.slogan)
+      });
+
     })
 
     socket.on('log user', (user) => {

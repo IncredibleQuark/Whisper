@@ -10,6 +10,7 @@ export class RoomMenuComponent implements OnInit {
 
   usersList: Array<string>;
   usersCount: number;
+  displayedColumns = ['created', 'state', 'number', 'title'];
 
   constructor(private gameService: GameService) {
     this.gameService.getUsers().subscribe( data => {

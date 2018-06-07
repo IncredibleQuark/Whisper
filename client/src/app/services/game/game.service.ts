@@ -22,4 +22,16 @@ export class GameService {
     })
   };
 
+  public startGame () {
+    this.socket.emit('start game');
+  };
+
+  public gameStatus = () => {
+    return Observable.create((observer) => {
+      this.socket.on('game started', (slogan) => {
+        observer.next(slogan);
+      })
+    })
+  };
+
 }

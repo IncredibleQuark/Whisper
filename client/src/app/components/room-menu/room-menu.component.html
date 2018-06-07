@@ -1,33 +1,32 @@
 <mat-card class="height-100">
   <mat-card-content>
-    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
-      <mat-card-subtitle>
-        Users ({{usersCount}})
-      </mat-card-subtitle>
-      <mat-card-subtitle>
-        Status
-      </mat-card-subtitle>
-      <mat-card-subtitle>
-        Rank
-      </mat-card-subtitle>
-    </div>
-    <mat-divider></mat-divider>
-    <mat-list>
-      <mat-list-item *ngFor="let user of usersList">
-        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
-          <div fxLayout="row" fxLayoutAlign="center center">
-            <mat-icon color="primary">fiber_manual_record</mat-icon>
-            <mat-label>
-              {{user.username}}
-            </mat-label>
-          </div>
 
-          <mat-label>{{user.status}}</mat-label>
+    <table class="width-100">
 
-        <mat-label>{{user.rank}}</mat-label>
-        </div>
-      </mat-list-item>
-    </mat-list>
+      <thead class="mat-subheading-2">
+      <tr>
+        <td>Users</td>
+        <td>Status</td>
+        <td>Rank</td>
+      </tr>
+      <mat-divider></mat-divider>
+      </thead>
+
+      <tbody>
+      <tr *ngFor="let user of usersList">
+        <td fxLayout="row" fxLayoutAlign="start center">
+          <mat-icon color="primary">fiber_manual_record</mat-icon>
+          <mat-label>
+            {{user.username}}
+          </mat-label>
+        </td>
+        <td>{{user.status}}</td>
+        <td>{{user.rank}}</td>
+      </tr>
+      </tbody>
+
+    </table>
+
   </mat-card-content>
 </mat-card>
 

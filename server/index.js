@@ -9,11 +9,11 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const app = express();
 const userRoutes = require('./routes/user/userRoutes');
+const sloganRoutes = require('./routes/slogan/sloganRoutes');
 const server = http.Server(app);
 const port = process.env.PORT || 8080;
 const socketPort = 3001;
 const sockets = require('./sockets/main');
-
 
 // Connect to database
 mongoose.connect(config.database).then( () => {
@@ -21,7 +21,6 @@ mongoose.connect(config.database).then( () => {
 }, (err) => {
   console.log('Connection to database failed' + err);
 });
-
 
 app.use(cors());
 
@@ -34,6 +33,7 @@ require('./config/passport')(passport);
 
 
 app.use('/user', userRoutes);
+app.use('/slogan', sloganRoutes);
 app.get('/', (req, res) => {res.send('Invalid Endpoint');});
 app.get('*', (req, res) => {res.sendFile(path.join(__dirname, '../client/dist/index.html'));});
 
@@ -41,6 +41,7 @@ app.get('*', (req, res) => {res.sendFile(path.join(__dirname, '../client/dist/in
 server.listen(socketPort, () => {
     console.warn(`Listen sockets on: ${socketPort}`);
 });
+
 sockets.init(server);
 
 app.listen(port, () => {
