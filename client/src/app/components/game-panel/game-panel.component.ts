@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {GameService} from "../../services/game/game.service";
 
 @Component({
@@ -10,14 +10,26 @@ export class GamePanelComponent implements OnInit {
 
   private slogan: string;
   private isReady: boolean;
+  private allReady: boolean;
 
-  constructor(private gameService: GameService) { }
+  constructor(private gameService: GameService) {
+  }
 
   ngOnInit() {
-    this.gameService.gameStatus().subscribe( (slogan: string) => {
+    this.isReady = false;
+    this.allReady = false;
+
+    this.gameService.gameStatus().subscribe((slogan: string) => {
       console.warn(slogan);
       this.slogan = slogan;
     })
+  }
+
+  test() {
+    this.isReady = !this.isReady;
+
+    const data = {user: '', isReady: this.isReady};
+    this.gameService.changeStatus(data);
   }
 
   startGame() {

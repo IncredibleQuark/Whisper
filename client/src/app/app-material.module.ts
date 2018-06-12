@@ -9,6 +9,7 @@ import {
   MatMenuModule,
   MatProgressSpinnerModule,
   MatSliderModule,
+  MatSlideToggleModule,
   MatSnackBarModule,
   MatSortModule,
   MatTableModule,
@@ -18,9 +19,9 @@ import {NgModule} from '@angular/core';
 
 @NgModule({
   imports: [MatCardModule, MatTabsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatProgressSpinnerModule, MatIconModule,
-    MatSnackBarModule, MatListModule, MatChipsModule, MatMenuModule, MatSliderModule, MatTableModule, MatSortModule],
+    MatSnackBarModule, MatListModule, MatChipsModule, MatMenuModule, MatSliderModule, MatTableModule, MatSortModule, MatSlideToggleModule],
   exports: [MatCardModule, MatTabsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatProgressSpinnerModule, MatIconModule,
-    MatSnackBarModule, MatListModule, MatChipsModule, MatMenuModule, MatSliderModule, MatTableModule, MatSortModule],
+    MatSnackBarModule, MatListModule, MatChipsModule, MatMenuModule, MatSliderModule, MatTableModule, MatSortModule, MatSlideToggleModule],
 })
 export class MaterialModule {
 }

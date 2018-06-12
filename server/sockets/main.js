@@ -45,34 +45,37 @@ sockets.init = (server) => {
 
     })
 
+    socket.on('change status', (data) => {
+        console.log(data)
+
+      updateUsersList()
+    })
+
     socket.on('log user', (user) => {
 
       // if (addedUser && usersArray.indexOf(user.username) !== -1) return false
-
       socket.username = user.username
-      socket.status = 'Not ready'
-      user.status = 'Not ready'
+      socket.status = {
+        isReady: false
+      }
 
       addedUser = true
       ++usersCount
       usersArray.push(user)
 
-      user.isAdmin = usersArray.length === 1
-
-      // io.emit('user joined', {
-      //   username: socket.username
-      // })
-
-      io.emit('update users list', {
-        usersArray: usersArray,
-        usersCount: usersCount
-      })
+      user.status = {
+        isReady: false,
+        statusString: 'Not ready',
+        isAdmin: usersArray.length === 1
+      }
 
       io.emit('new room message', {
         username: user.username,
         type: 'userJoined',
         date: new Date()
       })
+
+      updateUsersList()
 
     })
 

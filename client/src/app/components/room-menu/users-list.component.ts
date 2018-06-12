@@ -5,20 +5,14 @@ import {Component, Input, OnInit} from '@angular/core';
   templateUrl: './users-list.component.html',
   styleUrls: ['./users-list.component.css']
 })
+
 export class UsersListComponent implements OnInit {
 
   @Input() usersCount: number;
   @Input() usersList:  Array<string>;
 
-  constructor() {
+  constructor() {}
 
-  }
-
-  ngOnInit() {
-  }
-
-  updateRank() {
-
-  }
+  ngOnInit() {}
 
 }

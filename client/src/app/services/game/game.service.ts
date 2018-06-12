@@ -34,6 +34,10 @@ export class GameService {
     this.socket.emit('start game');
   };
 
+  public changeStatus (data) {
+    this.socket.emit('change status', data)
+  }
+
   public gameStatus = () => {
     return Observable.create((observer) => {
       this.socket.on('game started', (slogan) => {

@@ -15,12 +15,13 @@
       <tbody>
       <tr *ngFor="let user of usersList">
         <td fxLayout="row" fxLayoutAlign="start center">
-          <mat-icon color="primary">fiber_manual_record</mat-icon>
+          <mat-icon *ngIf="user.status.isReady" color="primary">fiber_manual_record</mat-icon>
+          <mat-icon *ngIf="!user.status.isReady" color="warn">fiber_manual_record</mat-icon>
           <mat-label>
             {{user.username}}
           </mat-label>
         </td>
-        <td>{{user.status}}</td>
+        <td>{{user.status.statusString}}</td>
         <td>{{user.rank}}</td>
       </tr>
       </tbody>

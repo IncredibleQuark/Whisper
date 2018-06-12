@@ -14,7 +14,7 @@ export class MainPageComponent implements OnInit {
 
   constructor(private gameService: GameService) {
     this.gameService.getUsers().subscribe( data => {
-
+console.warn(data);
       this.usersList = data.usersArray;
       this.usersCount = data.usersCount;
 
