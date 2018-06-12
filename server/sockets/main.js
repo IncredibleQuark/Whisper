@@ -52,13 +52,16 @@ sockets.init = (server) => {
       socket.username = user.username
       socket.status = 'Not ready'
       user.status = 'Not ready'
+
       addedUser = true
       ++usersCount
       usersArray.push(user)
 
-      io.emit('user joined', {
-        username: socket.username,
-      })
+      user.isAdmin = usersArray.length === 1
+
+      // io.emit('user joined', {
+      //   username: socket.username
+      // })
 
       io.emit('update users list', {
         usersArray: usersArray,

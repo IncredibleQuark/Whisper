@@ -22,6 +22,14 @@ export class GameService {
     })
   };
 
+  public userJoined = () => {
+    return Observable.create((observer) => {
+      this.socket.on('user joined', (data) => {
+        observer.next(data);
+      })
+    })
+  };
+
   public startGame () {
     this.socket.emit('start game');
   };

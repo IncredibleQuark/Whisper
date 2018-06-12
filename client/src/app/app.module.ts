@@ -20,7 +20,7 @@ import {ChatService} from './services/chat/chat.service';
 import {AuthService} from './services/auth/auth.service';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {CustomErrorStateMatcher} from './services/errorStateMatcher/error-state-matcher.service';
-import {RoomMenuComponent} from './components/room-menu/room-menu.component';
+import {UsersListComponent} from './components/room-menu/users-list.component';
 import {GamePanelComponent} from "./components/game-panel/game-panel.component";
 import {CanvasService} from "./services/canvas/canvas.service";
 import {GameService} from "./services/game/game.service";
@@ -42,7 +42,7 @@ const appRoutes: Routes = [
     MainPageComponent,
     ChatComponent,
     CanvasComponent,
-    RoomMenuComponent,
+    UsersListComponent,
     GamePanelComponent
   ],
   imports: [

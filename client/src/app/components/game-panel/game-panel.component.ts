@@ -9,6 +9,7 @@ import {GameService} from "../../services/game/game.service";
 export class GamePanelComponent implements OnInit {
 
   private slogan: string;
+  private isReady: boolean;
 
   constructor(private gameService: GameService) { }
 

@@ -1,6 +1,7 @@
 <mat-card>
   <mat-card-content>
-    <button mat-raised-button color="primary" (click)="startGame()">Start Game!</button>
+  <mat-card-title>You are an admin of this room</mat-card-title>
+    <button mat-raised-button color="primary" [disabled]="!isReady" (click)="startGame()">Start Game!</button>
 
     <mat-card-title *ngIf="slogan">The word is: {{slogan}}</mat-card-title>
   </mat-card-content>
