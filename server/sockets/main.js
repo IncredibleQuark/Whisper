@@ -20,6 +20,10 @@ sockets.init = (server) => {
       })
     }
 
+    function checkIfAllReady () {
+
+    }
+
     socket.on('new message', (data) => {
       io.emit('new room message', {
         username: socket.username,
@@ -46,9 +50,26 @@ sockets.init = (server) => {
     })
 
     socket.on('change status', (data) => {
-        console.log(data)
+
+        const index = usersArray.findIndex( (item) => {
+          return item.id === data.user.id;
+        })
+
+      if (data.isReady) {
+          usersArray[index].status = {
+            isReady: true,
+            statusString: 'Ready'
+          }
+      } else {
+          usersArray[index].status = {
+            isReady: false,
+            statusString: 'Not ready'
+          }
+      }
 
       updateUsersList()
+
+      checkIfAllReady()
     })
 
     socket.on('log user', (user) => {
@@ -61,13 +82,14 @@ sockets.init = (server) => {
 
       addedUser = true
       ++usersCount
-      usersArray.push(user)
 
       user.status = {
         isReady: false,
         statusString: 'Not ready',
         isAdmin: usersArray.length === 1
       }
+
+      usersArray.push(user)
 
       io.emit('new room message', {
         username: user.username,

@@ -13,12 +13,14 @@ export class MainPageComponent implements OnInit {
   usersCount: number;
 
   constructor(private gameService: GameService) {
+
     this.gameService.getUsers().subscribe( data => {
-console.warn(data);
+
       this.usersList = data.usersArray;
       this.usersCount = data.usersCount;
 
     })
+
   }
 
   ngOnInit() {
