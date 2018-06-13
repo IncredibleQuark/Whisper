@@ -30,6 +30,14 @@ export class GameService {
     })
   };
 
+  public allReady = () => {
+    return Observable.create((observer) => {
+      this.socket.on('all ready', (data) => {
+        observer.next(data);
+      })
+    })
+  };
+
   public startGame () {
     this.socket.emit('start game');
   };

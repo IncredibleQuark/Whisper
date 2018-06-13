@@ -1,9 +1,9 @@
 <mat-card>
   <mat-card-content>
   <mat-card-subtitle>You are an admin of this room</mat-card-subtitle>
-    <button mat-raised-button color="primary" [disabled]="!allReady" (click)="startGame()">Start Game!</button>
+    <button  mat-raised-button color="primary" [disabled]="!allReady || !isDrawing || gameStarted" (click)="startGame()">Start Game!</button>
 
-    <mat-slide-toggle color="accent" [checked]="isReady" (change)="test()">Ready?</mat-slide-toggle>
+    <mat-slide-toggle color="accent" [checked]="isReady" [disabled]="gameStarted" (change)="test()">Ready?</mat-slide-toggle>
     <mat-card-title *ngIf="slogan">The word is: {{slogan}}</mat-card-title>
   </mat-card-content>
 </mat-card>

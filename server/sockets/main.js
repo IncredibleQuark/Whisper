@@ -22,6 +22,15 @@ sockets.init = (server) => {
 
     function checkIfAllReady () {
 
+      const test = usersArray.filter( (user) => {
+        return user.status.isReady === false;
+      })
+      console.log(test);
+      if (test.length === 0) {
+        io.emit('all ready', true);
+      } else {
+        io.emit('all ready', false);
+      }
     }
 
     socket.on('new message', (data) => {
@@ -98,6 +107,7 @@ sockets.init = (server) => {
       })
 
       updateUsersList()
+      checkIfAllReady()
 
     })
 
@@ -109,6 +119,7 @@ sockets.init = (server) => {
         usersArray.splice(index, 1)
 
         updateUsersList()
+        checkIfAllReady()
 
         io.emit('new room message', {
           username: socket.username,
