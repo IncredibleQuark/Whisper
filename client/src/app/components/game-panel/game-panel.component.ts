@@ -85,7 +85,9 @@ export class GamePanelComponent implements OnInit {
   }
 
   private stopTimer() {
-    this.timeObservable.unsubscribe();
+    if (this.timeObservable) {
+      this.timeObservable.unsubscribe();
+    }
   }
 
 }

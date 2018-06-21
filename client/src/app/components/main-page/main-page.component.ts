@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {GameService} from "../../services/game/game.service";
 
 @Component({
@@ -14,7 +14,7 @@ export class MainPageComponent implements OnInit {
 
   constructor(private gameService: GameService) {
 
-    this.gameService.getUsers().subscribe( data => {
+    this.gameService.getUsers().subscribe(data => {
 
       this.usersList = data.usersArray;
       this.usersCount = data.usersCount;

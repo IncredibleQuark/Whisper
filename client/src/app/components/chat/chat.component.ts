@@ -21,15 +21,14 @@ export class ChatComponent implements OnInit {
       this.chatService.logUser(user.user);
     });
 
-  }
-
-  ngOnInit() {
-
     this.chatService.getMessages().subscribe((message) => {
         this.messages.push(message);
       }, err => console.warn(err)
     )
+
   }
+
+  ngOnInit() {}
 
   ngAfterViewInit(): void {
     // subscribing to any changes in the list of messages

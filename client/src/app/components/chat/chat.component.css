@@ -31,6 +31,13 @@ mat-list-item:hover {
   height: 48px;
 }
 
+.h24 {
+  height: 24px !important;
+}
+.h48 {
+  height: 48px !important;
+}
+
 .custom-height > .mat-list .mat-list-item.mat-2-line {
   height: 24px !important;
 }

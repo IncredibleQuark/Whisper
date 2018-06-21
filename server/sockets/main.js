@@ -5,13 +5,13 @@ const Slogan = require('../models/slogan/slogan');
 sockets.init = (server) => {
 
   let io = require('socket.io').listen(server)
-
   let usersCount = 0
   let usersArray = []
+  let addedUser = false
+  let currentSlogan = {};
+  let gameStatus = 'waiting for players';
 
   io.on('connection', (socket) => {
-    let addedUser = false
-    let currentSlogan = {};
 
     function updateUsersList () {
       io.emit('update users list', {
@@ -25,7 +25,7 @@ sockets.init = (server) => {
       const test = usersArray.filter( (user) => {
         return user.status.isReady === false;
       })
-      console.log(test);
+
       if (test.length === 0) {
         io.emit('all ready', true);
       } else {
@@ -33,12 +33,40 @@ sockets.init = (server) => {
       }
     }
 
-    socket.on('new message', (data) => {
+    function checkAnswer (message) {
+      // console.log(message);
+      // console.log(currentSlogan);
+      console.log(currentSlogan.validAnswers.includes(message))
+      if (currentSlogan.validAnswers.includes(message)) {
+
+        const data = {date: new Date(), message: message}
+        emitMessage(data, 'gameWon')
+        updateRankings()
+      } else if (currentSlogan.almostValidAnswers.includes(message)) {
+
+      }
+    }
+
+    function updateRankings () {
+
+    }
+
+    function emitMessage (data, type) {
       io.emit('new room message', {
         username: socket.username,
         message: data.message,
-        date: data.date
+        date: data.date,
+        type: type
       })
+    }
+
+    socket.on('new message', (data) => {
+
+      emitMessage(data, 'userMessage')
+
+      if (gameStatus === 'game started') {
+        checkAnswer(data.message)
+      }
     })
 
     socket.on('drawing', (data) => {
@@ -51,8 +79,9 @@ sockets.init = (server) => {
 
     socket.on('start game', () => {
       Slogan.getAllSlogans((err, slogans) => {
-        const random = Math.floor((Math.random() * slogans.length));
-        currentSlogan = slogans[random];
+        const random = Math.floor((Math.random() * slogans.length))
+        currentSlogan = slogans[random]
+        gameStatus = 'game started'
         io.emit('game started', currentSlogan.slogan)
       });
 
@@ -77,7 +106,6 @@ sockets.init = (server) => {
       }
 
       updateUsersList()
-
       checkIfAllReady()
     })
 
@@ -100,11 +128,8 @@ sockets.init = (server) => {
 
       usersArray.push(user)
 
-      io.emit('new room message', {
-        username: user.username,
-        type: 'userJoined',
-        date: new Date()
-      })
+      const data = {message: '', date: new Date()}
+      emitMessage(data, 'userJoined')
 
       updateUsersList()
       checkIfAllReady()
@@ -121,11 +146,8 @@ sockets.init = (server) => {
         updateUsersList()
         checkIfAllReady()
 
-        io.emit('new room message', {
-          username: socket.username,
-          type: 'userLeft',
-          date: new Date()
-        })
+        const data = {date: new Date(), message: ''}
+        emitMessage(data, 'userLeft')
 
       }
     })
