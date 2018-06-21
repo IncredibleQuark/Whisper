@@ -15,7 +15,9 @@ export class GamePanelComponent implements OnInit {
   isReady: boolean;
   allReady: boolean;
   isDrawing: boolean;
+  isInQueue: boolean;
   gameStarted: boolean;
+  gameStatus: string;
   user: any;
   time: Date;
   timeObservable: Subscription;
@@ -26,10 +28,12 @@ export class GamePanelComponent implements OnInit {
     this.allReady = false;
     this.isDrawing = true; //TODO create a queue
     this.time = new Date('2018-01-01 00:02:00');
+    this.gameStatus = 'Waiting for players';
 
     this.gameService.gameStatus().subscribe((slogan: string) => {
       this.slogan = slogan;
       this.gameStarted = true;
+      this.gameStatus = 'Game started!';
       this.startTimer();
     });
 
@@ -49,6 +53,10 @@ export class GamePanelComponent implements OnInit {
     this.isReady = !this.isReady;
     const data = {user: this.user, isReady: this.isReady};
     this.gameService.changeStatus(data);
+  }
+
+  joinQueue() {
+
   }
 
   startGame() {

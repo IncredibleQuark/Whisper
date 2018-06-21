@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from "@angular/core";
 import {environment} from '../../../environments/environment';
 import * as io from 'socket.io-client';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class GameService {

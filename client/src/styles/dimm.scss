@@ -9,6 +9,7 @@
 .width-100 {
   width: 100%;
 }
+
 .width-90 {
   width: 90%;
 }
@@ -25,8 +26,16 @@
   padding-bottom: 10px;
 }
 
+.pad-bot-20 {
+  padding-bottom: 20px;
+}
+
 .pad-top-25 {
   padding-top: 25px;
+}
+
+.pad-top-bot-15 {
+  padding: 15px 0;
 }
 
 .p-l-30 {

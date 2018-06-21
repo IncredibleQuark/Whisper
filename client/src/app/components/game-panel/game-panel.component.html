@@ -1,11 +1,30 @@
-<mat-card>
-  <mat-card-content>
-  <mat-card-subtitle>You are an admin of this room</mat-card-subtitle>
-    <button  mat-raised-button color="primary" [disabled]="!allReady || !isDrawing || gameStarted" (click)="startGame()">Start Game!</button>
+<mat-card class="no-box-shadow">
+  <mat-card-content fxFlex fxLayout="column">
+    <div fxLayoutAlign="center center">
+      <mat-card-subtitle>{{gameStatus}}</mat-card-subtitle>
+    </div>
+    <div  fxLayout="row" fxLayoutAlign="space-between center">
+      <mat-card-title *ngIf="!slogan"></mat-card-title>
+      <mat-card-subtitle *ngIf="slogan" >You're drawing: </mat-card-subtitle><mat-card-title class="primary-text">{{slogan}}</mat-card-title>
+      <mat-card-title>{{time | date : 'mm:ss'}}</mat-card-title>
+    </div>
+<div class="pad-bot-20">
 
-    {{time | date : 'mm:ss'}}
-    <mat-slide-toggle color="accent" [checked]="isReady" [disabled]="gameStarted" (change)="test()">Ready?</mat-slide-toggle>
-    <mat-card-title *ngIf="slogan">The word is: {{slogan}}</mat-card-title>
+  <mat-divider></mat-divider>
+</div>
+  <!--<mat-card-subtitle class="mat-caption">You are an admin of this room</mat-card-subtitle>-->
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+
+      <button  mat-raised-button color="primary" [disabled]="!allReady || !isDrawing || gameStarted" (click)="startGame()">Start Game!</button>
+      <button mat-stroked-button color="accent" [disabled]="isInQueue || isDrawing" (click)="joinQueue()">Join Queue</button>
+
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="start center" class="pad-top-bot-15">
+      <mat-slide-toggle color="accent" [checked]="isReady" [disabled]="gameStarted" (change)="test()">Ready?</mat-slide-toggle>
+    </div>
+
+
 
   </mat-card-content>
 </mat-card>

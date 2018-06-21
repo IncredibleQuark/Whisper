@@ -14,6 +14,14 @@ body {
   padding: 0;
 }
 
+.primary-text {
+  color: mat-color($primary);
+}
+
+.no-box-shadow {
+  box-shadow: none !important;
+}
+
 
 app-navigation {
   .mat-card-background {
@@ -40,9 +48,15 @@ app-canvas {
   }
 }
 
-app-room-menu {
+app-users-list {
   .mat-list .mat-list-item .mat-list-item-content {
     padding: 0;
+  }
+}
+
+app-game-panel {
+  .mat-card-subtitle:not(:first-child), .mat-card-title:not(:first-child) {
+    margin-top: 0;
   }
 }
 
