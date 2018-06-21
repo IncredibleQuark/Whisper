@@ -18,6 +18,10 @@ body {
   color: mat-color($primary);
 }
 
+.warn-text {
+  color: mat-color($warn);
+}
+
 .no-box-shadow {
   box-shadow: none !important;
 }

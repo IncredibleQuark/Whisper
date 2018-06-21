@@ -34,17 +34,20 @@ sockets.init = (server) => {
     }
 
     function checkAnswer (message) {
-      // console.log(message);
-      // console.log(currentSlogan);
-      console.log(currentSlogan.validAnswers.includes(message))
+
       if (currentSlogan.validAnswers.includes(message)) {
 
         const data = {date: new Date(), message: message}
         emitMessage(data, 'gameWon')
         updateRankings()
+
       } else if (currentSlogan.almostValidAnswers.includes(message)) {
 
+        const data = {date: new Date(), message: message}
+        emitMessage(data, 'gameAlmostWon')
+
       }
+
     }
 
     function updateRankings () {

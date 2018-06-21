@@ -14,11 +14,11 @@
           </div>
 
           <div mat-line *ngIf="msg.type === 'gameWon'">
-            <span class="mat-caption">Answer "{{msg.message}}" is correct! User <b>{{msg.username}}</b> has won this round!</span> <span class="mat-caption">{{msg.date | date: 'shortTime'}}</span>
+            <span class="mat-caption warn-text">Answer "{{msg.message}}" is correct! User <b>{{msg.username}}</b> has won this round!</span> <span class="mat-caption">{{msg.date | date: 'shortTime'}}</span>
           </div>
 
           <div mat-line *ngIf="msg.type === 'gameAlmostWon'">
-            <span class="mat-caption">User <b>{{msg.username}}</b> has left</span> <span class="mat-caption">{{msg.date | date: 'shortTime'}}</span>
+            <span class="mat-caption warn-text"><b>User {{msg.username}}</b> almost got it with "{{msg.message}}"! Try again!</span> <span class="mat-caption">{{msg.date | date: 'shortTime'}}</span>
           </div>
 
           <div mat-line *ngIf="msg.type === 'userMessage'">
@@ -26,7 +26,7 @@
             <span class="mat-caption">{{msg.date | date: 'shortTime'}}</span>
           </div>
 
-          <p mat-line> {{msg.message}} </p>
+          <p mat-line *ngIf="msg.type === 'userMessage'"> {{msg.message}} </p>
         </mat-list-item>
       </mat-list>
 
