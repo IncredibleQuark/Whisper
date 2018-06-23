@@ -1,9 +1,9 @@
+
+import {fromEvent as observableFromEvent, Observable} from 'rxjs';
+
+import {takeUntil, pairwise, switchMap} from 'rxjs/operators';
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import {Observable} from "rxjs/Observable";
-import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/takeUntil';
-import 'rxjs/add/operator/pairwise';
+
 import {CanvasService} from "../../services/canvas/canvas.service";
 
 @Component({
@@ -73,23 +73,19 @@ export class CanvasComponent implements OnInit {
 
 
   captureEvents() {
-    Observable
-    // this will capture all mousedown events from teh canvas element
-      .fromEvent(this.canvasEl, 'mousedown')
-      .switchMap((e) => {
+    observableFromEvent(this.canvasEl, 'mousedown').pipe(
+      switchMap((e) => {
 
-        return Observable
-        // after a mouse down, we'll record all mouse moves
-          .fromEvent(this.canvasEl, 'mousemove')
+        return observableFromEvent(this.canvasEl, 'mousemove').pipe(
           // we'll stop (and unsubscribe) once the user releases the mouse
           // this will trigger a 'mouseup' event
-          .takeUntil(Observable.fromEvent(this.canvasEl, 'mouseup'))
+          takeUntil(observableFromEvent(this.canvasEl, 'mouseup')),
           // we'll also stop (and unsubscribe) once the mouse leaves the canvas (mouseleave event)
-          .takeUntil(Observable.fromEvent(this.canvasEl, 'mouseleave'))
+          takeUntil(observableFromEvent(this.canvasEl, 'mouseleave')),
           // pairwise lets us get the previous value to draw a line from
           // the previous point to the current point
-          .pairwise()
-      })
+          pairwise(),)
+      }))
       .subscribe((res: [MouseEvent, MouseEvent]) => {
         const rect = this.canvasEl.getBoundingClientRect();
 
@@ -148,17 +144,15 @@ export class CanvasComponent implements OnInit {
 
   private captureMobileEvents() {
 
-    Observable
-      .fromEvent(this.canvasEl, 'touchstart')
-      .switchMap((e: any) => {
+    observableFromEvent(this.canvasEl, 'touchstart').pipe(
+      switchMap((e: any) => {
 
         e.preventDefault();
 
-        return Observable
-          .fromEvent(this.canvasEl, 'touchmove')
-          .takeUntil(Observable.fromEvent(this.canvasEl, 'touchup'))
-          .pairwise()
-      }).subscribe((res: [TouchEvent, TouchEvent]) => {
+        return observableFromEvent(this.canvasEl, 'touchmove').pipe(
+          takeUntil(observableFromEvent(this.canvasEl, 'touchup')),
+          pairwise(),)
+      })).subscribe((res: [TouchEvent, TouchEvent]) => {
       const rect = this.canvasEl.getBoundingClientRect();
 
       const prevPos = {

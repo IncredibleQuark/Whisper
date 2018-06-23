@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {GameService} from "../../services/game/game.service";
 import {AuthService} from "../../services/auth/auth.service";
-import {Subscription} from "rxjs/Subscription";
+import {Subscription} from "rxjs";
 import {TimerObservable} from "rxjs/observable/TimerObservable";
 
 @Component({

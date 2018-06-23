@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
-import 'rxjs/add/operator/map';
-import {tokenNotExpired} from 'angular2-jwt';
+
+// import {JwtHelperService} from '@auth0/angular-jwt';
 
 @Injectable()
 
@@ -39,7 +39,8 @@ export class AuthService {
   }
 
   loggedIn() {
-    return tokenNotExpired('id_token');
+    return true; // TODO fix JWT
+    // return tokenNotExpired('id_token');
   }
 
   loadToken() {
