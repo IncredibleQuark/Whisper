@@ -5,7 +5,7 @@
     </div>
     <div  fxLayout="row" fxLayoutAlign="space-between center">
       <mat-card-title *ngIf="!slogan"></mat-card-title>
-      <mat-card-subtitle *ngIf="slogan" >You're drawing: </mat-card-subtitle><mat-card-title class="primary-text">{{slogan}}</mat-card-title>
+      <mat-card-subtitle *ngIf="slogan" >You're drawing: </mat-card-subtitle><mat-card-title class="primary-text"><strong>{{slogan}}</strong></mat-card-title>
       <mat-card-title>{{time | date : 'mm:ss'}}</mat-card-title>
     </div>
 <div class="pad-bot-20">

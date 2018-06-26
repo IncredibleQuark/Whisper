@@ -7,7 +7,7 @@ import {CanvasComponent} from '../canvas/canvas.component';
 import {ChatComponent} from '../chat/chat.component';
 import {ChatService} from '../../services/chat/chat.service';
 import {ChatServiceMock} from '../../../tests/mocks/chat-service.mock';
-import {RoomMenuComponent} from '../users-list/users-list.component';
+import {UsersListComponent} from '../users-list/users-list.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 describe('MainPageComponent', () => {
@@ -16,7 +16,7 @@ describe('MainPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [MainPageComponent, CanvasComponent, ChatComponent, RoomMenuComponent],
+      declarations: [MainPageComponent, CanvasComponent, ChatComponent, UsersListComponent],
       imports: [BrowserAnimationsModule, FormsModule, MaterialModule],
       providers: [
         {

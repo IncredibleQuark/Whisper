@@ -45,6 +45,7 @@ export class AuthService {
 
   loadToken() {
     this.authToken = localStorage.getItem('id_token');
+    console.warn(this.authToken);
   }
 
   logout() {
