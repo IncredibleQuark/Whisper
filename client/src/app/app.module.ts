@@ -51,8 +51,8 @@ const appRoutes: Routes = [
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MaterialModule
   ],
   providers: [AuthService, AuthGuard, ChatService, CustomErrorStateMatcher, CanvasService, GameService],
   bootstrap: [AppComponent]
