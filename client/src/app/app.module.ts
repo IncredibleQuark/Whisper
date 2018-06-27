@@ -59,8 +59,8 @@ const appRoutes: Routes = [
         tokenGetter: () => {
           return localStorage.getItem('id_token');
         },
-        whitelistedDomains: ['localhost:8080', 'http://51.145.132.101'],
-        blacklistedRoutes: ['localhost:8080/user/authenticate']
+        whitelistedDomains: [],
+        blacklistedRoutes: []
       }
     })
   ],
