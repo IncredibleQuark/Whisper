@@ -4,7 +4,7 @@
 
     <mat-form-field class="width-90 pad-bot-10">
 
-      <input matInput name="username" type="text" placeholder="Username" ngModel required #username="ngModel"/>
+      <input matInput name="username" type="text" placeholder="Username" ngModel required #username="ngModel" autocomplete="off"/>
       <mat-icon class="input-icon" color="primary">person</mat-icon>
       <mat-hint></mat-hint>
       <mat-error *ngIf="password.touched">
@@ -15,7 +15,7 @@
 
     <mat-form-field class="width-90 pad-bot-10">
 
-      <input matInput name="email" type="email" placeholder="Email" email ngModel required #email="ngModel"/>
+      <input matInput name="email" type="email" placeholder="Email" email ngModel required #email="ngModel" autocomplete="off"/>
       <mat-icon class="input-icon" color="primary">email</mat-icon>
       <mat-hint></mat-hint>
       <mat-error *ngIf="(email.touched && !email.valid)">
@@ -25,7 +25,7 @@
 
     <mat-form-field class="width-90 pad-bot-10">
 
-      <input matInput name="password" type="password" placeholder="Password" ngModel required #password="ngModel"/>
+      <input matInput name="password" type="password" placeholder="Password" ngModel required #password="ngModel" autocomplete="off"/>
       <mat-icon class="input-icon" color="primary">vpn_key</mat-icon>
       <mat-hint></mat-hint>
       <mat-error *ngIf="password.touched">

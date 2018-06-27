@@ -24,6 +24,7 @@ import {UsersListComponent} from './components/users-list/users-list.component';
 import {GamePanelComponent} from "./components/game-panel/game-panel.component";
 import {CanvasService} from "./services/canvas/canvas.service";
 import {GameService} from "./services/game/game.service";
+import {JwtHelperService, JwtModule} from "@auth0/angular-jwt";
 
 
 const appRoutes: Routes = [
@@ -52,9 +53,18 @@ const appRoutes: Routes = [
     HttpClientModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
-    MaterialModule
+    MaterialModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem('id_token');
+        },
+        whitelistedDomains: ['localhost:8080', 'http://51.145.132.101'],
+        blacklistedRoutes: ['localhost:8080/user/authenticate']
+      }
+    })
   ],
-  providers: [AuthService, AuthGuard, ChatService, CustomErrorStateMatcher, CanvasService, GameService],
+  providers: [AuthService, AuthGuard, ChatService, CustomErrorStateMatcher, CanvasService, GameService, JwtHelperService],
   bootstrap: [AppComponent]
 })
 
