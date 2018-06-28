@@ -6,6 +6,8 @@ import {MockAuthService} from '../../../tests/mocks/auth-service.mock';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {AuthGuard} from '../../guards/auth.guard';
 import {RouterTestingModule} from '@angular/router/testing';
+import {MaterialModule} from "../../app-material.module";
+import {JwtModule} from "@auth0/angular-jwt";
 
 describe('NavigationComponent', () => {
   let component: NavigationComponent;
@@ -14,7 +16,19 @@ describe('NavigationComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ NavigationComponent ],
-      imports: [HttpClientTestingModule, RouterTestingModule],
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule,
+        MaterialModule,
+        JwtModule.forRoot({
+          config: {
+            tokenGetter: () => {
+              return localStorage.getItem('id_token');
+            },
+            whitelistedDomains: [],
+            blacklistedRoutes: []
+          }
+        })],
       providers: [
         {
           provide: AuthService,

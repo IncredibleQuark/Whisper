@@ -7,6 +7,9 @@ import {MockAuthService} from '../tests/mocks/auth-service.mock';
 
 import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {MaterialModule} from "./app-material.module";
+import {JwtHelperService, JwtModule} from "@auth0/angular-jwt";
+import {JwtServiceMock} from "../tests/mocks/jwt-service.mock";
 
 describe('AppComponent', () => {
 
@@ -22,12 +25,24 @@ describe('AppComponent', () => {
       ],
       imports: [
         RouterTestingModule,
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        MaterialModule,
+        JwtModule.forRoot({config: {
+            tokenGetter: () => {
+              return localStorage.getItem('id_token');
+            },
+            whitelistedDomains: [],
+            blacklistedRoutes: []
+          }})
       ],
       providers: [
         {
           provide: AuthService,
           useClass: MockAuthService
+        },
+        {
+          provide: JwtHelperService,
+          useClass: JwtServiceMock
         }
       ]
 

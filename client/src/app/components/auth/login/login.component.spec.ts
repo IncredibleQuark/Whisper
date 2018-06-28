@@ -8,6 +8,8 @@ import {MockAuthService} from '../../../../tests/mocks/auth-service.mock';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {JwtHelperService, JwtModule} from "@auth0/angular-jwt";
+import {JwtServiceMock} from "../../../../tests/mocks/jwt-service.mock";
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -16,11 +18,29 @@ describe('LoginComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [LoginComponent],
-      imports: [BrowserAnimationsModule, FormsModule, MaterialModule, HttpClientTestingModule, RouterTestingModule],
+      imports: [
+        BrowserAnimationsModule,
+        FormsModule,
+        MaterialModule,
+        HttpClientTestingModule,
+        RouterTestingModule,
+        JwtModule.forRoot({
+          config: {
+            tokenGetter: () => {
+              return localStorage.getItem('id_token');
+            },
+            whitelistedDomains: [],
+            blacklistedRoutes: []
+          }
+        })],
       providers: [
         {
           provide: AuthService,
           useClass: MockAuthService
+        },
+        {
+          provide: JwtHelperService,
+          useClass: JwtServiceMock
         }
       ]
     })

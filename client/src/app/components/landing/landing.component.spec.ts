@@ -11,6 +11,7 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {CanvasComponent} from '../canvas/canvas.component';
+import {JwtModule} from "@auth0/angular-jwt";
 
 describe('LandingComponent', () => {
   let component: LandingComponent;
@@ -19,7 +20,21 @@ describe('LandingComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [LandingComponent, LoginComponent, RegisterComponent, CanvasComponent],
-      imports: [BrowserAnimationsModule, MaterialModule, FormsModule, HttpClientTestingModule, RouterTestingModule],
+      imports: [
+        BrowserAnimationsModule,
+        MaterialModule,
+        FormsModule,
+        HttpClientTestingModule,
+        RouterTestingModule,
+        JwtModule.forRoot({
+          config: {
+            tokenGetter: () => {
+              return localStorage.getItem('id_token');
+            },
+            whitelistedDomains: [],
+            blacklistedRoutes: []
+          }
+        })],
       providers: [
         {
           provide: AuthService,
