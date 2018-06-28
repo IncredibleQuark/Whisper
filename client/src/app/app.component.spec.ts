@@ -39,10 +39,6 @@ describe('AppComponent', () => {
         {
           provide: AuthService,
           useClass: MockAuthService
-        },
-        {
-          provide: JwtHelperService,
-          useClass: JwtServiceMock
         }
       ]
 
