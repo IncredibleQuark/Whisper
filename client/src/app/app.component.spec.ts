@@ -8,8 +8,8 @@ import {MockAuthService} from '../tests/mocks/auth-service.mock';
 import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {MaterialModule} from "./app-material.module";
-import {JwtHelperService, JwtModule} from "@auth0/angular-jwt";
-import {JwtServiceMock} from "../tests/mocks/jwt-service.mock";
+import {JwtModule} from "@auth0/angular-jwt";
+
 
 describe('AppComponent', () => {
 

@@ -12,13 +12,11 @@ export class LandingComponent implements OnInit {
   private loginSelected: boolean;
   private registerSelected: boolean;
 
-  constructor(private authService: AuthService,
-              private router: Router) { }
+  constructor(private authService: AuthService) {
+
+  }
 
   ngOnInit() {
-    if (this.authService.loggedIn()) {
-      this.router.navigate(['/main']);
-    }
     this.loginSelected = true;
     this.registerSelected = false;
   }

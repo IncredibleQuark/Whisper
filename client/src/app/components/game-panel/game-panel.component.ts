@@ -68,19 +68,19 @@ export class GamePanelComponent implements OnInit {
   }
 
   private startTimer() {
-    let tick = TimerObservable.create(1000, 1000);
-
-    this.timeObservable = tick.subscribe((t: number) => {
-
-      if (this.time.getMinutes() === 0 && this.time.getSeconds() === 0) {
-        console.warn('time is up');
-        this.stopTimer();
-        return false;
-        //TODO handle sockets
-      }
-
-      this.time = new Date(this.time.getTime() - 1000);
-    });
+    // let tick = TimerObservable.create(1000, 1000);
+    //
+    // this.timeObservable = tick.subscribe((t: number) => {
+    //
+    //   if (this.time.getMinutes() === 0 && this.time.getSeconds() === 0) {
+    //     console.warn('time is up');
+    //     this.stopTimer();
+    //     return false;
+    //     //TODO handle sockets
+    //   }
+    //
+    //   this.time = new Date(this.time.getTime() - 1000);
+    // });
 
   }
 
