@@ -1,5 +1,5 @@
-export interface UserInterface {
-  username: String,
-  email: String,
+export interface IUser {
+  username: string,
+  email: string,
   rank: number
 }

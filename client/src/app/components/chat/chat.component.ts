@@ -2,6 +2,8 @@ import {Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren} from 
 import {ChatService} from '../../services/chat/chat.service';
 import {AuthService} from '../../services/auth/auth.service';
 import {MatListItem} from "@angular/material";
+import {IApiResponse} from "../../interfaces/apiResponse.interface";
+import {IUser} from "../../interfaces/user.interface";
 
 @Component({
   selector: 'app-chat',
@@ -17,8 +19,8 @@ export class ChatComponent implements OnInit {
 
   constructor(private chatService: ChatService, private authService: AuthService) {
 
-    this.authService.getProfile().subscribe((user:any) => {
-      this.chatService.logUser(user.user);
+    this.authService.getProfile().subscribe((response:IApiResponse<IUser>) => {
+      this.chatService.logUser(response.data);
     });
 
     this.chatService.getMessages().subscribe((message) => {

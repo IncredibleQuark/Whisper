@@ -113,7 +113,6 @@ sockets.init = (server) => {
     })
 
     socket.on('log user', (user) => {
-
       // if (addedUser && usersArray.indexOf(user.username) !== -1) return false
       socket.username = user.username
       socket.status = {

@@ -3,6 +3,8 @@ import {GameService} from "../../services/game/game.service";
 import {AuthService} from "../../services/auth/auth.service";
 import {Subscription} from "rxjs";
 import {TimerObservable} from "rxjs/observable/TimerObservable";
+import {IUser} from "../../interfaces/user.interface";
+import {IApiResponse} from "../../interfaces/apiResponse.interface";
 
 @Component({
   selector: 'app-game-panel',
@@ -18,7 +20,7 @@ export class GamePanelComponent implements OnInit {
   isInQueue: boolean;
   gameStarted: boolean;
   gameStatus: string;
-  user: any;
+  user: IUser;
   time: Date;
   timeObservable: Subscription;
 
@@ -37,8 +39,8 @@ export class GamePanelComponent implements OnInit {
       this.startTimer();
     });
 
-    this.authService.getProfile().subscribe((user: any) => {
-      this.user = user.user;
+    this.authService.getProfile().subscribe((response: IApiResponse<IUser>) => {
+      this.user = response.data;
     });
 
     this.gameService.allReady().subscribe((data: boolean) => {
@@ -68,19 +70,19 @@ export class GamePanelComponent implements OnInit {
   }
 
   private startTimer() {
-    // let tick = TimerObservable.create(1000, 1000);
-    //
-    // this.timeObservable = tick.subscribe((t: number) => {
-    //
-    //   if (this.time.getMinutes() === 0 && this.time.getSeconds() === 0) {
-    //     console.warn('time is up');
-    //     this.stopTimer();
-    //     return false;
-    //     //TODO handle sockets
-    //   }
-    //
-    //   this.time = new Date(this.time.getTime() - 1000);
-    // });
+    let tick = TimerObservable.create(1000, 1000);
+
+    this.timeObservable = tick.subscribe((t: number) => {
+
+      if (this.time.getMinutes() === 0 && this.time.getSeconds() === 0) {
+        console.warn('time is up');
+        this.stopTimer();
+        return false;
+        //TODO handle sockets
+      }
+
+      this.time = new Date(this.time.getTime() - 1000);
+    });
 
   }
 

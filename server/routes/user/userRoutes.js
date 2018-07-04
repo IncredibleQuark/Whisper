@@ -76,7 +76,7 @@ router.get('/profile', passport.authenticate('jwt', {session: false}), (req, res
     email: req.user.email
   }
 
-  return res.json({user: data})
+  return res.json({data: data})
 })
 
 module.exports = router
