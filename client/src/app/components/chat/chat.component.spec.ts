@@ -9,8 +9,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AuthService} from "../../services/auth/auth.service";
 import {MockAuthService} from "../../../tests/mocks/auth-service.mock";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
-import {JwtHelperService, JwtModule} from "@auth0/angular-jwt";
-import {JwtServiceMock} from "../../../tests/mocks/jwt-service.mock";
+import {JwtModule} from "@auth0/angular-jwt";
 
 describe('ChatComponent', () => {
   let component: ChatComponent;
