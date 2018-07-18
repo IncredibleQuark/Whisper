@@ -32,11 +32,20 @@ export class GamePanelComponent implements OnInit {
     this.time = new Date('2018-01-01 00:02:00');
     this.gameStatus = 'Waiting for players';
 
-    this.gameService.gameStatus().subscribe((slogan: string) => {
-      this.slogan = slogan;
-      this.gameStarted = true;
-      this.gameStatus = 'Game started!';
-      this.startTimer();
+    this.gameService.gameStatus().subscribe((data: any) => {
+
+      this.gameStatus = data.status;
+
+      if (this.gameStatus === 'game started') {
+        this.startTimer();
+        this.slogan = data.slogan;
+        this.gameStarted = true;
+        this.isDrawing = true;
+        this.changeUserStatus()
+      } else {
+        this.gameStarted = false;
+      }
+
     });
 
     this.authService.getProfile().subscribe((response: IApiResponse<IUser>) => {
@@ -51,10 +60,10 @@ export class GamePanelComponent implements OnInit {
   ngOnInit() {
   }
 
-  test() {
+  changeUserStatus() {
     this.isReady = !this.isReady;
-    const data = {user: this.user, isReady: this.isReady};
-    this.gameService.changeStatus(data);
+    const data = {user: this.user, isReady: this.isReady, isDrawing: this.isDrawing};
+    this.gameService.changeUserStatus(data);
   }
 
   joinQueue() {

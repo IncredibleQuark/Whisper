@@ -40,8 +40,8 @@ export class GameService {
 
   public gameStatus = () => {
     return Observable.create((observer) => {
-      this.socket.on('game started', (slogan) => {
-        observer.next(slogan);
+      this.socket.on('game status changed', (data) => {
+        observer.next(data);
       })
     })
   };
@@ -50,8 +50,8 @@ export class GameService {
     this.socket.emit('start game');
   };
 
-  public changeStatus (data) {
-    this.socket.emit('change status', data)
+  public changeUserStatus (data) {
+    this.socket.emit('change user status', data)
   }
 
 

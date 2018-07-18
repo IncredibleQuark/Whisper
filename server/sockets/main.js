@@ -9,7 +9,10 @@ sockets.init = (server) => {
   let usersArray = []
   let addedUser = false
   let currentSlogan = {};
-  let gameStatus = 'waiting for players';
+  let gameStatus = {
+    queue: [],
+    status: 'waiting for players'
+  };
 
   io.on('connection', (socket) => {
 
@@ -40,6 +43,7 @@ sockets.init = (server) => {
         const data = {date: new Date(), message: message}
         emitMessage(data, 'gameWon')
         updateRankings()
+        gameStatusChanged('waiting for players')
 
       } else if (currentSlogan.almostValidAnswers.includes(message)) {
 
@@ -63,11 +67,16 @@ sockets.init = (server) => {
       })
     }
 
+    socket.on('join queue', (user) => {
+      gameStatus.queue.push(user);
+      io.emit('queue update');
+    })
+
     socket.on('new message', (data) => {
 
       emitMessage(data, 'userMessage')
 
-      if (gameStatus === 'game started') {
+      if (gameStatus.status === 'game started') {
         checkAnswer(data.message)
       }
     })
@@ -81,27 +90,54 @@ sockets.init = (server) => {
     })
 
     socket.on('start game', () => {
-      Slogan.getAllSlogans((err, slogans) => {
-        const random = Math.floor((Math.random() * slogans.length))
-        currentSlogan = slogans[random]
-        gameStatus = 'game started'
-        io.emit('game started', currentSlogan.slogan)
-      });
-
+      // Slogan.getAllSlogans((err, slogans) => {
+      //   const random = Math.floor((Math.random() * slogans.length))
+      //   currentSlogan = slogans[random]
+      //   gameStatus.status = 'game started'
+      //   io.emit('game started', currentSlogan.slogan)
+      //
+      // });
+      gameStatusChanged('game started')
     })
 
-    socket.on('change status', (data) => {
+    function gameStatusChanged(status) {
 
-        const index = usersArray.findIndex( (item) => {
-          return item.id === data.user.id;
-        })
+      if (status === 'game started') {
+        Slogan.getAllSlogans((err, slogans) => {
+          const random = Math.floor((Math.random() * slogans.length))
+          currentSlogan = slogans[random]
+          gameStatus.status = 'game started'
+          const data = {status: gameStatus.status, slogan: currentSlogan.slogan}
+          io.emit('game status changed', data)
+        });
+      } else {
+
+        io.emit('game status changed', status)
+      }
+    }
+
+    function findPlayerIndex(userId) {
+      return usersArray.findIndex( (item) => {
+        return item.id === userId;
+      })
+    }
+
+    socket.on('change user status', (data) => {
+
+        const index = findPlayerIndex(data.user.id)
 
       if (data.isReady) {
           usersArray[index].status = {
             isReady: true,
             statusString: 'Ready'
           }
-      } else {
+      } else if (data.isDrawing) {
+          usersArray[index].status = {
+            isReady: true,
+            statusString: 'Drawing'
+          }
+      }
+      else {
           usersArray[index].status = {
             isReady: false,
             statusString: 'Not ready'
@@ -113,11 +149,8 @@ sockets.init = (server) => {
     })
 
     socket.on('log user', (user) => {
-      // if (addedUser && usersArray.indexOf(user.username) !== -1) return false
+      if (addedUser && usersArray.indexOf(user.username) !== -1) return false
       socket.username = user.username
-      socket.status = {
-        isReady: false
-      }
 
       addedUser = true
       ++usersCount
@@ -125,7 +158,9 @@ sockets.init = (server) => {
       user.status = {
         isReady: false,
         statusString: 'Not ready',
-        isAdmin: usersArray.length === 1
+        isAdmin: usersArray.length === 1,
+        queue: 'n/a',
+        isDrawing: false
       }
 
       usersArray.push(user)

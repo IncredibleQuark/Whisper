@@ -7,6 +7,7 @@
       <tr>
         <td>Users ({{usersCount}} / 6)</td>
         <td>Status</td>
+        <td>Queue</td>
         <td>Rank</td>
       </tr>
       <mat-divider></mat-divider>
@@ -21,7 +22,8 @@
             {{user.username}}
           </mat-label>
         </td>
-        <td>{{user.status.statusString}} ({{user.status.queuePosition}})</td>
+        <td>{{user.status.statusString}}</td>
+        <td>{{user.status.queue}}</td>
         <td>{{user.rank}}</td>
       </tr>
       </tbody>
