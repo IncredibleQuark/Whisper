@@ -21,6 +21,10 @@
             <span class="mat-caption warn-text"><b>User {{msg.username}}</b> almost got it with "{{msg.message}}"! Try again!</span> <span class="mat-caption">{{msg.date | date: 'shortTime'}}</span>
           </div>
 
+          <div mat-line *ngIf="msg.type === 'sendBlocked'">
+            <span class="mat-caption warn-text"><b>You can't write while you are drawing! </b></span> <span class="mat-caption">{{msg.date | date: 'shortTime'}}</span>
+          </div>
+
           <div mat-line *ngIf="msg.type === 'userMessage'">
             <h4 class="inline p-r-10">{{msg.username}}</h4>
             <span class="mat-caption">{{msg.date | date: 'shortTime'}}</span>
