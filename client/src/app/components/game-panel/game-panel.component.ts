@@ -29,11 +29,10 @@ export class GamePanelComponent implements OnInit {
     this.isReady = false;
     this.allReady = false;
     this.isDrawing = true; //TODO create a queue
-    this.time = new Date('2018-01-01 00:02:00');
     this.gameStatus = 'Waiting for players';
-
+    this.resetTime();
     this.gameService.gameStatus().subscribe((data: any) => {
-
+console.log(data);
       this.gameStatus = data.status;
 
       if (this.gameStatus === 'game started') {
@@ -43,6 +42,9 @@ export class GamePanelComponent implements OnInit {
         this.isDrawing = true;
         this.changeUserStatus()
       } else {
+        this.stopTimer();
+        this.resetTime();
+        this.slogan = null;
         this.gameStarted = false;
       }
 
@@ -58,6 +60,10 @@ export class GamePanelComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  resetTime() {
+    this.time = new Date('2018-01-01 00:02:00');
   }
 
   changeUserStatus() {
@@ -86,8 +92,7 @@ export class GamePanelComponent implements OnInit {
       if (this.time.getMinutes() === 0 && this.time.getSeconds() === 0) {
         console.warn('time is up');
         this.stopTimer();
-        return false;
-        //TODO handle sockets
+        this.gameService.timeUp();
       }
 
       this.time = new Date(this.time.getTime() - 1000);

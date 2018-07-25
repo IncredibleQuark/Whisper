@@ -1,8 +1,6 @@
 let sockets = {}
-const User = require('../models/user/user');
-const Slogan = require('../models/slogan/slogan');
-
-
+const User = require('../models/user/user')
+const Slogan = require('../models/slogan/slogan')
 
 sockets.init = (server) => {
 
@@ -10,11 +8,11 @@ sockets.init = (server) => {
   let usersCount = 0
   let usersArray = []
   let addedUser = false
-  let currentSlogan = {};
+  let currentSlogan = {}
   let gameStatus = {
     queue: [],
     status: 'waiting for players'
-  };
+  }
 
   io.on('connection', (socket) => {
 
@@ -26,25 +24,25 @@ sockets.init = (server) => {
     }
 
     function checkIfAllReady () {
-      const test = usersArray.filter( (user) => {
-        return user.status.isReady === false;
+      const test = usersArray.filter((user) => {
+        return user.status.isReady === false
       })
 
       if (test.length === 0) {
-        io.emit('all ready', true);
+        io.emit('all ready', true)
       } else {
-        io.emit('all ready', false);
+        io.emit('all ready', false)
       }
     }
 
-    function findPlayerIndex(userId) {
-      return usersArray.findIndex( (item) => {
-        return item.id === userId;
+    function findPlayerIndex (userId) {
+      return usersArray.findIndex((item) => {
+        return item.id === userId
       })
     }
 
-    function findPlayerByUsername(username) {
-      return usersArray.filter( (user) => {
+    function findPlayerByUsername (username) {
+      return usersArray.filter((user) => {
         return user.username === username
       })
     }
@@ -55,7 +53,7 @@ sockets.init = (server) => {
 
         const data = {date: new Date(), message: message}
         emitMessage(data, 'gameWon')
-        updateRankings()
+        updateRankings(true)
         gameStatusChanged('game won')
 
       } else if (currentSlogan.almostValidAnswers.includes(message)) {
@@ -67,7 +65,7 @@ sockets.init = (server) => {
 
     }
 
-    function updateRankings () {
+    function updateRankings (isWon) {
 
     }
 
@@ -81,6 +79,19 @@ sockets.init = (server) => {
       })
     }
 
+
+    function resetPlayersStatuses() {
+
+      usersArray.forEach( (user) => {
+        user.status = {
+          isReady: false,
+          statusString: 'Not ready'
+        }
+      })
+      updateUsersList()
+    }
+
+
     function emitMessageToPlayer (data, type) {
 
       socket.emit('new room message', {
@@ -91,19 +102,40 @@ sockets.init = (server) => {
       })
     }
 
+    function gameStatusChanged (status) {
+
+      if (status === 'game started') {
+        Slogan.getAllSlogans((err, slogans) => {
+          const random = Math.floor((Math.random() * slogans.length))
+          currentSlogan = slogans[random]
+          gameStatus.status = 'game started'
+          const data = {status: gameStatus.status, slogan: currentSlogan.slogan}
+          io.emit('game status changed', data)
+        })
+
+      } else  {
+        console.log('tak')
+        gameStatus.status = 'waiting for players'
+        updateRankings(status === 'game won')
+        resetPlayersStatuses()
+        const data = {status: gameStatus.status, slogan: null}
+        io.emit('game status changed', data)
+      }
+    }
+
     socket.on('join queue', (user) => {
-      gameStatus.queue.push(user);
-      io.emit('queue update');
+      gameStatus.queue.push(user)
+      io.emit('queue update')
     })
 
     socket.on('new message', (data) => {
 
       // Check if user is not drawing right now
       const user = findPlayerByUsername(socket.username)
-      if (user[0].status.statusString === 'Drawing') {
-        emitMessageToPlayer({date: new Date(), message: ''}, 'sendBlocked')
-        return false;
-      }
+      // if (user[0].status.statusString === 'Drawing') {
+      //   emitMessageToPlayer({date: new Date(), message: ''}, 'sendBlocked')
+      //   return false
+      // }
 
       emitMessage(data, 'userMessage')
 
@@ -124,42 +156,30 @@ sockets.init = (server) => {
       gameStatusChanged('game started')
     })
 
-    function gameStatusChanged(status) {
-
-      if (status === 'game started') {
-        Slogan.getAllSlogans((err, slogans) => {
-          const random = Math.floor((Math.random() * slogans.length))
-          currentSlogan = slogans[random]
-          gameStatus.status = 'game started'
-          const data = {status: gameStatus.status, slogan: currentSlogan.slogan}
-          io.emit('game status changed', data)
-        });
-      } else {
-
-        io.emit('game status changed', status)
-      }
-    }
+    socket.on('time up', () => {
+      gameStatusChanged('time up')
+    })
 
     socket.on('change user status', (data) => {
 
-        const index = findPlayerIndex(data.user.id)
+      const index = findPlayerIndex(data.user.id)
 
       if (data.isReady) {
-          usersArray[index].status = {
-            isReady: true,
-            statusString: 'Ready'
-          }
-      } else if (data.isDrawing) {
-          usersArray[index].status = {
-            isReady: true,
-            statusString: 'Drawing'
-          }
+        usersArray[index].status = {
+          isReady: true,
+          statusString: 'Ready'
+        }
+      } else if (data.isDrawing && gameStatus.status === 'game started') {
+        usersArray[index].status = {
+          isReady: true,
+          statusString: 'Drawing'
+        }
       }
       else {
-          usersArray[index].status = {
-            isReady: false,
-            statusString: 'Not ready'
-          }
+        usersArray[index].status = {
+          isReady: false,
+          statusString: 'Not ready'
+        }
       }
 
       updateUsersList()

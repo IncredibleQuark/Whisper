@@ -50,6 +50,10 @@ export class GameService {
     this.socket.emit('start game');
   };
 
+  public timeUp () {
+    this.socket.emit('time up')
+  }
+
   public changeUserStatus (data) {
     this.socket.emit('change user status', data)
   }
