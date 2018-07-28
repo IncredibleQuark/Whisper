@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
-import {ChatService} from '../../services/chat/chat.service';
+import {SocketService} from '../../services/socket/socket.service';
 import {AuthService} from '../../services/auth/auth.service';
 import {MatListItem} from "@angular/material";
 import {IApiResponse} from "../../interfaces/apiResponse.interface";
@@ -17,13 +17,13 @@ export class ChatComponent implements OnInit {
   @ViewChildren(MatListItem, {read: ElementRef}) matListItems: QueryList<MatListItem>;
   @ViewChild('messagesBox', {read: ElementRef}) messagesBox: ElementRef;
 
-  constructor(private chatService: ChatService, private authService: AuthService) {
+  constructor(private socketService: SocketService, private authService: AuthService) {
 
     this.authService.getProfile().subscribe((response:IApiResponse<IUser>) => {
-      this.chatService.logUser(response.data);
+      this.socketService.logUser(response.data);
     });
 
-    this.chatService.getMessages().subscribe((message) => {
+    this.socketService.getMessages().subscribe((message) => {
         this.messages.push(message);
       }, err => console.warn(err)
     )
@@ -43,7 +43,7 @@ export class ChatComponent implements OnInit {
 
     if (messageForm.value.message !== "" && messageForm.value.message !== null) {
       const data = {date: new Date(), message: messageForm.value.message};
-      this.chatService.sendMessage(data);
+      this.socketService.sendMessage(data);
       messageForm.reset();
     }
 

@@ -11,7 +11,8 @@ sockets.init = (server) => {
   let currentSlogan = {}
   let gameStatus = {
     queue: [],
-    status: 'waiting for players'
+    status: 'waiting for players',
+    user: {}
   }
 
   io.on('connection', (socket) => {
@@ -70,9 +71,8 @@ sockets.init = (server) => {
     }
 
     function emitMessage (data, type) {
-
       io.emit('new room message', {
-        username: socket.username,
+        username: socket.user.username,
         message: data.message,
         date: data.date,
         type: type
@@ -88,6 +88,7 @@ sockets.init = (server) => {
           statusString: 'Not ready'
         }
       })
+      checkIfAllReady()
       updateUsersList()
     }
 
@@ -95,7 +96,7 @@ sockets.init = (server) => {
     function emitMessageToPlayer (data, type) {
 
       socket.emit('new room message', {
-        username: socket.username,
+        username: socket.user.username,
         message: data.message,
         date: data.date,
         type: type
@@ -109,16 +110,15 @@ sockets.init = (server) => {
           const random = Math.floor((Math.random() * slogans.length))
           currentSlogan = slogans[random]
           gameStatus.status = 'game started'
-          const data = {status: gameStatus.status, slogan: currentSlogan.slogan}
+          const data = {status: gameStatus.status, slogan: currentSlogan.slogan, user: socket.user}
           io.emit('game status changed', data)
         })
 
       } else  {
-        console.log('tak')
         gameStatus.status = 'waiting for players'
         updateRankings(status === 'game won')
         resetPlayersStatuses()
-        const data = {status: gameStatus.status, slogan: null}
+        const data = {status: gameStatus.status, slogan: null, user: socket.user}
         io.emit('game status changed', data)
       }
     }
@@ -131,7 +131,7 @@ sockets.init = (server) => {
     socket.on('new message', (data) => {
 
       // Check if user is not drawing right now
-      const user = findPlayerByUsername(socket.username)
+      const user = findPlayerByUsername(socket.user.username)
       // if (user[0].status.statusString === 'Drawing') {
       //   emitMessageToPlayer({date: new Date(), message: ''}, 'sendBlocked')
       //   return false
@@ -162,21 +162,19 @@ sockets.init = (server) => {
 
     socket.on('change user status', (data) => {
 
-      const index = findPlayerIndex(data.user.id)
-
       if (data.isReady) {
-        usersArray[index].status = {
+        socket.user.status = {
           isReady: true,
           statusString: 'Ready'
         }
       } else if (data.isDrawing && gameStatus.status === 'game started') {
-        usersArray[index].status = {
+        socket.user.status = {
           isReady: true,
           statusString: 'Drawing'
         }
       }
       else {
-        usersArray[index].status = {
+        socket.user.status = {
           isReady: false,
           statusString: 'Not ready'
         }
@@ -188,20 +186,24 @@ sockets.init = (server) => {
 
     socket.on('log user', (user) => {
       // if (addedUser && usersArray.indexOf(user.username) !== -1) return false
-      socket.username = user.username
 
       addedUser = true
       ++usersCount
 
-      user.status = {
-        isReady: false,
-        statusString: 'Not ready',
-        isAdmin: usersArray.length === 1,
-        queue: 'n/a',
-        isDrawing: false
+      socket.user = {
+        id: user.id,
+        email: user.email,
+        username: user.username,
+        status: {
+          isReady: false,
+          statusString: 'Not ready',
+          isAdmin: usersArray.length === 1,
+          queue: 'n/a',
+          isDrawing: false
+        }
       }
 
-      usersArray.push(user)
+      usersArray.push(socket.user)
 
       const data = {message: '', date: new Date()}
       emitMessage(data, 'userJoined')
@@ -215,8 +217,8 @@ sockets.init = (server) => {
       if (addedUser) {
         --usersCount
 
-        const index = usersArray.indexOf(socket.username)
-        usersArray.splice(index, 1)
+        // const index = usersArray.indexOf(socket.user.username)
+        // usersArray.splice(index, 1)
 
         updateUsersList()
         checkIfAllReady()

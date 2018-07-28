@@ -16,15 +16,14 @@ import {ChatComponent} from './components/chat/chat.component';
 import {CanvasComponent} from './components/canvas/canvas.component';
 
 import {AuthGuard} from './guards/auth.guard';
-import {ChatService} from './services/chat/chat.service';
 import {AuthService} from './services/auth/auth.service';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {CustomErrorStateMatcher} from './services/errorStateMatcher/error-state-matcher.service';
 import {UsersListComponent} from './components/users-list/users-list.component';
 import {GamePanelComponent} from "./components/game-panel/game-panel.component";
 import {CanvasService} from "./services/canvas/canvas.service";
-import {GameService} from "./services/game/game.service";
 import {JwtHelperService, JwtModule} from "@auth0/angular-jwt";
+import {SocketService} from "./services/socket/socket.service";
 
 
 const appRoutes: Routes = [
@@ -64,7 +63,7 @@ const appRoutes: Routes = [
       }
     })
   ],
-  providers: [AuthService, AuthGuard, ChatService, CustomErrorStateMatcher, CanvasService, GameService, JwtHelperService],
+  providers: [AuthService, AuthGuard, SocketService, CustomErrorStateMatcher, CanvasService, JwtHelperService],
   bootstrap: [AppComponent]
 })
 

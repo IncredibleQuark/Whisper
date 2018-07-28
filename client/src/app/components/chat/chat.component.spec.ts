@@ -2,8 +2,8 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ChatComponent} from './chat.component';
 import {FormsModule} from '@angular/forms';
-import {ChatService} from '../../services/chat/chat.service';
-import {ChatServiceMock} from '../../../tests/mocks/chat-service.mock';
+import {ChatService} from '../../services/socket/socket.service';
+import {ChatServiceMock} from '../../../tests/mocks/socket-service';
 import {MaterialModule} from '../../app-material.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AuthService} from "../../services/auth/auth.service";

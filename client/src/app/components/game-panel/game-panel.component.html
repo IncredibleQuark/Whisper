@@ -15,7 +15,7 @@
   <!--<mat-card-subtitle class="mat-caption">You are an admin of this room</mat-card-subtitle>-->
     <div fxLayout="row" fxLayoutAlign="space-between center">
       <button  mat-raised-button color="primary" [disabled]="!allReady || !isDrawing || gameStarted" (click)="startGame()">Start Game!</button>
-      <button mat-stroked-button color="accent" [disabled]="isInQueue || isDrawing" (click)="joinQueue()">Join Queue</button>
+      <button mat-stroked-button color="accent" [disabled]="!isInQueue || isDrawing" (click)="joinQueue()">Join Queue</button>
     </div>
 
     <div fxLayout="row" fxLayoutAlign="start center" class="pad-top-bot-15">

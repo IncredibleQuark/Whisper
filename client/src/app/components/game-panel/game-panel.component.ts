@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {GameService} from "../../services/game/game.service";
 import {AuthService} from "../../services/auth/auth.service";
 import {Subscription} from "rxjs";
 import {TimerObservable} from "rxjs/observable/TimerObservable";
 import {IUser} from "../../interfaces/user.interface";
 import {IApiResponse} from "../../interfaces/apiResponse.interface";
+import {SocketService} from "../../services/socket/socket.service";
 
 @Component({
   selector: 'app-game-panel',
@@ -24,14 +24,15 @@ export class GamePanelComponent implements OnInit {
   time: Date;
   timeObservable: Subscription;
 
-  constructor(private gameService: GameService, private authService: AuthService) {
+  constructor(private socketService: SocketService, private authService: AuthService) {
 
     this.isReady = false;
     this.allReady = false;
-    this.isDrawing = true; //TODO create a queue
+    this.isDrawing = true;
+    this.isInQueue = false;
     this.gameStatus = 'Waiting for players';
     this.resetTime();
-    this.gameService.gameStatus().subscribe((data: any) => {
+    this.socketService.gameStatus().subscribe((data: any) => {
 console.log(data);
       this.gameStatus = data.status;
 
@@ -54,7 +55,7 @@ console.log(data);
       this.user = response.data;
     });
 
-    this.gameService.allReady().subscribe((data: boolean) => {
+    this.socketService.allReady().subscribe((data: boolean) => {
       this.allReady = data;
     })
   }
@@ -69,7 +70,7 @@ console.log(data);
   changeUserStatus() {
     this.isReady = !this.isReady;
     const data = {user: this.user, isReady: this.isReady, isDrawing: this.isDrawing};
-    this.gameService.changeUserStatus(data);
+    this.socketService.changeUserStatus(data);
   }
 
   joinQueue() {
@@ -77,7 +78,7 @@ console.log(data);
   }
 
   startGame() {
-    this.gameService.startGame();
+    this.socketService.startGame();
   }
 
   ngOnDestroy() {
@@ -92,7 +93,7 @@ console.log(data);
       if (this.time.getMinutes() === 0 && this.time.getSeconds() === 0) {
         console.warn('time is up');
         this.stopTimer();
-        this.gameService.timeUp();
+        this.socketService.timeUp();
       }
 
       this.time = new Date(this.time.getTime() - 1000);

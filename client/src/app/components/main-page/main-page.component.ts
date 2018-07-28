@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {GameService} from "../../services/game/game.service";
+import {SocketService} from "../../services/socket/socket.service";
 
 @Component({
   selector: 'app-main-page',
@@ -12,9 +12,9 @@ export class MainPageComponent implements OnInit {
   usersList: Array<string>;
   usersCount: number;
 
-  constructor(private gameService: GameService) {
+  constructor(private socketService: SocketService) {
 
-    this.gameService.getUsers().subscribe(data => {
+    this.socketService.getUsers().subscribe(data => {
 
       this.usersList = data.usersArray;
       this.usersCount = data.usersCount;

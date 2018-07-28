@@ -1,10 +1,10 @@
-import {Injectable} from "@angular/core";
+import { Injectable } from '@angular/core';
 import {environment} from '../../../environments/environment';
 import * as io from 'socket.io-client';
-import {Observable} from "rxjs";
+import {Observable} from 'rxjs';
 
 @Injectable()
-export class GameService {
+export class SocketService {
 
   private url: string;
   private socket;
@@ -14,6 +14,22 @@ export class GameService {
     this.socket = io(this.url);
   }
 
+  public logUser(user) {
+    this.socket.emit('log user', user);
+  }
+
+  public sendMessage(data) {
+    this.socket.emit('new message', data);
+  }
+
+  public getMessages = () => {
+    return Observable.create((observer) => {
+      this.socket.on('new room message', (message) => {
+        observer.next(message);
+      });
+    });
+  };
+
   public getUsers = () => {
     return Observable.create((observer) => {
       this.socket.on('update users list', (data) => {
@@ -21,6 +37,7 @@ export class GameService {
       })
     })
   };
+
 
   public userJoined = () => {
     return Observable.create((observer) => {
@@ -57,6 +74,7 @@ export class GameService {
   public changeUserStatus (data) {
     this.socket.emit('change user status', data)
   }
+
 
 
 
