@@ -27,7 +27,7 @@
       <mat-error *ngIf="loginForm.submitted"></mat-error>
     </mat-form-field>
 
-    <button mat-raised-button color="primary" type="submit" class="mar-bot-15" [disabled]="!loginForm.valid">Login</button>
+    <button mat-raised-button color="primary" type="submit" class="mar-bot-15" [disabled]="!loginForm.valid || valid">Login</button>
 
   </div>
 

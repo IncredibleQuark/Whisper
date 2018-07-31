@@ -11,14 +11,18 @@ import {MatSnackBar} from '@angular/material';
 
 export class LoginComponent implements OnInit {
 
+  private valid: boolean;
+
   constructor(private authService: AuthService,
               private router: Router,
               private snackBar: MatSnackBar) { }
 
   ngOnInit() {
+    this.valid = false;
   }
 
   login(loginForm) {
+    this.valid = true;
     this.authService.authenticateUser(loginForm.value).subscribe( data => {
 
       if (data['success']) {
@@ -28,12 +32,12 @@ export class LoginComponent implements OnInit {
         this.snackBar.open('You are logged in!', null, {duration: 4000, panelClass: 'snackbar-success'});
 
       } else if (data['msg'] === 'Wrong password') {
-
+        this.valid = false;
         loginForm.form.controls.password.status = 'INVALID';
         this.snackBar.open('Wrong password!', null, {duration: 4000, panelClass: 'snackbar-error'});
 
       } else {
-
+        this.valid = false;
         loginForm.form.controls.email.status = 'INVALID';
         loginForm.form.controls.password.status = 'INVALID';
         this.snackBar.open('Invalid credentials!', null, {duration: 4000, panelClass: 'snackbar-error'});

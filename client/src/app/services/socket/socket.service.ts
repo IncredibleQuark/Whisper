@@ -22,6 +22,18 @@ export class SocketService {
     this.socket.emit('new message', data);
   }
 
+  public startGame () {
+    this.socket.emit('start game');
+  };
+
+  public timeUp () {
+    this.socket.emit('time up')
+  }
+
+  public changeUserStatus (data) {
+    this.socket.emit('change user status', data)
+  }
+
   public getMessages = () => {
     return Observable.create((observer) => {
       this.socket.on('new room message', (message) => {
@@ -62,20 +74,5 @@ export class SocketService {
       })
     })
   };
-
-  public startGame () {
-    this.socket.emit('start game');
-  };
-
-  public timeUp () {
-    this.socket.emit('time up')
-  }
-
-  public changeUserStatus (data) {
-    this.socket.emit('change user status', data)
-  }
-
-
-
 
 }

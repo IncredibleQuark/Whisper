@@ -10,7 +10,6 @@ sockets.init = (server) => {
   let addedUser = false
   let currentSlogan = {}
   let gameStatus = {
-    queue: [],
     status: 'waiting for players',
     user: {}
   }
@@ -110,7 +109,7 @@ sockets.init = (server) => {
           const random = Math.floor((Math.random() * slogans.length))
           currentSlogan = slogans[random]
           gameStatus.status = 'game started'
-          const data = {status: gameStatus.status, slogan: currentSlogan.slogan, user: socket.user}
+          const data = {gameStatus: gameStatus.status, slogan: currentSlogan.slogan, user: socket.user}
           io.emit('game status changed', data)
         })
 
@@ -118,7 +117,7 @@ sockets.init = (server) => {
         gameStatus.status = 'waiting for players'
         updateRankings(status === 'game won')
         resetPlayersStatuses()
-        const data = {status: gameStatus.status, slogan: null, user: socket.user}
+        const data = {gameStatus: gameStatus.status, slogan: null, user: socket.user}
         io.emit('game status changed', data)
       }
     }
@@ -163,21 +162,15 @@ sockets.init = (server) => {
     socket.on('change user status', (data) => {
 
       if (data.isReady) {
-        socket.user.status = {
-          isReady: true,
-          statusString: 'Ready'
-        }
+        socket.user.status.isReady = true;
+        socket.user.status.statusString = 'Ready';
       } else if (data.isDrawing && gameStatus.status === 'game started') {
-        socket.user.status = {
-          isReady: true,
-          statusString: 'Drawing'
-        }
+        socket.user.status.isReady = true;
+        socket.user.status.statusString = 'Drawing';
       }
       else {
-        socket.user.status = {
-          isReady: false,
-          statusString: 'Not ready'
-        }
+        socket.user.status.isReady = false;
+        socket.user.status.statusString = 'Not ready';
       }
 
       updateUsersList()
@@ -196,11 +189,11 @@ sockets.init = (server) => {
         username: user.username,
         status: {
           isReady: false,
-          statusString: 'Not ready',
-          isAdmin: usersArray.length === 1,
-          queue: 'n/a',
-          isDrawing: false
-        }
+          statusString: 'Not ready'
+        },
+        isDrawing: usersArray.length === 0,
+        isAdmin: usersArray.length === 0,
+        queue: usersArray.length === 0 ? 1 : 'n/a'
       }
 
       usersArray.push(socket.user)
@@ -217,14 +210,15 @@ sockets.init = (server) => {
       if (addedUser) {
         --usersCount
 
-        // const index = usersArray.indexOf(socket.user.username)
-        // usersArray.splice(index, 1)
+        if (socket.user) {
+          const index = usersArray.indexOf(socket.user.username)
+          usersArray.splice(index, 1)
+          updateUsersList()
+          checkIfAllReady()
 
-        updateUsersList()
-        checkIfAllReady()
-
-        const data = {date: new Date(), message: ''}
-        emitMessage(data, 'userLeft')
+          const data = {date: new Date(), message: ''}
+          emitMessage(data, 'userLeft')
+        }
 
       }
     })

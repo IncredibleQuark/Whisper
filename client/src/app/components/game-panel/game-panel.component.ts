@@ -31,10 +31,14 @@ export class GamePanelComponent implements OnInit {
     this.isDrawing = true;
     this.isInQueue = false;
     this.gameStatus = 'Waiting for players';
+
     this.resetTime();
+
     this.socketService.gameStatus().subscribe((data: any) => {
-console.log(data);
-      this.gameStatus = data.status;
+console.warn(data);
+      this.gameStatus = data.gameStatus;
+
+      this.isDrawing = data.user.isDrawing;
 
       if (this.gameStatus === 'game started') {
         this.startTimer();

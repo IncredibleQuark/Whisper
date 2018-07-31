@@ -14,7 +14,7 @@
 </div>
   <!--<mat-card-subtitle class="mat-caption">You are an admin of this room</mat-card-subtitle>-->
     <div fxLayout="row" fxLayoutAlign="space-between center">
-      <button  mat-raised-button color="primary" [disabled]="!allReady || !isDrawing || gameStarted" (click)="startGame()">Start Game!</button>
+      <button  *ngIf="isDrawing" mat-raised-button color="primary" [disabled]="!allReady || gameStarted" (click)="startGame()">Start Game!</button>
       <button mat-stroked-button color="accent" [disabled]="!isInQueue || isDrawing" (click)="joinQueue()">Join Queue</button>
     </div>
 
