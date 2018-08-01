@@ -34,6 +34,18 @@ export class SocketService {
     this.socket.emit('change user status', data)
   }
 
+  public joinQueue() {
+    this.socket.emit('join queue')
+  }
+
+  public getPlayerData() {
+    return Observable.create((observer) => {
+      this.socket.on('player status changed', (player) => {
+        observer.next(player);
+      })
+    })
+  }
+
   public getMessages = () => {
     return Observable.create((observer) => {
       this.socket.on('new room message', (message) => {

@@ -9,6 +9,7 @@ sockets.init = (server) => {
   let usersArray = []
   let addedUser = false
   let currentSlogan = {}
+  let queueArray = []
   let gameStatus = {
     status: 'waiting for players',
     user: {}
@@ -109,22 +110,26 @@ sockets.init = (server) => {
           const random = Math.floor((Math.random() * slogans.length))
           currentSlogan = slogans[random]
           gameStatus.status = 'game started'
-          const data = {gameStatus: gameStatus.status, slogan: currentSlogan.slogan, user: socket.user}
+          const data = {gameStatus: gameStatus.status, slogan: currentSlogan.slogan}
           io.emit('game status changed', data)
         })
 
-      } else  {
+      } else {
         gameStatus.status = 'waiting for players'
         updateRankings(status === 'game won')
         resetPlayersStatuses()
-        const data = {gameStatus: gameStatus.status, slogan: null, user: socket.user}
+        const data = {gameStatus: gameStatus.status, slogan: null}
         io.emit('game status changed', data)
       }
     }
 
+    function updatePlayerStatus () {
+      io.emit('player status changed', {user: socket.user})
+    }
+
     socket.on('join queue', (user) => {
-      gameStatus.queue.push(user)
-      io.emit('queue update')
+      queueArray.push(user)
+      updatePlayerStatus()
     })
 
     socket.on('new message', (data) => {
@@ -193,7 +198,7 @@ sockets.init = (server) => {
         },
         isDrawing: usersArray.length === 0,
         isAdmin: usersArray.length === 0,
-        queue: usersArray.length === 0 ? 1 : 'n/a'
+        queue: usersArray.length === 0 ? 1 : null
       }
 
       usersArray.push(socket.user)
@@ -203,7 +208,7 @@ sockets.init = (server) => {
 
       updateUsersList()
       checkIfAllReady()
-
+      updatePlayerStatus()
     })
 
     socket.on('disconnect', () => {
