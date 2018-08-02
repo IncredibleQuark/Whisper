@@ -28,6 +28,7 @@ export class GamePanelComponent implements OnInit {
 
     this.isReady = false;
     this.allReady = false;
+    this.isInQueue = false;
     this.gameStatus = 'Waiting for players';
 
     this.resetTime();
@@ -50,6 +51,7 @@ export class GamePanelComponent implements OnInit {
     });
 
     this.socketService.getPlayerData().subscribe( (response) => {
+      console.warn(response);
       this.isDrawing = response.user.isDrawing;
       this.isInQueue = response.user.queue ? response.user.queue : false;
     });
@@ -78,6 +80,10 @@ export class GamePanelComponent implements OnInit {
 
   joinQueue() {
     this.socketService.joinQueue();
+  }
+
+  leaveQueue() {
+    this.socketService.leaveQueue();
   }
 
   startGame() {

@@ -38,6 +38,10 @@ export class SocketService {
     this.socket.emit('join queue')
   }
 
+  public leaveQueue() {
+    this.socket.emit('leave queue')
+  }
+
   public getPlayerData() {
     return Observable.create((observer) => {
       this.socket.on('player status changed', (player) => {

@@ -9,7 +9,6 @@ sockets.init = (server) => {
   let usersArray = []
   let addedUser = false
   let currentSlogan = {}
-  let queueArray = []
   let gameStatus = {
     status: 'waiting for players',
     user: {}
@@ -17,7 +16,7 @@ sockets.init = (server) => {
 
   io.on('connection', (socket) => {
 
-    function updateUsersList () {
+    function updatePlayersList () {
       io.emit('update users list', {
         usersArray: usersArray,
         usersCount: usersCount
@@ -89,7 +88,7 @@ sockets.init = (server) => {
         }
       })
       checkIfAllReady()
-      updateUsersList()
+      updatePlayersList()
     }
 
 
@@ -124,12 +123,39 @@ sockets.init = (server) => {
     }
 
     function updatePlayerStatus () {
-      io.emit('player status changed', {user: socket.user})
+      socket.emit('player status changed', {user: socket.user})
     }
 
-    socket.on('join queue', (user) => {
-      queueArray.push(user)
+    function getQueueArray () {
+      const queueArray = usersArray.filter( (user) => {
+        return user.queue !== null
+      })
+      return queueArray.sort((a, b) => {
+return a.queue - b.queue;
+      })
+    }
+
+    function updateQueueArray() {
+      const arr = getQueueArray()
+      for (let i =0; i <= arr.length; i++) {
+        arr[0].queue = i + 1;
+      }
+    }
+
+    socket.on('join queue', () => {
+
+      console.log(getQueueArray())
+
+      socket.user.queue = getQueueArray().length + 1
       updatePlayerStatus()
+      updatePlayersList()
+    })
+
+    socket.on('leave queue', () => {
+      socket.user.queue = null;
+      updateQueueArray()
+      updatePlayerStatus()
+      updatePlayersList()
     })
 
     socket.on('new message', (data) => {
@@ -178,7 +204,7 @@ sockets.init = (server) => {
         socket.user.status.statusString = 'Not ready';
       }
 
-      updateUsersList()
+      updatePlayersList()
       checkIfAllReady()
     })
 
@@ -206,7 +232,7 @@ sockets.init = (server) => {
       const data = {message: '', date: new Date()}
       emitMessage(data, 'userJoined')
 
-      updateUsersList()
+      updatePlayersList()
       checkIfAllReady()
       updatePlayerStatus()
     })
@@ -218,7 +244,7 @@ sockets.init = (server) => {
         if (socket.user) {
           const index = usersArray.indexOf(socket.user.username)
           usersArray.splice(index, 1)
-          updateUsersList()
+          updatePlayersList()
           checkIfAllReady()
 
           const data = {date: new Date(), message: ''}
