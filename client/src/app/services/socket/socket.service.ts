@@ -31,7 +31,7 @@ export class SocketService {
   }
 
   public changeUserStatus (data) {
-    this.socket.emit('change user status', data)
+    this.socket.emit('change player status', data)
   }
 
   public joinQueue() {

@@ -17,7 +17,7 @@
     <div fxLayout="row" fxLayoutAlign="space-between center">
       <button  *ngIf="isDrawing" mat-raised-button color="primary" [disabled]="!allReady || gameStarted" (click)="startGame()">Start Game!</button>
       <button mat-stroked-button color="accent" *ngIf="!isInQueue" [disabled]="isInQueue" (click)="joinQueue()">Join Queue</button>
-      <button mat-stroked-button color="accent" *ngIf="isInQueue"  [disabled]="!isInQueue" (click)="leaveQueue()">Leave Queue</button>
+      <button mat-stroked-button color="accent" *ngIf="isInQueue"  [disabled]="!isInQueue || (gameStarted && isDrawing)" (click)="leaveQueue()">Leave Queue</button>
     </div>
 
     <div fxLayout="row" fxLayoutAlign="start center" class="pad-top-bot-15">

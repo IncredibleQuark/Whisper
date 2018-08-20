@@ -78,10 +78,9 @@ sockets.init = (server) => {
       })
     }
 
+    function resetPlayersStatuses () {
 
-    function resetPlayersStatuses() {
-
-      usersArray.forEach( (user) => {
+      usersArray.forEach((user) => {
         user.status = {
           isReady: false,
           statusString: 'Not ready'
@@ -90,7 +89,6 @@ sockets.init = (server) => {
       checkIfAllReady()
       updatePlayersList()
     }
-
 
     function emitMessageToPlayer (data, type) {
 
@@ -111,40 +109,66 @@ sockets.init = (server) => {
           gameStatus.status = 'game started'
           const data = {gameStatus: gameStatus.status, slogan: currentSlogan.slogan}
           io.emit('game status changed', data)
+          changePlayerStatus({isDrawing: true})
         })
 
       } else {
         gameStatus.status = 'waiting for players'
         updateRankings(status === 'game won')
         resetPlayersStatuses()
+        deleteDrawerFromQueue()
         const data = {gameStatus: gameStatus.status, slogan: null}
         io.emit('game status changed', data)
       }
     }
 
-    function updatePlayerStatus () {
-      socket.emit('player status changed', {user: socket.user})
+    function updatePlayerStatus (user) {
+      //check sockets with users array TODO
+      socket.emit('player status changed', socket.user)
     }
 
     function getQueueArray () {
-      const queueArray = usersArray.filter( (user) => {
+      const queueArray = usersArray.filter((user) => {
         return user.queue !== null
       })
       return queueArray.sort((a, b) => {
-return a.queue - b.queue;
+        return a.queue - b.queue
       })
     }
 
-    function updateQueueArray() {
-      const arr = getQueueArray()
-      for (let i =0; i <= arr.length; i++) {
-        arr[0].queue = i + 1;
-      }
+    function deleteDrawerFromQueue() {
+
+      usersArray.map( (user) => {
+        if (user.queue === 1) {
+          user.queue = null
+          user.isDrawing = false
+          // updatePlayerStatus(user) NOPE TODO
+        } else {
+          user.queue -= 1
+        }
+      });
+
+      // usersArray.filter( (user) => {
+      //   if (user.queue === 1) {
+      //     user.isDrawing = true
+      //     updatePlayerStatus(user)
+      //   }
+      // })
+
+
+updatePlayersList()
+
+    }
+
+    function updateQueueArray () {
+      // const arr = getQueueArray()
+      // for (let i = 0; i <= arr.length; i++) {
+      //   arr[0].queue = i + 1
+      // }
+
     }
 
     socket.on('join queue', () => {
-
-      console.log(getQueueArray())
 
       socket.user.queue = getQueueArray().length + 1
       updatePlayerStatus()
@@ -152,8 +176,8 @@ return a.queue - b.queue;
     })
 
     socket.on('leave queue', () => {
-      socket.user.queue = null;
-      updateQueueArray()
+      socket.user.queue = null
+      // updateQueueArray()
       updatePlayerStatus()
       updatePlayersList()
     })
@@ -190,23 +214,25 @@ return a.queue - b.queue;
       gameStatusChanged('time up')
     })
 
-    socket.on('change user status', (data) => {
+    socket.on('change player status', (data) => {
+      changePlayerStatus(data)
+    })
 
+    function changePlayerStatus (data) {
       if (data.isReady) {
-        socket.user.status.isReady = true;
-        socket.user.status.statusString = 'Ready';
+        socket.user.status.isReady = true
+        socket.user.status.statusString = 'Ready'
       } else if (data.isDrawing && gameStatus.status === 'game started') {
-        socket.user.status.isReady = true;
-        socket.user.status.statusString = 'Drawing';
+        socket.user.status.statusString = 'Drawing'
       }
       else {
-        socket.user.status.isReady = false;
-        socket.user.status.statusString = 'Not ready';
+        socket.user.status.isReady = false
+        socket.user.status.statusString = 'Not ready'
       }
 
       updatePlayersList()
       checkIfAllReady()
-    })
+    }
 
     socket.on('log user', (user) => {
       // if (addedUser && usersArray.indexOf(user.username) !== -1) return false
