@@ -73,7 +73,8 @@ router.get('/profile', passport.authenticate('jwt', {session: false}), (req, res
   const data = {
     id: req.user.id,
     username: req.user.username,
-    email: req.user.email
+    email: req.user.email,
+    rank: req.user.rank
   }
 
   return res.json({data: data})

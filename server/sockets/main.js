@@ -230,9 +230,6 @@ sockets.init = (server) => {
       checkIfAllReady()
     }
 
-    function getUserRank() {
-
-    }
     socket.on('log user', (user) => {
       // if (addedUser && usersArray.indexOf(user.username) !== -1) return false
 
@@ -243,14 +240,14 @@ sockets.init = (server) => {
         id: user.id,
         email: user.email,
         username: user.username,
+        rank: user.rank,
         status: {
           isReady: false,
           statusString: 'Not ready'
         },
         isDrawing: usersArray.length === 0,
         isAdmin: usersArray.length === 0,
-        queue: usersArray.length === 0 ? 1 : null,
-        rank: getUserRank(user)
+        queue: usersArray.length === 0 ? 1 : null
       }
 
       usersArray.push(socket.user)

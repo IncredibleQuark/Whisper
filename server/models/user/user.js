@@ -32,6 +32,10 @@ module.exports.getUserByEmail = (email, callback) => {
   User.findOne(query, callback)
 }
 
+module.exports.getUserRank = (id, callback) => {
+  User.findById(mongoose.Types.ObjectId(id), 'rank', callback)
+}
+
 module.exports.addUser = (newUser, callback) => {
   bcrypt.genSalt(10, (err, salt) => {
     bcrypt.hash(newUser.password, salt, (err, hash) => {
