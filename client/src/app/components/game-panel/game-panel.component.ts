@@ -20,6 +20,7 @@ export class GamePanelComponent implements OnInit {
   isInQueue: boolean;
   gameStarted: boolean;
   gameStatus: string;
+  queue: number;
   user: IUser;
   time: Date;
   timeObservable: Subscription;
@@ -47,13 +48,14 @@ export class GamePanelComponent implements OnInit {
         this.slogan = null;
         this.gameStarted = false;
       }
-
+      this.changePlayerStatus()
     });
 
     this.socketService.getPlayerData().subscribe( (response) => {
       console.warn(response);
       this.isDrawing = response.user.isDrawing;
       this.isInQueue = response.user.queue ? response.user.queue : false;
+      this.queue = response.user.queue || null;
     });
 
     this.authService.getProfile().subscribe((response: IApiResponse<IUser>) => {
@@ -72,10 +74,8 @@ export class GamePanelComponent implements OnInit {
     this.time = new Date('2018-01-01 00:02:00');
   }
 
-  changeUserStatus() {
-    this.isReady = !this.isReady;
-    const data = {user: this.user, isReady: this.isReady, isDrawing: this.isDrawing};
-    this.socketService.changeUserStatus(data);
+  changePlayerStatus() {
+    this.socketService.changeUserStatus();
   }
 
   joinQueue() {

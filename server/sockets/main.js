@@ -109,7 +109,6 @@ sockets.init = (server) => {
           gameStatus.status = 'game started'
           const data = {gameStatus: gameStatus.status, slogan: currentSlogan.slogan}
           io.emit('game status changed', data)
-          changePlayerStatus({isDrawing: true})
         })
 
       } else {
@@ -122,9 +121,8 @@ sockets.init = (server) => {
       }
     }
 
-    function updatePlayerStatus (user) {
-      //check sockets with users array TODO
-      socket.emit('player status changed', socket.user)
+    function updatePlayerStatus () {
+      socket.emit('player status changed', {user: socket.user})
     }
 
     function getQueueArray () {
@@ -136,27 +134,24 @@ sockets.init = (server) => {
       })
     }
 
-    function deleteDrawerFromQueue() {
+    function deleteDrawerFromQueue () {
 
-      usersArray.map( (user) => {
+      usersArray.map((user) => {
         if (user.queue === 1) {
           user.queue = null
           user.isDrawing = false
-          // updatePlayerStatus(user) NOPE TODO
         } else {
           user.queue -= 1
         }
-      });
+      })
 
-      // usersArray.filter( (user) => {
-      //   if (user.queue === 1) {
-      //     user.isDrawing = true
-      //     updatePlayerStatus(user)
-      //   }
-      // })
+      usersArray.filter((user) => {
+        if (user.queue === 1) {
+          user.isDrawing = true
+        }
+      })
 
-
-updatePlayersList()
+      updatePlayersList()
 
     }
 
@@ -218,22 +213,26 @@ updatePlayersList()
       changePlayerStatus(data)
     })
 
-    function changePlayerStatus (data) {
-      if (data.isReady) {
+    function changePlayerStatus () {
+
+      if (!socket.user.status.isReady) {
         socket.user.status.isReady = true
         socket.user.status.statusString = 'Ready'
-      } else if (data.isDrawing && gameStatus.status === 'game started') {
+      } else if (socket.user.isDrawing && gameStatus.status === 'game started') {
         socket.user.status.statusString = 'Drawing'
       }
-      else {
+      else if (gameStatus.status !== 'game started') {
         socket.user.status.isReady = false
         socket.user.status.statusString = 'Not ready'
       }
-
+      updatePlayerStatus()
       updatePlayersList()
       checkIfAllReady()
     }
 
+    function getUserRank() {
+
+    }
     socket.on('log user', (user) => {
       // if (addedUser && usersArray.indexOf(user.username) !== -1) return false
 
@@ -250,7 +249,8 @@ updatePlayersList()
         },
         isDrawing: usersArray.length === 0,
         isAdmin: usersArray.length === 0,
-        queue: usersArray.length === 0 ? 1 : null
+        queue: usersArray.length === 0 ? 1 : null,
+        rank: getUserRank(user)
       }
 
       usersArray.push(socket.user)

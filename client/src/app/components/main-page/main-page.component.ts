@@ -15,10 +15,8 @@ export class MainPageComponent implements OnInit {
   constructor(private socketService: SocketService) {
 
     this.socketService.getUsers().subscribe(data => {
-
       this.usersList = data.usersArray;
       this.usersCount = data.usersCount;
-
     })
 
   }

@@ -30,8 +30,8 @@ export class SocketService {
     this.socket.emit('time up')
   }
 
-  public changeUserStatus (data) {
-    this.socket.emit('change player status', data)
+  public changeUserStatus () {
+    this.socket.emit('change player status')
   }
 
   public joinQueue() {
