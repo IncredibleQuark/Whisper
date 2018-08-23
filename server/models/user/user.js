@@ -40,7 +40,6 @@ module.exports.updateRank = (id, change, callback) => {
   User.findById(mongoose.Types.ObjectId(id), (res, user) => {
     user.rank = user.rank + change
     user.save();
-    return true;
   })
 }
 

@@ -52,7 +52,6 @@ export class GamePanelComponent implements OnInit {
     });
 
     this.socketService.getPlayerData().subscribe( (response) => {
-      console.warn(response);
       this.isDrawing = response.user.isDrawing;
       this.isInQueue = response.user.queue ? response.user.queue : false;
       this.queue = response.user.queue || null;
@@ -100,7 +99,6 @@ export class GamePanelComponent implements OnInit {
     this.timeObservable = tick.subscribe((t: number) => {
 
       if (this.time.getMinutes() === 0 && this.time.getSeconds() === 0) {
-        console.warn('time is up');
         this.stopTimer();
         this.socketService.timeUp();
       }

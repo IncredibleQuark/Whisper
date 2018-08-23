@@ -18,6 +18,10 @@
             <span class="mat-caption p-l-5">{{msg.date | date: 'shortTime'}}</span>
           </div>
 
+          <div mat-line *ngIf="msg.type === 'timeUp'">
+            <span class="mat-caption warn-text">Time is up, nobody won!</span> <span class="mat-caption p-l-5">{{msg.date | date: 'shortTime'}}</span>
+          </div>
+
           <div mat-line *ngIf="msg.type === 'gameWon'">
             <span class="mat-caption warn-text">Answer "{{msg.message}}" is correct! User <b>{{msg.username}}</b> has won this round! </span> <span class="mat-caption p-l-5">{{msg.date | date: 'shortTime'}}</span>
           </div>
