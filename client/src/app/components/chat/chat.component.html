@@ -6,23 +6,28 @@
         <mat-list-item *ngFor="let msg of messages" [ngStyle]="{'height': msg.type !== 'userMessage' ? '24px' : '48px' }">
 
           <div mat-line *ngIf="msg.type === 'userJoined'">
-            <span class="mat-caption">User <b>{{msg.username}}</b> has joined</span> <span class="mat-caption">{{msg.date | date: 'shortTime'}}</span>
+            <span class="mat-caption">User <b>{{msg.username}}</b> has joined</span> <span class="mat-caption p-l-5">{{msg.date | date: 'shortTime'}}</span>
           </div>
 
           <div mat-line *ngIf="msg.type === 'userLeft'">
-            <span class="mat-caption">User <b>{{msg.username}}</b> has left</span> <span class="mat-caption">{{msg.date | date: 'shortTime'}}</span>
+            <span class="mat-caption">User <b>{{msg.username}}</b> has left</span> <span class="mat-caption p-l-5">{{msg.date | date: 'shortTime'}}</span>
+          </div>
+
+          <div mat-line *ngIf="msg.type === 'rankingUpdate'">
+            <span class="mat-caption"><b>{{msg.username}}</b> ranking has changed <b>{{msg.value}} </b> </span>
+            <span class="mat-caption p-l-5">{{msg.date | date: 'shortTime'}}</span>
           </div>
 
           <div mat-line *ngIf="msg.type === 'gameWon'">
-            <span class="mat-caption warn-text">Answer "{{msg.message}}" is correct! User <b>{{msg.username}}</b> has won this round!</span> <span class="mat-caption">{{msg.date | date: 'shortTime'}}</span>
+            <span class="mat-caption warn-text">Answer "{{msg.message}}" is correct! User <b>{{msg.username}}</b> has won this round! </span> <span class="mat-caption p-l-5">{{msg.date | date: 'shortTime'}}</span>
           </div>
 
           <div mat-line *ngIf="msg.type === 'gameAlmostWon'">
-            <span class="mat-caption warn-text"><b>User {{msg.username}}</b> almost got it with "{{msg.message}}"! Try again!</span> <span class="mat-caption">{{msg.date | date: 'shortTime'}}</span>
+            <span class="mat-caption warn-text"><b>User {{msg.username}}</b> almost got it with "{{msg.message}}"! Try again!</span> <span class="mat-caption p-l-5">{{msg.date | date: 'shortTime'}}</span>
           </div>
 
           <div mat-line *ngIf="msg.type === 'sendBlocked'">
-            <span class="mat-caption warn-text"><b>You can't write while you are drawing! </b></span> <span class="mat-caption">{{msg.date | date: 'shortTime'}}</span>
+            <span class="mat-caption warn-text"><b>You can't write while you are drawing! </b></span> <span class="mat-caption p-l-5">{{msg.date | date: 'shortTime'}}</span>
           </div>
 
           <div mat-line *ngIf="msg.type === 'userMessage'">

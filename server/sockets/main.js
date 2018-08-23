@@ -68,16 +68,53 @@ sockets.init = (server) => {
 
       if (isWon) {
         User.updateRank(socket.user.id, 25);
-        socket.user.rank += 25;
+        socket.user.rank += 20;
 
         const drawer = usersArray.filter((user) => {
           return user.isDrawing
         })
 
-        drawer[0].rank += 35
-        User.updateRank(drawer[0].id, 35);
+        drawer[0].rank += 30
+        User.updateRank(drawer[0].id, 30);
+
+        usersArray.map( (user) => {
+          if (user.isDrawing) {
+            emitRankingUpdateMessage(user, true, '+30')
+          } else if (user === socket.user) {
+            emitRankingUpdateMessage(user, true, '+20')
+          } else {
+            emitRankingUpdateMessage(user, false, '-5')
+          }
+
+        })
+      } else {
+        const drawer = usersArray.filter((user) => {
+          return user.isDrawing
+        })
+
+        drawer[0].rank -= 30
+        User.updateRank(drawer[0].id, -30);
+
+        usersArray.map((user) => {
+          if (user.isDrawing) {
+            emitRankingUpdateMessage(user, false, '-30')
+          } else {
+            emitRankingUpdateMessage(user, false, '-5')
+          }
+        })
       }
 
+    }
+
+    function emitRankingUpdateMessage (user, isIncreased, value) {
+      io.emit('new room message', {
+        username: user.username,
+        message: '',
+        isIncreased: isIncreased,
+        type: 'rankingUpdate',
+        value: value,
+        date: new Date()
+      })
     }
 
     function emitMessage (data, type) {
