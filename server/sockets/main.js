@@ -53,8 +53,7 @@ sockets.init = (server) => {
 
         const data = {date: new Date(), message: message}
         emitMessage(data, 'gameWon')
-        updateRankings(true)
-        gameStatusChanged('game won')
+        gameStatusChanged('gameWon')
 
       } else if (currentSlogan.almostValidAnswers.includes(message)) {
 
@@ -66,6 +65,18 @@ sockets.init = (server) => {
     }
 
     function updateRankings (isWon) {
+
+      if (isWon) {
+        User.updateRank(socket.user.id, 25);
+        socket.user.rank += 25;
+
+        const drawer = usersArray.filter((user) => {
+          return user.isDrawing
+        })
+
+        drawer[0].rank += 35
+        User.updateRank(drawer[0].id, 35);
+      }
 
     }
 
@@ -113,7 +124,7 @@ sockets.init = (server) => {
 
       } else {
         gameStatus.status = 'waiting for players'
-        updateRankings(status === 'game won')
+        updateRankings(status === 'gameWon')
         resetPlayersStatuses()
         deleteDrawerFromQueue()
         const data = {gameStatus: gameStatus.status, slogan: null}
@@ -122,6 +133,10 @@ sockets.init = (server) => {
     }
 
     function updatePlayerStatus () {
+      // const user = usersArray.filter( (user) => {
+      //   return user === socket.user;
+      // });
+      //  console.log(user);
       socket.emit('player status changed', {user: socket.user})
     }
 
@@ -140,7 +155,7 @@ sockets.init = (server) => {
         if (user.queue === 1) {
           user.queue = null
           user.isDrawing = false
-        } else {
+        } else if (user.queue !== null && user.queue !== 1) {
           user.queue -= 1
         }
       })

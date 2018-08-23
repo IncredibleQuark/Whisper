@@ -36,6 +36,14 @@ module.exports.getUserRank = (id, callback) => {
   User.findById(mongoose.Types.ObjectId(id), 'rank', callback)
 }
 
+module.exports.updateRank = (id, change, callback) => {
+  User.findById(mongoose.Types.ObjectId(id), (res, user) => {
+    user.rank = user.rank + change
+    user.save();
+    return true;
+  })
+}
+
 module.exports.addUser = (newUser, callback) => {
   bcrypt.genSalt(10, (err, salt) => {
     bcrypt.hash(newUser.password, salt, (err, hash) => {
