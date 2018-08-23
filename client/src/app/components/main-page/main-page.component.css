@@ -20,3 +20,7 @@
   flex-direction: row;
   display: flex;
 }
+
+app-users-list {
+  min-height: auto !important;
+}

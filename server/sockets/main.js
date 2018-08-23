@@ -238,11 +238,10 @@ sockets.init = (server) => {
     socket.on('new message', (data) => {
 
       // Check if user is not drawing right now
-      const user = findPlayerByUsername(socket.user.username)
-      // if (user[0].status.statusString === 'Drawing') {
-      //   emitMessageToPlayer({date: new Date(), message: ''}, 'sendBlocked')
-      //   return false
-      // }
+      if (socket.user.status.statusString === 'Drawing') {
+        emitMessageToPlayer({date: new Date(), message: ''}, 'sendBlocked')
+        return false
+      }
 
       emitMessage(data, 'userMessage')
 
