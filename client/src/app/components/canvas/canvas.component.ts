@@ -5,6 +5,7 @@ import {takeUntil, pairwise, switchMap} from 'rxjs/operators';
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 
 import {CanvasService} from "../../services/canvas/canvas.service";
+import {SocketService} from "../../services/socket/socket.service";
 
 @Component({
   selector: 'app-canvas',
@@ -21,9 +22,11 @@ export class CanvasComponent implements OnInit {
   private context: CanvasRenderingContext2D;
   private canvasEl: HTMLCanvasElement;
   private color: string;
+  private isDrawing: boolean;
+  private gameStared: boolean;
   public lineWidth: number;
 
-  constructor(private canvasService: CanvasService) {
+  constructor(private canvasService: CanvasService, private socketService: SocketService) {
   }
 
   ngOnInit() {
@@ -35,9 +38,21 @@ export class CanvasComponent implements OnInit {
       this.drawOnCanvas(data.prevPos, data.currPos, true, data.color, data.lineWidth);
     });
 
+    this.socketService.getPlayerData().subscribe( (response) => {
+      this.isDrawing = response.user.isDrawing;
+    });
+
+    this.socketService.gameStatus().subscribe((data: any) => {
+      this.gameStared = data.gameStatus === 'game started';
+      this.clearBoard();
+      this.captureEvents();
+    });
+
     this.canvasService.resetUpdate().subscribe(() => {
       this.clearBoard();
     })
+
+
   }
 
   public ngAfterViewInit() {
@@ -58,12 +73,16 @@ export class CanvasComponent implements OnInit {
 
 
   public changeColor(color) {
-    this.color = color;
+    if (this.isDrawing && this.gameStared) {
+      this.color = color;
+    }
   }
 
 
   public resetCanvas() {
-    this.canvasService.resetExecute();
+    if (this.isDrawing && this.gameStared) {
+      this.canvasService.resetExecute();
+    }
   }
 
 
@@ -73,7 +92,8 @@ export class CanvasComponent implements OnInit {
 
 
   captureEvents() {
-    observableFromEvent(this.canvasEl, 'mousedown').pipe(
+
+    const eventsObservable = observableFromEvent(this.canvasEl, 'mousedown').pipe(
       switchMap((e) => {
 
         return observableFromEvent(this.canvasEl, 'mousemove').pipe(
@@ -87,6 +107,12 @@ export class CanvasComponent implements OnInit {
           pairwise(),)
       }))
       .subscribe((res: [MouseEvent, MouseEvent]) => {
+
+        if (!this.isDrawing || !this.gameStared) {
+          eventsObservable.unsubscribe();
+          return
+        }
+
         const rect = this.canvasEl.getBoundingClientRect();
 
         // previous and current position with the offset
@@ -100,7 +126,6 @@ export class CanvasComponent implements OnInit {
           y: res[1].clientY - rect.top
         };
 
-        // this method we'll implement soon to do the actual drawing
         this.drawOnCanvas(prevPos, currentPos, false);
       });
   }
@@ -144,7 +169,7 @@ export class CanvasComponent implements OnInit {
 
   private captureMobileEvents() {
 
-    observableFromEvent(this.canvasEl, 'touchstart').pipe(
+    const eventsObservable = observableFromEvent(this.canvasEl, 'touchstart').pipe(
       switchMap((e: any) => {
 
         e.preventDefault();
@@ -153,6 +178,12 @@ export class CanvasComponent implements OnInit {
           takeUntil(observableFromEvent(this.canvasEl, 'touchup')),
           pairwise(),)
       })).subscribe((res: [TouchEvent, TouchEvent]) => {
+
+      if (!this.isDrawing || !this.gameStared) {
+        eventsObservable.unsubscribe();
+        return
+      }
+
       const rect = this.canvasEl.getBoundingClientRect();
 
       const prevPos = {
