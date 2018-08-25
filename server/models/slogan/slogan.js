@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const SloganSchema = mongoose.Schema({
   slogan: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   validAnswers: {
     type: Array,

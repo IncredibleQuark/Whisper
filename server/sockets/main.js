@@ -49,7 +49,7 @@ sockets.init = (server) => {
 
     function checkAnswer (message) {
 
-      if (currentSlogan.validAnswers.includes(message)) {
+      if (currentSlogan.validAnswers.includes(message.toLowerCase())) {
 
         const data = {date: new Date(), message: message}
         emitMessage(data, 'gameWon')

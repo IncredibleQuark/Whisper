@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+const config = require('../../config/database')
 const Slogan = require('../../models/slogan/slogan');
 
 
@@ -11,9 +11,5 @@ router.get('/getSlogans', (req, res, next) => {
     return res.json({success: false, err: err});
   })
 });
-
-router.post('/checkSlogan', (req, res, next) => {
-
-})
 
 module.exports = router;
