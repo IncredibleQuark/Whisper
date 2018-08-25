@@ -32,6 +32,10 @@ const appRoutes: Routes = [
   {path: '', component: NavigationComponent, canActivate: [AuthGuard]}
 ];
 
+export function jwtTokenGetter() {
+  return localStorage.getItem('id_token');
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,9 +59,7 @@ const appRoutes: Routes = [
     MaterialModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter: () => {
-          return localStorage.getItem('id_token');
-        },
+        tokenGetter: jwtTokenGetter,
         whitelistedDomains: [],
         blacklistedRoutes: []
       }

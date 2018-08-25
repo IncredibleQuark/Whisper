@@ -11,7 +11,7 @@ import {MatSnackBar} from '@angular/material';
 
 export class LoginComponent implements OnInit {
 
-  private valid: boolean;
+  valid: boolean;
 
   constructor(private authService: AuthService,
               private router: Router,
