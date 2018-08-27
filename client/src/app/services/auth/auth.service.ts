@@ -16,7 +16,7 @@ export class AuthService {
   }
 
   registerUser(user) {
-    const headers = {'Content-Type': 'application/json'};
+    const headers = {'Content-Type': 'application/json', 'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'};
     return this.http.post(`${environment.apiUrl}user/register`, user, {headers: headers});
   }
 
