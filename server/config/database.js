@@ -1,4 +1,4 @@
 module.exports = {
-  database: 'YOUR DB CONNECTION',
-  secret: 'YOUR SECRET'
+  database: 'mongodb://Admin:admin@ds121534.mlab.com:21534/whisper',
+  secret: 'yoursecret'
 };
