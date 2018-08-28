@@ -2,7 +2,6 @@
 @import "styles/dimm.scss";
 @import "styles/forms.scss";
 @import "styles/snackbars.scss";
-@import 'styles/variables.scss';
 
 body {
   width: 100%;
