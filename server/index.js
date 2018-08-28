@@ -32,8 +32,8 @@ app.use(passport.session());
 require('./config/passport')(passport);
 
 
-app.use('/user', userRoutes);
-app.use('/slogan', sloganRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/slogan', sloganRoutes);
 app.get('/', (req, res) => {res.send('Invalid Endpoint');});
 // app.get('*', (req, res) => {res.sendFile(path.join(__dirname, '../client/dist/index.html'));});
 
