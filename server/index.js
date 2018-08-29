@@ -1,7 +1,9 @@
 
 const express = require('express');
 const http = require('http');
+const https = require('https');
 const path = require('path');
+const fs = require('fs');
 const mongoose = require('mongoose');
 const config = require('./config/database');
 const cors = require('cors');
@@ -11,9 +13,17 @@ const app = express();
 const userRoutes = require('./routes/user/userRoutes');
 const sloganRoutes = require('./routes/slogan/sloganRoutes');
 const server = http.Server(app);
-const port = process.env.PORT || 8080;
+
+const port = process.env.PORT || 8000;
 const socketPort = 3001;
 const sockets = require('./sockets/main');
+
+const sslPort = 8080;
+const sslOptions = {
+  key: fs.readFileSync('/etc/letsencrypt/live/pictionary.pl/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/pictionary.pl/fullchain.pem')
+}
+const secureServer = https.createServer(sslOptions, app);
 
 // Connect to database
 mongoose.connect(config.database).then( () => {
@@ -47,3 +57,7 @@ sockets.init(server);
 app.listen(port, () => {
   console.log(`App started on port: ${port}`);
 });
+
+secureServer.listen(sslPort, () => {
+  console.log(`Ssl listen on: ${sslPort}`);
+})
