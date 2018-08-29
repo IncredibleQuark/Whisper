@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://pictionary.pl:8080/api/',
-  socketUrl: 'http://pictionary.pl:3001'
+  apiUrl: 'https://pictionary.pl:8080/api/',
+  socketUrl: 'https://pictionary.pl:3001/'
 };
