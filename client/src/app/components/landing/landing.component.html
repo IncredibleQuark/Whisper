@@ -7,12 +7,12 @@
        <h2 class="mat-title light-colors">Welcome to Kalambury!</h2>
       </mat-card-title>
     </mat-card-header>
-    <mat-tab-group class="tabs-border">
+    <mat-tab-group class="tabs-border" [(selectedIndex)]="selectedTab">
       <mat-tab label="Login">
         <app-login></app-login>
       </mat-tab>
       <mat-tab label="Register">
-        <app-register></app-register>
+        <app-register (changedTab)="registered($event)"></app-register>
       </mat-tab>
     </mat-tab-group>
   </mat-card-content>

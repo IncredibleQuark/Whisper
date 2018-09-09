@@ -1,6 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../../services/auth/auth.service';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-landing',
@@ -9,27 +7,16 @@ import {Router} from '@angular/router';
 })
 export class LandingComponent implements OnInit {
 
-  private loginSelected: boolean;
-  private registerSelected: boolean;
+  selectedTab: number;
 
-  constructor(private authService: AuthService) {
-
-  }
+  constructor() {}
 
   ngOnInit() {
-    this.loginSelected = true;
-    this.registerSelected = false;
+    this.selectedTab = 0;
   }
 
-
-  selectLoginForm() {
-    this.loginSelected = true;
-    this.registerSelected = false;
-  }
-
-  selectRegisterForm() {
-    this.loginSelected = false;
-    this.registerSelected = true;
+  public registered(event) {
+    this.selectedTab = 0;
   }
 
 }

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {AuthService} from '../../../services/auth/auth.service';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material';
@@ -10,6 +10,8 @@ import {MatSnackBar} from '@angular/material';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+
+  @Output() changedTab = new EventEmitter<boolean>();
 
   constructor(private authService: AuthService,
               private router: Router,
@@ -25,7 +27,8 @@ export class RegisterComponent implements OnInit {
       const emailCheck = 'Email taken';
       if (data['success']) {
 
-        this.snackBar.open('Registered successfully', 'Login', {duration: 4000, panelClass: 'snackbar-success'});
+        this.snackBar.open('Registered successfully, ', 'Login', {duration: 4000, panelClass: 'snackbar-success'});
+        this.changedTab.emit(true);
 
       } else if (data['msg'] === emailCheck) {
 
