@@ -1,4 +1,4 @@
 module.exports = {
-  database: 'mongodb://Admin:admin@ds121534.mlab.com:21534/whisper',
+  database: 'mongodb://localhost:27017/kalambury', //TODO provide your db connection string
   secret: 'yoursecret'
 };
