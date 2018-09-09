@@ -1,23 +1,24 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {MainPageComponent} from './main-page.component';
 import {MaterialModule} from '../../app-material.module';
 import {FormsModule} from '@angular/forms';
+import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {JwtModule} from "@auth0/angular-jwt";
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
+import {MainPageComponent} from './main-page.component';
 import {CanvasComponent} from '../canvas/canvas.component';
 import {ChatComponent} from '../chat/chat.component';
-import {ChatService} from '../../services/socket/socket.service';
-import {ChatServiceMock} from '../../../tests/mocks/socket-service';
 import {UsersListComponent} from '../users-list/users-list.component';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {GamePanelComponent} from "../game-panel/game-panel.component";
-import {GameService} from "../../services/game/game.service";
-import {GameServiceMock} from "../../../tests/mocks/game-service.mock";
+
 import {CanvasService} from "../../services/canvas/canvas.service";
 import {CanvasServiceMock} from "../../../tests/mocks/canvas-service.mock";
 import {AuthService} from "../../services/auth/auth.service";
 import {MockAuthService} from "../../../tests/mocks/auth-service.mock";
-import {HttpClientTestingModule} from "@angular/common/http/testing";
-import {JwtModule} from "@auth0/angular-jwt";
+import {SocketService} from "../../services/socket/socket.service";
+import {SocketServiceMock} from "../../../tests/mocks/socket-service";
+
 
 describe('MainPageComponent', () => {
   let component: MainPageComponent;
@@ -43,12 +44,8 @@ describe('MainPageComponent', () => {
       ],
       providers: [
         {
-          provide: ChatService,
-          useClass: ChatServiceMock
-        },
-        {
-          provide: GameService,
-          useClass: GameServiceMock
+          provide: SocketService,
+          useClass: SocketServiceMock
         },
         {
           provide: CanvasService,

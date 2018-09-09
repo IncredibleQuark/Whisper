@@ -5,6 +5,8 @@ import {MaterialModule} from "../../app-material.module";
 import {FormsModule} from "@angular/forms";
 import {CanvasService} from "../../services/canvas/canvas.service";
 import {CanvasServiceMock} from "../../../tests/mocks/canvas-service.mock";
+import {SocketService} from "../../services/socket/socket.service";
+import {SocketServiceMock} from "../../../tests/mocks/socket-service";
 
 describe('CanvasComponent', () => {
   let component: CanvasComponent;
@@ -21,6 +23,10 @@ describe('CanvasComponent', () => {
         {
           provide: CanvasService,
           useClass: CanvasServiceMock
+        },
+        {
+          provide: SocketService,
+          useClass: SocketServiceMock
         }
       ]
     })

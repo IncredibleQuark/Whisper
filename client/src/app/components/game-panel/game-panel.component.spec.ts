@@ -2,12 +2,12 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GamePanelComponent } from './game-panel.component';
 import {MaterialModule} from "../../app-material.module";
-import {GameService} from "../../services/game/game.service";
-import {GameServiceMock} from "../../../tests/mocks/game-service.mock";
 import {AuthService} from "../../services/auth/auth.service";
 import {MockAuthService} from "../../../tests/mocks/auth-service.mock";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
 import {JwtModule} from "@auth0/angular-jwt";
+import {SocketService} from "../../services/socket/socket.service";
+import {SocketServiceMock} from "../../../tests/mocks/socket-service";
 
 describe('GamePanelComponent', () => {
   let component: GamePanelComponent;
@@ -30,8 +30,8 @@ describe('GamePanelComponent', () => {
         })],
       providers: [
         {
-          provide: GameService,
-          useClass: GameServiceMock
+          provide: SocketService,
+          useClass: SocketServiceMock
         },
         {
           provide: AuthService,

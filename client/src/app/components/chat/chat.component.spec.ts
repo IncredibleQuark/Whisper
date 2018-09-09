@@ -2,14 +2,14 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ChatComponent} from './chat.component';
 import {FormsModule} from '@angular/forms';
-import {ChatService} from '../../services/socket/socket.service';
-import {ChatServiceMock} from '../../../tests/mocks/socket-service';
 import {MaterialModule} from '../../app-material.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AuthService} from "../../services/auth/auth.service";
 import {MockAuthService} from "../../../tests/mocks/auth-service.mock";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
 import {JwtModule} from "@auth0/angular-jwt";
+import {SocketServiceMock} from "../../../tests/mocks/socket-service";
+import {SocketService} from "../../services/socket/socket.service";
 
 describe('ChatComponent', () => {
   let component: ChatComponent;
@@ -35,8 +35,8 @@ describe('ChatComponent', () => {
       ],
       providers: [
         {
-          provide: ChatService,
-          useClass: ChatServiceMock
+          provide: SocketService,
+          useClass: SocketServiceMock
         },
         {
           provide: AuthService,
