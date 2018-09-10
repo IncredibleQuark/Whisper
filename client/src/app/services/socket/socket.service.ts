@@ -18,6 +18,10 @@ export class SocketService {
     this.socket.emit('log user', user);
   }
 
+  public disconnect() {
+    this.socket.disconnect();
+  }
+
   public sendMessage(data) {
     this.socket.emit('new message', data);
   }
