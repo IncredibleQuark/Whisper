@@ -300,15 +300,16 @@ sockets.init = (server) => {
         });
 
         socket.on('disconnect', () => {
-console.log(addedUser);
-console.log(socket.user);
-            if (addedUser) {
-                addedUser = false;
-                --usersCount;
 
                 if (socket.user) {
-                    const index = usersArray.indexOf(socket.user.username);
-                    usersArray.splice(index, 1);
+                    addedUser = false;
+                    --usersCount;
+                    usersArray = usersArray.filter( (user) => {
+                        return user !== socket.user;
+                    });
+
+                    //TODO check if game is in progress, handle it
+
                     updatePlayersList();
                     checkIfAllReady();
 
@@ -316,11 +317,10 @@ console.log(socket.user);
                     emitMessage(data, 'userLeft')
                 }
 
-            }
         })
 
     })
 
-}
+};
 
-module.exports = sockets
+module.exports = sockets;

@@ -53,9 +53,9 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   }));
 
-  it(`should have as title 'Whisper'`, async(() => {
+  it(`should have as title 'Pictionary'`, async(() => {
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('Whisper');
+    expect(app.title).toEqual('Pictionary');
   }));
   //
   // it('should render title in a h1 tag', async(() => {
