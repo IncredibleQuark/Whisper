@@ -18,6 +18,9 @@ export class LoginComponent implements OnInit {
               private snackBar: MatSnackBar) { }
 
   ngOnInit() {
+    if (this.authService.loggedIn()) {
+      this.router.navigate(['/main']);
+    }
     this.valid = false;
   }
 

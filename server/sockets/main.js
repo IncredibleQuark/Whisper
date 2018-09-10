@@ -230,7 +230,6 @@ sockets.init = (server) => {
 
     socket.on('leave queue', () => {
       socket.user.queue = null
-      // updateQueueArray()
       updatePlayerStatus()
       updatePlayersList()
     })
@@ -301,6 +300,7 @@ sockets.init = (server) => {
     })
 
     socket.on('disconnect', () => {
+
       if (addedUser) {
         --usersCount
 
