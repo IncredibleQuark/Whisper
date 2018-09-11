@@ -54,35 +54,34 @@ sockets.init = (server) => {
 
         function updateRankings(isWon) {
 
-            const drawer = usersArray.filter((user) => {
-                return user.isDrawing
-            });
-console.log(usersArray);
             if (isWon) {
-                User.updateRank(socket.user.id, 25);
-                socket.user.rank += 20;
-
-                drawer[0].rank += 30;
-                User.updateRank(drawer[0].id, 30);
 
                 usersArray.map((user) => {
                     if (user.isDrawing) {
+                        user.rank += 30;
+                        User.updateRank(user.id, 30);
                         emitRankingUpdateMessage(user, true, '+30')
                     } else if (user === socket.user) {
+                        User.updateRank(user.id, 20);
+                        socket.user.rank += 20;
                         emitRankingUpdateMessage(user, true, '+20')
                     } else {
+                        User.updateRank(user.id, -5);
+                        user.rank -= 5;
                         emitRankingUpdateMessage(user, false, '-5')
                     }
 
                 })
             } else {
-                drawer[0].rank -= 30;
-                User.updateRank(drawer[0].id, -30);
 
                 usersArray.map((user) => {
                     if (user.isDrawing) {
+                        user.rank -= 30;
+                        User.updateRank(user.id, -30);
                         emitRankingUpdateMessage(user, false, '-30')
                     } else {
+                        User.updateRank(user.id, -5);
+                        user.rank -= 5;
                         emitRankingUpdateMessage(user, false, '-5')
                     }
                 })
