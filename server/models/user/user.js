@@ -19,29 +19,29 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true
   }
-})
+});
 
 const User = module.exports = mongoose.model('User', UserSchema)
 
 module.exports.getUserById = (id, callback) => {
   User.findById(mongoose.Types.ObjectId(id), callback)
-}
+};
 
 module.exports.getUserByEmail = (email, callback) => {
   const query = {email: email}
   User.findOne(query, callback)
-}
+};
 
 module.exports.getUserRank = (id, callback) => {
   User.findById(mongoose.Types.ObjectId(id), 'rank', callback)
-}
+};
 
 module.exports.updateRank = (id, change, callback) => {
   User.findById(mongoose.Types.ObjectId(id), (res, user) => {
     user.rank = user.rank + change
     user.save();
   })
-}
+};
 
 module.exports.addUser = (newUser, callback) => {
   bcrypt.genSalt(10, (err, salt) => {
@@ -52,11 +52,11 @@ module.exports.addUser = (newUser, callback) => {
       newUser.save(callback)
     })
   })
-}
+};
 
 module.exports.comparePassword = (candidatePassword, hash, callback) => {
   bcrypt.compare(candidatePassword, hash, (err, isMatch) => {
     if (err) candidatePassword === ' '
     callback(null, isMatch)
   })
-}
+};

@@ -57,7 +57,7 @@ sockets.init = (server) => {
             const drawer = usersArray.filter((user) => {
                 return user.isDrawing
             });
-
+console.log(usersArray);
             if (isWon) {
                 User.updateRank(socket.user.id, 25);
                 socket.user.rank += 20;
@@ -217,6 +217,9 @@ sockets.init = (server) => {
         });
 
         socket.on('leave queue', () => {
+            if (socket.user.isDrawing) {
+                socket.user.isDrawing = false;
+            }
             socket.user.queue = null;
             updatePlayerStatus();
             updatePlayersList()

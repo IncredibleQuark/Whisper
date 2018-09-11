@@ -100,7 +100,9 @@ export class GamePanelComponent implements OnInit {
 
       if (this.time.getMinutes() === 0 && this.time.getSeconds() === 0) {
         this.stopTimer();
-        this.socketService.timeUp();
+        if (this.isDrawing) {
+          this.socketService.timeUp();
+        }
       }
 
       this.time = new Date(this.time.getTime() - 1000);
