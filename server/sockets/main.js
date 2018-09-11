@@ -35,29 +35,17 @@ sockets.init = (server) => {
             }
         }
 
-        function findPlayerIndex(userId) {
-            return usersArray.findIndex((item) => {
-                return item.id === userId
-            })
-        }
-
-        function findPlayerByUsername(username) {
-            return usersArray.filter((user) => {
-                return user.username === username
-            })
-        }
-
         function checkAnswer(message) {
 
             if (currentSlogan.validAnswers.includes(message.toLowerCase())) {
 
-                const data = {date: new Date(), message: message}
-                emitMessage(data, 'gameWon')
+                const data = {date: new Date(), message: message};
+                emitMessage(data, 'gameWon');
                 gameStatusChanged('gameWon')
 
             } else if (currentSlogan.almostValidAnswers.includes(message)) {
 
-                const data = {date: new Date(), message: message}
+                const data = {date: new Date(), message: message};
                 emitMessage(data, 'gameAlmostWon')
 
             }
@@ -74,7 +62,7 @@ sockets.init = (server) => {
                 User.updateRank(socket.user.id, 25);
                 socket.user.rank += 20;
 
-                drawer[0].rank += 30
+                drawer[0].rank += 30;
                 User.updateRank(drawer[0].id, 30);
 
                 usersArray.map((user) => {
@@ -88,7 +76,7 @@ sockets.init = (server) => {
 
                 })
             } else {
-                drawer[0].rank -= 30
+                drawer[0].rank -= 30;
                 User.updateRank(drawer[0].id, -30);
 
                 usersArray.map((user) => {
@@ -162,7 +150,7 @@ sockets.init = (server) => {
                 updateRankings(status === 'gameWon');
                 resetPlayersStatuses();
                 deleteDrawerFromQueue();
-                const data = {gameStatus: gameStatus.status, slogan: null}
+                const data = {gameStatus: gameStatus.status, slogan: null};
                 io.emit('game status changed', data)
             }
         }
@@ -184,7 +172,7 @@ sockets.init = (server) => {
 
             usersArray.map((user) => {
                 if (user.queue === 1) {
-                    user.queue = null
+                    user.queue = null;
                     user.isDrawing = false
                 } else if (user.queue !== null && user.queue !== 1) {
                     user.queue -= 1
@@ -204,13 +192,13 @@ sockets.init = (server) => {
         function changePlayerStatus() {
 
             if (!socket.user.status.isReady) {
-                socket.user.status.isReady = true
+                socket.user.status.isReady = true;
                 socket.user.status.statusString = 'Ready'
             } else if (socket.user.isDrawing && gameStatus.status === 'game started') {
                 socket.user.status.statusString = 'Drawing'
             }
             else if (gameStatus.status !== 'game started') {
-                socket.user.status.isReady = false
+                socket.user.status.isReady = false;
                 socket.user.status.statusString = 'Not ready'
             }
             updatePlayerStatus();
@@ -220,7 +208,7 @@ sockets.init = (server) => {
 
         socket.on('join queue', () => {
 
-            socket.user.queue = getQueueArray().length + 1
+            socket.user.queue = getQueueArray().length + 1;
             if (socket.user.queue === 1) {
                 socket.user.isDrawing = true;
             }
@@ -238,11 +226,11 @@ sockets.init = (server) => {
 
             // Check if user is not drawing right now
             if (socket.user.status.statusString === 'Drawing') {
-                emitMessageToPlayer({date: new Date(), message: ''}, 'sendBlocked')
+                emitMessageToPlayer({date: new Date(), message: ''}, 'sendBlocked');
                 return false
             }
 
-            emitMessage(data, 'userMessage')
+            emitMessage(data, 'userMessage');
 
             if (gameStatus.status === 'game started') {
                 checkAnswer(data.message)
