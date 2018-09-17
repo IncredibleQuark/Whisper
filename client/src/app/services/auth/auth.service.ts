@@ -3,7 +3,6 @@ import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 
 import {JwtHelperService} from '@auth0/angular-jwt';
-import {SocketService} from "../socket/socket.service";
 
 @Injectable()
 
@@ -12,7 +11,7 @@ export class AuthService {
   authToken: string;
   user: any;
 
-  constructor(private http: HttpClient, private jwtHelper: JwtHelperService, private socketService: SocketService) {
+  constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {
     this.loadToken();
   }
 
@@ -48,7 +47,6 @@ export class AuthService {
   }
 
   logout() {
-    this.socketService.disconnect();
     this.authToken = null;
     this.user = null;
     localStorage.clear();

@@ -8,8 +8,10 @@ import {MockAuthService} from '../../../../tests/mocks/auth-service.mock';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {JwtHelperService, JwtModule} from "@auth0/angular-jwt";
-import {JwtServiceMock} from "../../../../tests/mocks/jwt-service.mock";
+import {JwtHelperService, JwtModule} from '@auth0/angular-jwt';
+import {JwtServiceMock} from '../../../../tests/mocks/jwt-service.mock';
+import {SocketService} from '../../../services/socket/socket.service';
+import {SocketServiceMock} from '../../../../tests/mocks/socket-service';
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
@@ -39,6 +41,10 @@ describe('RegisterComponent', () => {
         {
           provide: JwtHelperService,
           useClass: JwtServiceMock
+        },
+        {
+          provide: SocketService,
+          useClass: SocketServiceMock
         }
       ]
     })

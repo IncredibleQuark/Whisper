@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     if (this.authService.loggedIn()) {
-      this.router.navigate(['/main']);
+      // this.router.navigate(['/main']);
     }
     this.valid = false;
   }

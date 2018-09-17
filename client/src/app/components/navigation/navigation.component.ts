@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../services/auth/auth.service';
 import {Router} from '@angular/router';
 import {AuthGuard} from '../../guards/auth.guard';
-import {IApiResponse} from "../../interfaces/apiResponse.interface";
-import {IUser} from "../../interfaces/user.interface";
+import {IApiResponse} from '../../interfaces/apiResponse.interface';
+import {IUser} from '../../interfaces/user.interface';
+import {SocketService} from '../../services/socket/socket.service';
 
 @Component({
   selector: 'app-navigation',
@@ -17,7 +18,8 @@ export class NavigationComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private authGuard: AuthGuard,
-              private router: Router) { }
+              private router: Router,
+              private socketService: SocketService) { }
 
   ngOnInit() {
     this.authService.getProfile().subscribe( (response: IApiResponse<IUser>) => {
@@ -26,6 +28,7 @@ export class NavigationComponent implements OnInit {
   }
 
   logout() {
+    this.socketService.disconnect();
     this.authService.logout();
     this.router.navigate(['']);
   }

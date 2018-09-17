@@ -6,8 +6,10 @@ import {MockAuthService} from '../../../tests/mocks/auth-service.mock';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {AuthGuard} from '../../guards/auth.guard';
 import {RouterTestingModule} from '@angular/router/testing';
-import {MaterialModule} from "../../app-material.module";
-import {JwtModule} from "@auth0/angular-jwt";
+import {MaterialModule} from '../../app-material.module';
+import {JwtModule} from '@auth0/angular-jwt';
+import {SocketService} from '../../services/socket/socket.service';
+import {SocketServiceMock} from '../../../tests/mocks/socket-service';
 
 describe('NavigationComponent', () => {
   let component: NavigationComponent;
@@ -33,6 +35,10 @@ describe('NavigationComponent', () => {
         {
           provide: AuthService,
           useClass: MockAuthService
+        },
+        {
+          provide: SocketService,
+          useClass: SocketServiceMock
         },
         AuthGuard
       ]
