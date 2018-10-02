@@ -9,6 +9,12 @@
   overflow: auto;
 }
 
+@media screen and (max-width: 790px) {
+  .canvas-hidden-scroll {
+    overflow: hidden !important;
+  }
+}
+
 .color-chip {
   width: 35px;
   height: 25px;

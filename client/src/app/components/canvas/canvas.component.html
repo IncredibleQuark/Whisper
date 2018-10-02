@@ -23,7 +23,7 @@
 
   </mat-card>
 
-  <div class="canvas-container-inner" fxFlex fxLayoutAlign="center center">
+  <div class="canvas-container-inner" [ngClass]="{'canvas-hidden-scroll': (isDrawing && gameStarted)}" fxFlex fxLayoutAlign="center center">
     <canvas #canvas class="white"></canvas>
   </div>
 

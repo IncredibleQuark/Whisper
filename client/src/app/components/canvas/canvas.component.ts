@@ -24,8 +24,8 @@ export class CanvasComponent implements OnInit {
   private context: CanvasRenderingContext2D;
   private canvasEl: HTMLCanvasElement;
   private color: string;
-  private isDrawing: boolean;
-  private gameStared: boolean;
+  public isDrawing: boolean;
+  public gameStarted: boolean;
   public lineWidth: number;
 
   constructor(private canvasService: CanvasService, private socketService: SocketService) {
@@ -45,7 +45,7 @@ export class CanvasComponent implements OnInit {
     });
 
     this.socketService.gameStatus().subscribe((data: any) => {
-      this.gameStared = data.gameStatus === 'game started';
+      this.gameStarted = data.gameStatus === 'game started';
       this.clearBoard();
       this.captureEvents();
     });
@@ -78,14 +78,14 @@ export class CanvasComponent implements OnInit {
 
 
   public changeColor(color) {
-    if (this.isDrawing && this.gameStared) {
+    if (this.isDrawing && this.gameStarted) {
       this.color = color;
     }
   }
 
 
   public resetCanvas() {
-    if (this.isDrawing && this.gameStared) {
+    if (this.isDrawing && this.gameStarted) {
       this.canvasService.resetExecute();
     }
   }
@@ -113,7 +113,7 @@ export class CanvasComponent implements OnInit {
       }))
       .subscribe((res: [MouseEvent, MouseEvent]) => {
 
-        if (!this.isDrawing || !this.gameStared) {
+        if (!this.isDrawing || !this.gameStarted) {
           eventsObservable.unsubscribe();
           return;
         }
@@ -184,7 +184,7 @@ export class CanvasComponent implements OnInit {
           pairwise(), );
       })).subscribe((res: [TouchEvent, TouchEvent]) => {
 
-      if (!this.isDrawing || !this.gameStared) {
+      if (!this.isDrawing || !this.gameStarted) {
         eventsObservable.unsubscribe();
         return;
       }
