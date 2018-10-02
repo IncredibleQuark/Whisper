@@ -7,6 +7,7 @@ import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} f
 import {CanvasService} from '../../services/canvas/canvas.service';
 import {SocketService} from '../../services/socket/socket.service';
 
+
 @Component({
   selector: 'app-canvas',
   templateUrl: './canvas.component.html',
@@ -101,6 +102,8 @@ export class CanvasComponent implements OnInit {
     const eventsObservable = observableFromEvent(this.canvasEl, 'mousedown').pipe(
       switchMap((e) => {
 
+        e.preventDefault();
+
         return observableFromEvent(this.canvasEl, 'mousemove').pipe(
           // we'll stop (and unsubscribe) once the user releases the mouse
           // this will trigger a 'mouseup' event
@@ -174,7 +177,7 @@ export class CanvasComponent implements OnInit {
 
   private captureMobileEvents() {
 
-    const eventsObservable = observableFromEvent(this.canvasEl, 'touchstart').pipe(
+    const eventsObservable = observableFromEvent(this.canvasEl, 'touchstart', {passive: false}).pipe(
       switchMap((e: any) => {
 
         e.preventDefault();

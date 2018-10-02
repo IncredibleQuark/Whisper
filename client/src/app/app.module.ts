@@ -24,6 +24,7 @@ import {GamePanelComponent} from './components/game-panel/game-panel.component';
 import {CanvasService} from './services/canvas/canvas.service';
 import {JwtHelperService, JwtModule} from '@auth0/angular-jwt';
 import {SocketService} from './services/socket/socket.service';
+import {WindowRef} from './helpers/windowRef';
 
 
 const appRoutes: Routes = [
