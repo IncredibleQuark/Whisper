@@ -13,15 +13,18 @@ import {
   MatSnackBarModule,
   MatSortModule,
   MatTableModule,
-  MatTabsModule
+  MatTabsModule,
+  MatSidenavModule
 } from '@angular/material';
 import {NgModule} from '@angular/core';
 
 @NgModule({
   imports: [MatCardModule, MatTabsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatProgressSpinnerModule, MatIconModule,
-    MatSnackBarModule, MatListModule, MatChipsModule, MatMenuModule, MatSliderModule, MatTableModule, MatSortModule, MatSlideToggleModule],
+    MatSnackBarModule, MatListModule, MatChipsModule, MatMenuModule, MatSliderModule, MatTableModule, MatSortModule, MatSlideToggleModule,
+    MatSidenavModule],
   exports: [MatCardModule, MatTabsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatProgressSpinnerModule, MatIconModule,
-    MatSnackBarModule, MatListModule, MatChipsModule, MatMenuModule, MatSliderModule, MatTableModule, MatSortModule, MatSlideToggleModule],
+    MatSnackBarModule, MatListModule, MatChipsModule, MatMenuModule, MatSliderModule, MatTableModule, MatSortModule, MatSlideToggleModule,
+    MatSidenavModule],
 })
 export class MaterialModule {
 }

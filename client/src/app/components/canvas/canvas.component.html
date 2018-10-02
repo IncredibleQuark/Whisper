@@ -3,6 +3,9 @@
   <mat-card  fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutAlign.xs="start start" fxLayoutGap="20px" class="width-100 custom-background" style="padding: 10px">
 
     <div>
+      <button (click)="toggleUsersList()" color="primary" type="button" mat-raised-button fxHide.gt-md>Show users list</button>
+    </div>
+    <div>
       <button mat-raised-button color="accent" type="button" mat-line (click)="resetCanvas()">Reset</button>
     </div>
 
@@ -17,6 +20,7 @@
     </mat-chip-list>
 
     <mat-slider [max]="30" [min]="1" [step]="1" [(ngModel)]="lineWidth"></mat-slider>
+
   </mat-card>
 
   <div class="canvas-container-inner" fxFlex fxLayoutAlign="center center">

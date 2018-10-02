@@ -1,23 +1,31 @@
 <app-navigation style="height: 10%"></app-navigation>
 
+<mat-sidenav-container>
+
+  <mat-sidenav mode="over" #drawer position="end" style="position: absolute" fxHide.gt-md>
+    <app-users-list  [usersList]="usersList" [usersCount]="usersCount" fxFill></app-users-list>
+  </mat-sidenav>
+
 <mat-card class="main-container">
   <mat-card-content class="inner-container">
-    <div fxFlex fxLayout="column" fxFill>
-      <div fxFlex fxLayout="row" fxLayout.xs="column">
-        <app-canvas fxFlex="70" fxFlex.xs="100"  fxLayoutAlign="center center" ></app-canvas>
 
-        <div fxFlex="30"  fxFlexOrder.xs="1">
+    <div fxFlex fxLayout="column" fxFill>
+      <div fxFlex fxLayout="column" fxLayout.gt-md="row">
+        <app-canvas fxFlex="100" fxFlex.gt-md="70"  fxLayoutAlign="center center" (toggleList)="drawer.toggle()"></app-canvas>
+
+        <div fxFlex="30" fxFlex.xs="fill"  fxFlexOrder.xs="1">
           <div fxFill fxLayout="column">
-            <app-game-panel fxFlex="40"></app-game-panel>
-            <app-users-list [usersList]="usersList" [usersCount]="usersCount" fxFill></app-users-list>
+            <app-game-panel fxFlex="100" fxFlex.gt-md="40"></app-game-panel>
+            <app-users-list fxShow.gt-md  [usersList]="usersList" [usersCount]="usersCount" fxFill></app-users-list>
           </div>
         </div>
       </div>
-      <app-chat></app-chat>
-    </div>
 
+      <app-chat></app-chat>
+
+    </div>
 
   </mat-card-content>
 </mat-card>
-
+</mat-sidenav-container>
 
