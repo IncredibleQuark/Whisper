@@ -262,6 +262,7 @@ sockets.init = (server) => {
         socket.on('log user', (user) => {
             // if (addedUser && usersArray.indexOf(user.username) !== -1) return false
 
+            
             addedUser = true;
             ++usersCount;
 
@@ -278,6 +279,8 @@ sockets.init = (server) => {
                 isAdmin: usersArray.length === 0,
                 queue: usersArray.length === 0 ? 1 : null
             };
+
+
 
             usersArray.push(socket.user);
 

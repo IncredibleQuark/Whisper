@@ -1,11 +1,12 @@
 
 <div fxLayout="column" fxLayoutAlign="center center" class="canvas-container" fxLayoutGap="20px">
-  <mat-card fxFlex="10" fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="20px" class="width-100 custom-background">
-
+  <mat-card  fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutAlign.xs="start start" fxLayoutGap="20px" class="width-100 custom-background" style="padding: 10px">
 
     <div>
       <button mat-raised-button color="accent" type="button" mat-line (click)="resetCanvas()">Reset</button>
     </div>
+
+    <div fxLayout="row" fxFlex="100" fxHide.gt-sm style="height: 10px"></div>
     <mat-chip-list class="mat-chip-list" fxLayout="row wrap">
       <mat-chip class="color-chip black" (click)="changeColor('#000000')"></mat-chip>
       <mat-chip class="color-chip red" (click)="changeColor('#F44336')"></mat-chip>
