@@ -45,6 +45,10 @@ app-chat {
   }
 }
 
+.mat-input-element {
+  font-size: 18px !important;
+}
+
 app-canvas {
   mat-chip {
     cursor: pointer !important;
