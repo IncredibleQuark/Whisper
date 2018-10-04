@@ -49,6 +49,7 @@ export class CanvasComponent implements OnInit {
       this.gameStarted = data.gameStatus === 'game started';
       this.clearBoard();
       this.captureEvents();
+      this.captureMobileEvents();
     });
 
     this.canvasService.resetUpdate().subscribe(() => {
@@ -177,7 +178,7 @@ export class CanvasComponent implements OnInit {
 
   private captureMobileEvents() {
 
-    const eventsObservable = observableFromEvent(this.canvasEl, 'touchstart', {passive: false}).pipe(
+    const eventsObservable = observableFromEvent(this.canvasEl, 'touchstart').pipe(
       switchMap((e: any) => {
 
         e.preventDefault();

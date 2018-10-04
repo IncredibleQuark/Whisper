@@ -7,7 +7,6 @@ sockets.init = (server) => {
     let io = require('socket.io').listen(server);
     let usersCount = 0;
     let usersArray = [];
-    let addedUser = false;
     let currentSlogan = {};
     let gameStatus = {
         status: 'waiting for players',
@@ -262,7 +261,6 @@ sockets.init = (server) => {
         socket.on('log user', (user) => {
             // if (addedUser && usersArray.indexOf(user.username) !== -1) return false
 
-            addedUser = true;
             ++usersCount;
 
             socket.user = {
@@ -292,7 +290,6 @@ sockets.init = (server) => {
         socket.on('disconnect', () => {
 
                 if (socket.user) {
-                    addedUser = false;
                     --usersCount;
                     usersArray = usersArray.filter( (user) => {
                         return user !== socket.user;

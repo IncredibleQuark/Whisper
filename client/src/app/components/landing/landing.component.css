@@ -3,7 +3,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 380px;
+  min-width: 360px;
 }
 
 .card-container {
