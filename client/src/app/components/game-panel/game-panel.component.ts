@@ -48,7 +48,7 @@ export class GamePanelComponent implements OnInit {
         this.slogan = null;
         this.gameStarted = false;
       }
-      this.changePlayerStatus()
+      this.changePlayerStatus();
     });
 
     this.socketService.getPlayerData().subscribe( (response) => {
@@ -63,14 +63,14 @@ export class GamePanelComponent implements OnInit {
 
     this.socketService.allReady().subscribe((data: boolean) => {
       this.allReady = data;
-    })
+    });
   }
 
   ngOnInit() {
   }
 
   resetTime() {
-    this.time = new Date('2018-01-01 00:02:00');
+    this.time = new Date('2018/01/01 00:02:00');
   }
 
   changePlayerStatus() {
@@ -94,7 +94,7 @@ export class GamePanelComponent implements OnInit {
   }
 
   private startTimer() {
-    let tick = TimerObservable.create(1000, 1000);
+    const tick = TimerObservable.create(1000, 1000);
 
     this.timeObservable = tick.subscribe((t: number) => {
 
