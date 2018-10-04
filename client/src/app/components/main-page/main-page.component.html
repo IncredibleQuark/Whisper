@@ -16,7 +16,7 @@
         <div fxFlex="30" fxFlex.xs="fill"  fxFlexOrder.xs="1">
           <div fxFill fxLayout="column">
             <app-game-panel fxFlex="100" fxFlex.gt-md="40"></app-game-panel>
-            <app-users-list fxShow.gt-md  [usersList]="usersList" [usersCount]="usersCount" fxFill></app-users-list>
+            <app-users-list fxHide fxShow.gt-md  [usersList]="usersList" [usersCount]="usersCount" fxFill></app-users-list>
           </div>
         </div>
       </div>
