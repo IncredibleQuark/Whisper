@@ -21,6 +21,10 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
   }
 
+  changeTab() {
+    this.changedTab.emit(true);
+  }
+
   registerSubmit(registerForm) {
     this.authService.registerUser(registerForm.value).subscribe(data => {
 
@@ -28,7 +32,7 @@ export class RegisterComponent implements OnInit {
       if (data['success']) {
 
         this.snackBar.open('Registered successfully, ', 'Login', {duration: 4000, panelClass: 'snackbar-success'});
-        this.changedTab.emit(true);
+        this.changeTab();
 
       } else if (data['msg'] === emailCheck) {
 

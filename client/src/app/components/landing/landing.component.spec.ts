@@ -11,7 +11,7 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {CanvasComponent} from '../canvas/canvas.component';
-import {JwtModule} from "@auth0/angular-jwt";
+import {JwtModule} from '@auth0/angular-jwt';
 
 describe('LandingComponent', () => {
   let component: LandingComponent;
@@ -53,6 +53,22 @@ describe('LandingComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should render title in a h2 tag', async(() => {
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('h2').textContent).toContain('Pictionary');
+  }));
+
+  it('should check if login tab is selected', () => {
+    component.ngOnInit();
+    expect(component.selectedTab).toEqual(0);
+  });
+
+  it('should test if tab changed when registered', () => {
+    component.registered(true);
+    expect(component.selectedTab).toEqual(0);
   });
 
 });

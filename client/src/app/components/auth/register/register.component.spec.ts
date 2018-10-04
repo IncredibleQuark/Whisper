@@ -60,4 +60,14 @@ describe('RegisterComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should emit changeTab event', () => {
+    let testValue = false;
+    component.changedTab.subscribe(e => {
+      testValue = e;
+    });
+    component.changeTab();
+    expect(testValue).toBeTruthy();
+  });
+
 });
